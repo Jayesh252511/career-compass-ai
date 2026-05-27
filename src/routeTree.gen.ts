@@ -14,6 +14,7 @@ import { Route as IndustryRouteImport } from './routes/industry'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuilderIdRouteImport } from './routes/builder.$id'
 
 const TemplatesRoute = TemplatesRouteImport.update({
   id: '/templates',
@@ -40,6 +41,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuilderIdRoute = BuilderIdRouteImport.update({
+  id: '/builder/$id',
+  path: '/builder/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/industry': typeof IndustryRoute
   '/templates': typeof TemplatesRoute
+  '/builder/$id': typeof BuilderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/industry': typeof IndustryRoute
   '/templates': typeof TemplatesRoute
+  '/builder/$id': typeof BuilderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,27 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/industry': typeof IndustryRoute
   '/templates': typeof TemplatesRoute
+  '/builder/$id': typeof BuilderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/industry' | '/templates'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/industry'
+    | '/templates'
+    | '/builder/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/industry' | '/templates'
-  id: '__root__' | '/' | '/auth' | '/dashboard' | '/industry' | '/templates'
+  to: '/' | '/auth' | '/dashboard' | '/industry' | '/templates' | '/builder/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/industry'
+    | '/templates'
+    | '/builder/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +99,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   IndustryRoute: typeof IndustryRoute
   TemplatesRoute: typeof TemplatesRoute
+  BuilderIdRoute: typeof BuilderIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/builder/$id': {
+      id: '/builder/$id'
+      path: '/builder/$id'
+      fullPath: '/builder/$id'
+      preLoaderRoute: typeof BuilderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +155,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   IndustryRoute: IndustryRoute,
   TemplatesRoute: TemplatesRoute,
+  BuilderIdRoute: BuilderIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
