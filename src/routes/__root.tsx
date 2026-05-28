@@ -10,22 +10,27 @@ import {
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
+import { ensureI18nInitialized, i18n } from "@/i18n";
+import { useTranslation } from "react-i18next";
+
+ensureI18nInitialized();
 
 function NotFoundComponent() {
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">404</p>
-        <h1 className="mt-3 text-3xl font-display font-medium text-foreground">Page not found</h1>
+        <h1 className="mt-3 text-3xl font-display font-medium text-foreground">{t("errors.pageNotFound")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          {t("errors.notFoundBody")}
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
           >
-            Go home
+            {t("common.goHome")}
           </Link>
         </div>
       </div>
@@ -36,24 +41,25 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-display font-medium tracking-tight text-foreground">
-          This page didn't load
+          {t("errors.pageDidntLoad")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong. You can try refreshing or head back home.
+          {t("errors.somethingWentWrong")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => { router.invalidate(); reset(); }}
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
           >
-            Try again
+            {t("common.tryAgain")}
           </button>
           <a href="/" className="inline-flex items-center justify-center rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition hover:bg-accent">
-            Go home
+            {t("common.goHome")}
           </a>
         </div>
       </div>
@@ -66,11 +72,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Linnea — AI Resume Builder in Your Language" },
-      { name: "description", content: "Build an ATS-friendly English resume by chatting in your native language. 17 languages. 3 polished templates. Quietly powered by AI." },
+      { title: "Linnea — AI Resume Builder" },
+      { name: "description", content: "Build an ATS-friendly resume by chatting in your language." },
       { name: "author", content: "Linnea" },
-      { property: "og:title", content: "Linnea — AI Resume Builder in Your Language" },
-      { property: "og:description", content: "Build an ATS-friendly English resume by chatting in your native language." },
+      { property: "og:title", content: "Linnea — AI Resume Builder" },
+      { property: "og:description", content: "Build an ATS-friendly resume by chatting in your language." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -92,7 +98,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={i18n.language || "en"}>
       <head>
         <HeadContent />
       </head>

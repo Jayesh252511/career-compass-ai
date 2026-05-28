@@ -1,0 +1,173 @@
+﻿{
+  "app": {
+    "name": "Linnea"
+  },
+  "common": {
+    "back": "Retour",
+    "continue": "Continuer",
+    "startWriting": "Commencer à écrire",
+    "pdf": "PDF",
+    "saved": "Enregistré",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "dashboard": "Tableau de bord",
+    "tryAgain": "Réessayer",
+    "goHome": "Accueil"
+  },
+  "nav": {
+    "signedInAs": "Connecté en tant que"
+  },
+  "landing": {
+    "badge": "Disponible en 17 langues",
+    "title1": "Votre CV,",
+    "title2": "rédigé en discutant.",
+    "subtitle": "Parlez avec Linnea dans votre langue. Elle transforme discrètement vos réponses en un CV en anglais de qualité professionnelle et compatible avec les systèmes ATS.",
+    "chooseLanguage": "Choisissez votre langue",
+    "freeToTry": "Essai gratuit · Sans carte bancaire",
+    "pickLanguageToBegin": "Choisissez une langue pour commencer",
+    "continueIn": "Continuer en {{language}}",
+    "howItWorksTitle": "Comment ça marche",
+    "howItWorksHeading": "Quatre étapes calmes pour un excellent CV.",
+    "footer": "© {{year}} Linnea. Conçu avec soin.",
+    "features": {
+      "conversationalTitle": "Conversationnel, pas un formulaire",
+      "conversationalBody": "Une question à la fois. Répondez naturellement, comme si vous parliez à un ami. Fini l'angoisse de la page blanche.",
+      "nativeInTitle": "Parlez dans votre langue, obtenez un anglais parfait",
+      "nativeInBody": "Dites à Linnea ‘j'ai développé un petit jeu’ et elle rédigera ‘Designed an interactive game focused on user engagement.’",
+      "atsReadyTitle": "CV compatible ATS, à chaque fois",
+      "atsReadyBody": "Trois modèles testés rigoureusement face aux vrais logiciels de recrutement. Propres, sobres et lisibles."
+    },
+    "steps": {
+      "step1Title": "Choisissez votre langue",
+      "step1Desc": "17 langues au choix. Nous nous adaptons à vous.",
+      "step2Title": "Choisissez un modèle",
+      "step2Desc": "Trois modèles sobres. Tous compatibles ATS.",
+      "step3Title": "Indiquez votre secteur",
+      "step3Desc": "Linnea adapte ses questions à votre secteur d'activité.",
+      "step4Title": "Discutez tout simplement",
+      "step4Desc": "Regardez votre CV s'écrire tout seul en temps réel.",
+    "moreLangs": "+ {{count}} langues supplémentaires"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Bon retour",
+    "createAccount": "Créer votre compte",
+    "subtitleSignIn": "Connectez-vous pour continuer.",
+    "subtitleSignUp": "Quelques secondes suffisent — vos données restent les vôtres.",
+    "continueWithGoogle": "Continuer avec Google",
+    "or": "ou",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "passwordHint": "Au moins 8 caractères",
+    "newHere": "Nouveau ici ?",
+    "alreadyHave": "Vous avez déjà un compte ?",
+    "createAnAccount": "Créer un compte",
+    "signInInstead": "Se connecter"
+  },
+  "templates": {
+    "heading": "Choisissez votre modèle.",
+    "subheading": "Trois mises en page testées sur de vrais logiciels de recrutement.",
+    "stepLanguage": "Langue",
+    "stepTemplate": "Modèle",
+    "stepField": "Secteur"
+  },
+  "industry": {
+    "heading": "Pour quel secteur postulez-vous ?",
+    "subheading": "Linnea adaptera ses questions, suggestions et son ton à ce secteur.",
+    "other": "Autre",
+    "customPlaceholder": "Saisissez votre secteur (ex. QA Semi-conducteurs, Fonction publique, Hôtellerie)",
+    "customLabel": "Votre secteur d'activité"
+  },
+  "dashboard": {
+    "workspace": "Votre espace",
+    "resumes": "CVs",
+    "newResume": "Nouveau CV",
+    "emptyTitle": "Créons votre premier CV.",
+    "emptyBody": "Sélectionnez un modèle, indiquez votre secteur et commencez à discuter. Linnea s'occupe de l'anglais.",
+    "createResume": "Créer un CV",
+    "open": "Ouvrir",
+    "duplicate": "Dupliquer",
+    "delete": "Supprimer",
+    "editedAgo": "Modifié il y a {{time}}",
+    "complete": "{{pct}}% complété",
+    "deleteConfirm": "Supprimer ce CV ? Cette opération est irréversible.",
+    "duplicated": "Dupliqué",
+    "deleted": "Supprimé",
+    "copySuffix": " (copie)",
+    "failed": "Échec"
+  },
+  "builder": {
+    "assistantName": "Linnea",
+    "speaking": "Parle…",
+    "thinking": "Réfléchit…",
+    "listening": "Écoute…",
+    "tapOrbToTalk": "Touchez l'orbe pour parler",
+    "voice": "Voix",
+    "text": "Texte",
+    "intro": "Bonjour. Créons votre CV. Touchez l'orbe et répondez en {{language}}.",
+    "tapToStop": "Touchez pour arrêter · Parlez naturellement",
+    "aiThinking": "Linnea réfléchit",
+    "tapToInterrupt": "Touchez l'orbe pour interrompre",
+    "tapToSpeak": "Touchez pour parler",
+    "shortRepliesHint": "Réponses courtes, une question à la fois.",
+    "replyPlaceholder": "Répondez en {{language}}…",
+    "stop": "Arrêter",
+    "exportEnglish": "Exporter en anglais",
+    "exportNative": "Exporter en {{language}}",
+    "exportBilingual": "Exporter bilingue (Anglais + {{language}})",
+    "preparingTranslation": "Traduction en cours…",
+    "resumeNotFound": "CV introuvable",
+    "saved": "Enregistré",
+    "voiceErrMic": "Impossible de démarrer la voix. Vérifiez les permissions du micro.",
+    "emptyResumeState": "Votre CV s'affichera ici, ligne après ligne, au fil de vos réponses à Linnea.",
+    "tabAssistant": "Assistant",
+    "tabPreview": "Aperçu en direct",
+    "tapToListen": "Appuyer pour réécouter",
+    "changeLanguage": "Changer de langue"
+  },
+  "errors": {
+    "pageDidntLoad": "Cette page n'a pas pu être chargée",
+    "somethingWentWrong": "Un problème est survenu. Vous pouvez rafraîchir la page ou retourner à l'accueil.",
+    "pageNotFound": "Page introuvable",
+    "notFoundBody": "La page recherchée n'existe pas ou a été déplacée."
+  },
+  "authLeft": {
+    "tagline": "Une façon plus calme de rédiger un CV",
+    "quote": "“J'ai simplement répondu à quelques questions en français. Cinq minutes plus tard, j'avais un magnifique CV en anglais.”",
+    "attribution": "— Priya, jeune diplômée"
+  },
+  "industries": {
+    "software": { "name": "Développeur logiciel", "hint": "Ingénierie, programmation, systèmes" },
+    "design": { "name": "Designer", "hint": "UI, UX, produit, design visuel" },
+    "doctor": { "name": "Médecin", "hint": "Médical, clinique, santé" },
+    "teacher": { "name": "Enseignant", "hint": "Éducation, académique, formation" },
+    "marketing": { "name": "Marketing", "hint": "Croissance, marque, contenu" },
+    "sales": { "name": "Commercial / Vente", "hint": "B2B, B2C, gestion de compte" },
+    "photographer": { "name": "Photographe", "hint": "Créatif, narration visuelle" },
+    "student": { "name": "Étudiant", "hint": "Lycée, université, premier emploi" },
+    "freelancer": { "name": "Freelance", "hint": "Indépendant, missions contractuelles" },
+    "business": { "name": "Affaires / Management", "hint": "Opérations, stratégie, leadership" },
+    "finance": { "name": "Finance", "hint": "Banque, analyse, comptabilité" },
+    "engineer": { "name": "Ingénieur", "hint": "Civil, mécanique, électrique" }
+  },
+  "templatesList": {
+    "ats": {
+      "name": "ATS Professionnel",
+      "description": "Simple colonne. Adapté aux recruteurs. Se lit parfaitement par tous les algorithmes de recrutement.",
+      "tag": "100% ATS",
+      "bestFor": "Entreprises · Banques · Conseil"
+    },
+    "modern": {
+      "name": "Moderne Minimal",
+      "description": "Une mise en page soignée sur deux colonnes avec une typographie premium. Sans fioritures.",
+      "tag": "Adapté ATS",
+      "bestFor": "Startups · Produit · Design"
+    },
+    "fresher": {
+      "name": "Fresher Intelligent",
+      "description": "Mise en page centrée sur les projets, idéale pour les étudiants et profils juniors.",
+      "tag": "Adapté ATS",
+      "bestFor": "Étudiants · Stagiaires · Jeunes diplômés"
+    }
+  }
+}

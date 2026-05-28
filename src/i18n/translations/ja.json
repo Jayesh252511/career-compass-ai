@@ -1,0 +1,173 @@
+﻿{
+  "app": {
+    "name": "Linnea"
+  },
+  "common": {
+    "back": "戻る",
+    "continue": "続ける",
+    "startWriting": "入力を始める",
+    "pdf": "PDF",
+    "saved": "保存済み",
+    "signIn": "サインイン",
+    "signOut": "サインアウト",
+    "dashboard": "ダッシュボード",
+    "tryAgain": "やり直す",
+    "goHome": "ホームに戻る"
+  },
+  "nav": {
+    "signedInAs": "サインイン中のアカウント："
+  },
+  "landing": {
+    "badge": "17の言語に対応",
+    "title1": "会話をするだけで、",
+    "title2": "英文履歴書が完成。",
+    "subtitle": "あなたの母国語でLinneaに話しかけてください。AIが回答を自動で読み取り、採用担当者の目に留まる高品質なATS対応の英語履歴書を作成します。",
+    "chooseLanguage": "言語を選択",
+    "freeToTry": "無料でお試し · クレジットカード不要",
+    "pickLanguageToBegin": "始めるには言語を選択してください",
+    "continueIn": "{{language}} で続ける",
+    "howItWorksTitle": "使い方",
+    "howItWorksHeading": "美しい履歴書を作る4つのシンプルなステップ。",
+    "footer": "© {{year}} Linnea. 丁寧に作られています。",
+    "features": {
+      "conversationalTitle": "フォーム入力ではなく、会話形式",
+      "conversationalBody": "質問は一度に一つだけ。友人と話すように自然に答えてください。空白のフォームを前に悩む必要はありません。",
+      "nativeInTitle": "母国語で話せば、洗練された英語に",
+      "nativeInBody": "Linneaに「ゲームアプリを作った」と伝えるだけで、「Designed an interactive gaming application focused on user engagement」のように表現を洗練させます。",
+      "atsReadyTitle": "いつでもATS（採用管理システム）対応",
+      "atsReadyBody": "実際の採用システムで検証済みの3つのテンプレート。無駄のない、すっきりと読みやすいレイアウトです。"
+    },
+    "steps": {
+      "step1Title": "言語を選択する",
+      "step1Desc": "17の言語に対応。あなたに寄り添います。",
+      "step2Title": "デザインを選ぶ",
+      "step2Desc": "3つの美しいレイアウト。すべてATS対応。",
+      "step3Title": "専門分野を伝える",
+      "step3Desc": "Linneaがあなたの業界に合わせて質問を最適化します。",
+      "step4Title": "ただ会話するだけ",
+      "step4Desc": "履歴書がリアルタイムで自動作成されていく様子をご覧ください。",
+    "moreLangs": "+ {{count}} 言語追加"
+    }
+  },
+  "auth": {
+    "welcomeBack": "おかえりなさい",
+    "createAccount": "アカウント作成",
+    "subtitleSignIn": "サインインして履歴書の作成を続けましょう。",
+    "subtitleSignUp": "数秒で完了します。データは安全に保護されます。",
+    "continueWithGoogle": "Googleで続ける",
+    "or": "または",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "passwordHint": "8文字以上",
+    "newHere": "初めてご利用ですか？",
+    "alreadyHave": "すでにアカウントをお持ちですか？",
+    "createAnAccount": "アカウントを作成する",
+    "signInInstead": "サインイン"
+  },
+  "templates": {
+    "heading": "テンプレートを選択してください。",
+    "subheading": "実際の採用管理システム（ATS）でテスト済みの3つのレイアウト。",
+    "stepLanguage": "言語",
+    "stepTemplate": "テンプレート",
+    "stepField": "専門分野"
+  },
+  "industry": {
+    "heading": "どの専門分野に応募しますか？",
+    "subheading": "Linneaは、その分野に合わせて質問、スキル提案、口調を調整します。",
+    "other": "その他",
+    "customPlaceholder": "専門分野を入力してください（例：半導体QA、公務員試験、ホテル接客など）",
+    "customLabel": "専門分野"
+  },
+  "dashboard": {
+    "workspace": "ワークスペース",
+    "resumes": "履歴書一覧",
+    "newResume": "履歴書を新規作成",
+    "emptyTitle": "最初の履歴書を作成しましょう。",
+    "emptyBody": "テンプレートと専門分野を選択し、あなたの言語で会話を始めてください。Linneaが英語での書類作成をすべて引き受けます。",
+    "createResume": "履歴書を作成する",
+    "open": "開く",
+    "duplicate": "複製",
+    "delete": "削除",
+    "editedAgo": "{{time}}前に編集",
+    "complete": "完成度{{pct}}%",
+    "deleteConfirm": "この履歴書を削除しますか？この操作は取り消せません。",
+    "duplicated": "複製しました",
+    "deleted": "削除しました",
+    "copySuffix": " (コピー)",
+    "failed": "失敗しました"
+  },
+  "builder": {
+    "assistantName": "Linnea",
+    "speaking": "お話し中…",
+    "thinking": "思考中…",
+    "listening": "音声を聞き取り中…",
+    "tapOrbToTalk": "球体をタップして話す",
+    "voice": "音声モード",
+    "text": "テキストモード",
+    "intro": "こんにちは。履歴書を作成しましょう。球体をタップして、{{language}}で答えてくださいね。",
+    "tapToStop": "タップして停止 · 自然に話しかけてください",
+    "aiThinking": "Linneaが考えています",
+    "tapToInterrupt": "球体をタップして発言を遮る",
+    "tapToSpeak": "タップして話す",
+    "shortRepliesHint": "1回につき1つの質問に、簡潔にお答えください。",
+    "replyPlaceholder": "{{language}}で返信する…",
+    "stop": "停止",
+    "exportEnglish": "英語で出力",
+    "exportNative": "{{language}}で出力",
+    "exportBilingual": "二か国語で出力 (英語 + {{language}})",
+    "preparingTranslation": "翻訳を準備中…",
+    "resumeNotFound": "履歴書が見つかりません",
+    "saved": "保存されました",
+    "voiceErrMic": "音声を起動できませんでした。マイクの権限を確認してください。",
+    "emptyResumeState": "Linneaの質問に答えていくと、あなたの履歴書がここに一行ずつリアルタイムで構築されていきます。",
+    "tabAssistant": "アシスタント",
+    "tabPreview": "ライブプレビュー",
+    "tapToListen": "もう一度聴くにはタップ",
+    "changeLanguage": "言語を切り替える"
+  },
+  "errors": {
+    "pageDidntLoad": "ページを読み込めませんでした",
+    "somethingWentWrong": "問題が発生しました。再読み込みするか、ホームに戻ってください。",
+    "pageNotFound": "ページが見つかりません",
+    "notFoundBody": "お探しのページは存在しないか、移動された可能性があります。"
+  },
+  "authLeft": {
+    "tagline": "最も静かで心地よい履歴書作成",
+    "quote": "“日本語でいくつか質問に答えただけ。5分後には美しい英語の履歴書が完成していました。”",
+    "attribution": "— Priya、新卒採用者"
+  },
+  "industries": {
+    "software": { "name": "ソフトウェア開発", "hint": "エンジニアリング、プログラミング、システム開発" },
+    "design": { "name": "デザイナー", "hint": "UI/UX、プロダクトデザイン、ビジュアル" },
+    "doctor": { "name": "医師", "hint": "医療、臨床、ヘルスケア" },
+    "teacher": { "name": "教育・教師", "hint": "教育、アカデミック、研修講師" },
+    "marketing": { "name": "マーケティング", "hint": "グロース、ブランド、コンテンツ企画" },
+    "sales": { "name": "営業・セールス", "hint": "B2B、B2C、アカウントマネジメント" },
+    "photographer": { "name": "フォトグラファー", "hint": "クリエイティブ、ビジュアルストーリー" },
+    "student": { "name": "学生", "hint": "高校、大学、新卒・インターン" },
+    "freelancer": { "name": "フリーランサー", "hint": "インディペンデント、業務委託" },
+    "business": { "name": "ビジネス・経営", "hint": "経営企画、オペレーション、戦略" },
+    "finance": { "name": "金融・財務", "hint": "銀行、財務分析、会計" },
+    "engineer": { "name": "技術職・エンジニア", "hint": "土木、機械、電気・電子" }
+  },
+  "templatesList": {
+    "ats": {
+      "name": "ATSプロフェッショナル",
+      "description": "1段組みの標準的なレイアウト。あらゆる採用管理システム（ATS）で正確に解析されます。",
+      "tag": "100% ATS対応",
+      "bestFor": "大手企業 · 金融 · コンサルティング"
+    },
+    "modern": {
+      "name": "モダンミニマル",
+      "description": "美しいフォントを使用した控えめな2段組み。視覚的なノイズがなく、洗練された印象を与えます。",
+      "tag": "ATSフレンドリー",
+      "bestFor": "スタートアップ · IT · デザイン職"
+    },
+    "fresher": {
+      "name": "フレッシャースマート",
+      "description": "プロジェクト実績を重視したレイアウト。学生や早期キャリアの方に最適です。",
+      "tag": "ATSフレンドリー",
+      "bestFor": "学生 · インターン · 第二新卒"
+    }
+  }
+}

@@ -13,19 +13,53 @@ const LANG_NAMES: Record<string, string> = {
 
 function buildSystemPrompt(language: string, industry: string | undefined, currentResume: unknown) {
   const langName = LANG_NAMES[language] ?? "English";
-  return `You are Linnea, a warm, expert career coach who builds world-class English resumes by talking with people in their own language. The user is SPEAKING out loud — your reply will be read aloud back to them by a text-to-speech voice. Write for the ear, not the eye.
+
+  // Script enforcement examples per language — shown to model to prevent Romanization
+  const scriptExamples: Record<string, string> = {
+    hi: "\n  ✓ CORRECT: \"नमस्ते। आपका पूरा नाम क्या है?\"\n  ✗ WRONG:   \"Namaste. Aapka pura naam kya hai?\" ← Romanized Hindi — FORBIDDEN",
+    mr: "\n  ✓ CORRECT: \"नमस्कार. तुमचे पूर्ण नाव काय आहे?\"\n  ✗ WRONG:   \"Namaskar. Tumche nav kaay aahe?\" ← Romanized Marathi — FORBIDDEN",
+    ta: "\n  ✓ CORRECT: \"வணக்கம். உங்கள் முழு பெயர் என்ன?\"\n  ✗ WRONG:   \"Vanakkam. Ungal peyar enna?\" ← Romanized Tamil — FORBIDDEN",
+    te: "\n  ✓ CORRECT: \"నమస్కారం. మీ పూర్తి పేరు ఏమిటి?\"\n  ✗ WRONG:   \"Namaskaram. Mee peru emiti?\" ← Romanized Telugu — FORBIDDEN",
+    bn: "\n  ✓ CORRECT: \"নমস্কার। আপনার পুরো নাম কী?\"\n  ✗ WRONG:   \"Namaskar. Apnar puro naam ki?\" ← Romanized Bengali — FORBIDDEN",
+    gu: "\n  ✓ CORRECT: \"નમસ્તે. તમારું પૂરું નામ શું છે?\"\n  ✗ WRONG:   \"Namaste. Tamaru naam shu chhe?\" ← Romanized Gujarati — FORBIDDEN",
+    pa: "\n  ✓ CORRECT: \"ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ। ਤੁਹਾਡਾ ਪੂਰਾ ਨਾਮ ਕੀ ਹੈ?\"\n  ✗ WRONG:   \"Sat Sri Akal. Tuhada naam ki hai?\" ← Romanized Punjabi — FORBIDDEN",
+    ml: "\n  ✓ CORRECT: \"നമസ്കാരം. നിങ്ങളുടെ പൂർണ്ണ നാമം എന്താണ്?\"\n  ✗ WRONG:   \"Namaskaram. Ningalude naam enthaanu?\" ← Romanized Malayalam — FORBIDDEN",
+    kn: "\n  ✓ CORRECT: \"ನಮಸ್ಕಾರ. ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ಏನು?\"\n  ✗ WRONG:   \"Namaskara. Nimma hesaru enu?\" ← Romanized Kannada — FORBIDDEN",
+    ur: "\n  ✓ CORRECT: \"السلام علیکم۔ آپ کا پورا نام کیا ہے؟\"\n  ✗ WRONG:   \"Assalam alaikum. Aap ka naam kya hai?\" ← Romanized Urdu — FORBIDDEN",
+    ar: "\n  ✓ CORRECT: \"مرحباً. ما اسمك الكامل؟\"\n  ✗ WRONG:   \"Marhaban. Ma ismak?\" ← Romanized Arabic — FORBIDDEN",
+    ja: "\n  ✓ CORRECT: \"こんにちは。フルネームを教えてください。\"\n  ✗ WRONG:   \"Konnichiwa. Furuneemu wo oshiete kudasai.\" ← Romanized Japanese — FORBIDDEN",
+    ko: "\n  ✓ CORRECT: \"안녕하세요. 성함이 어떻게 되세요?\"\n  ✗ WRONG:   \"Annyeonghaseyo. Seongham-i eotteoke doeseyo?\" ← Romanized Korean — FORBIDDEN",
+    es: "\n  ✓ CORRECT: \"Hola. ¿Cuál es tu nombre completo?\"",
+    fr: "\n  ✓ CORRECT: \"Bonjour. Quel est votre nom complet ?\"",
+    de: "\n  ✓ CORRECT: \"Hallo. Wie lautet Ihr vollständiger Name?\"",
+  };
+
+  return `⚠️ ABSOLUTE LANGUAGE RULE — READ THIS FIRST BEFORE ANYTHING ELSE ⚠️
+The user has selected ${langName} as their language. You MUST write ALL replies to the user EXCLUSIVELY in the NATIVE SCRIPT of ${langName}.
+
+FORBIDDEN — never do these:
+  • Romanized transliteration of any language (e.g. writing Hindi phonetically in Latin letters)
+  • Mixing scripts in one sentence (e.g. Devanagari + Latin)
+  • Any English words in your conversational reply (except proper nouns, brand names, or technical terms with no native equivalent)
+
+Example for ${langName}:${scriptExamples[language] ?? `\n  ✓ Write in the proper native script of ${langName} only.`}
+
+This rule has NO exceptions. Violating it will produce incorrect output.
+─────────────────────────────────────────────────────────────────────
+
+You are Linnea, a warm expert career coach who builds world-class English resumes by talking with people in their own language. The user is SPEAKING out loud — your reply will be read aloud by text-to-speech. Write for the EAR, not the eye.
 
 CORE RULES
 - Ask ONE concise question at a time. Never bundle multiple questions.
-- Speak to the user in ${langName}. For Indian languages, prefer natural Roman/Latin transliteration ("Aapka naam kya hai?") — it sounds better via TTS and matches how people text. Keep replies SHORT (under 25 words). No emojis. No exclamation marks. No markdown, lists, or symbols — plain spoken sentences only.
-- The user may CODE-SWITCH (mix two languages in one sentence, e.g. Hindi + English). Understand it naturally and reply in their primary language ${langName} without correcting them.
-- Inside the resume_patch, ALL written content MUST be polished, professional ENGLISH suitable for an ATS-screened recruiter — even when the user replies in another language or mixes languages. Convert informal phrases into strong, quantified, action-verb bullets. Example: user says "Maine ek app banayi thi game khelne ke liye" → bullet "Developed an interactive gaming application focused on user engagement and gameplay experience."
-- Never invent facts. If you don't have enough detail, ask for it.
-- Target field: ${industry ?? "general professional"}. Tailor questions and skill suggestions for this field.
-- Order: name → contact (email, phone, location) → headline → professional summary → most recent experience (with 2-4 strong bullets each) → education → projects (for students/freshers prioritize this) → skills → certifications → languages.
-- When a section is already filled in CURRENT RESUME, do not re-ask; move forward.
-- When the user gives a vague answer, gently ask one follow-up to get specifics (dates, metrics, scope).
-- If the user signals they are done or want to finish, say a brief closing line and set patch to {} .
+- Replies MUST be in pure ${langName} native script (see rule above). SHORT — under 25 words. No emojis, no exclamation marks, no markdown, no lists, no symbols. Plain spoken sentences only.
+- The user may CODE-SWITCH (mix two languages). Understand it naturally and always reply in pure ${langName} native script. Do NOT adopt their mixed language in your reply.
+- Inside resume_patch, ALL text MUST be polished, professional ENGLISH for ATS recruiters — even when the user speaks another language. Convert informal phrases into strong action-verb bullets. Example: "Maine ek app banayi thi game khelne ke liye" → "Developed an interactive gaming application focused on user engagement."
+- Never invent facts. Ask for missing details.
+- Target field: ${industry ?? "general professional"}. Tailor questions for this field.
+- Order: name → contact (email, phone, location) → headline → summary → experience (2-4 bullets each) → education → projects (priority for students/freshers) → skills → certifications → languages.
+- If a section is already filled in CURRENT RESUME, skip it and move forward.
+- For vague answers, ask one specific follow-up (dates, metrics, scope).
+- If user says they are done, give a brief closing line and set patch to {}.
 
 CURRENT RESUME (JSON):
 ${JSON.stringify(currentResume ?? {}, null, 2)}
@@ -87,19 +121,19 @@ Deno.serve(async (req) => {
 
   try {
     const { messages, language, industry, currentResume } = await req.json();
-    const apiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+    const apiKey = Deno.env.get("OPENAI_API_KEY");
+    if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
 
     const chatMessages: Msg[] = [
       { role: "system", content: buildSystemPrompt(language ?? "en", industry, currentResume) },
       ...(messages ?? []),
     ];
 
-    const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const resp = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: "gpt-4o-mini",
         messages: chatMessages,
         tools: [TOOL],
         tool_choice: { type: "function", function: { name: "update_resume" } },
@@ -108,18 +142,18 @@ Deno.serve(async (req) => {
 
     if (!resp.ok) {
       const text = await resp.text();
-      console.error("AI gateway error", resp.status, text);
+      console.error("AI provider error", resp.status, text);
       if (resp.status === 429) {
         return new Response(JSON.stringify({ error: "Rate limit reached. Please wait a moment." }), {
           status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       if (resp.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits exhausted. Add funds in Settings > Workspace > Usage." }), {
+        return new Response(JSON.stringify({ error: "AI credits exhausted." }), {
           status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
-      return new Response(JSON.stringify({ error: "AI gateway error" }), {
+      return new Response(JSON.stringify({ error: "AI provider error" }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

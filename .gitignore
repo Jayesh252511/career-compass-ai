@@ -16,9 +16,21 @@ dist-ssr
 .nitro
 *.local
 
+# Environment — copy .env.example and fill in your values
+.env
+.env.*
+!.env.example
+
+# Vercel build output
+.vercel/output
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
+
+# Supabase local
+supabase/.temp/
+supabase/.branches/
 
 # Editor directories and files
 .vscode/*

@@ -1,0 +1,173 @@
+﻿{
+  "app": {
+    "name": "Linnea"
+  },
+  "common": {
+    "back": "Atrás",
+    "continue": "Continuar",
+    "startWriting": "Comenzar a escribir",
+    "pdf": "PDF",
+    "saved": "Guardado",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "dashboard": "Panel de control",
+    "tryAgain": "Intentar de nuevo",
+    "goHome": "Ir al inicio"
+  },
+  "nav": {
+    "signedInAs": "Conectado como"
+  },
+  "landing": {
+    "badge": "Ahora en 17 idiomas",
+    "title1": "Tu currículum,",
+    "title2": "escrito conversando.",
+    "subtitle": "Habla con Linnea en tu propio idioma. Ella convierte silenciosamente tus respuestas en un currículum en inglés listo para reclutadores y compatible con ATS.",
+    "chooseLanguage": "Elige tu idioma",
+    "freeToTry": "Gratis para probar · Sin tarjeta de crédito",
+    "pickLanguageToBegin": "Elige un idioma para comenzar",
+    "continueIn": "Continuar en {{language}}",
+    "howItWorksTitle": "Cómo funciona",
+    "howItWorksHeading": "Cuatro sencillos pasos para un gran currículum.",
+    "footer": "© {{year}} Linnea. Creado con esmero.",
+    "features": {
+      "conversationalTitle": "Conversacional, no un formulario",
+      "conversationalBody": "Una pregunta a la vez. Responde con naturalidad, como si hablaras con un amigo. Sin campos vacíos que mirar fijamente.",
+      "nativeInTitle": "Habla en tu idioma, obtén inglés pulido",
+      "nativeInBody": "Dile a Linnea ‘creé un juego interactivo’ y ella escribirá ‘Designed an interactive game focused on user engagement.’",
+      "atsReadyTitle": "Listo para ATS, siempre",
+      "atsReadyBody": "Tres plantillas diseñadas meticulosamente y probadas contra sistemas reales de seguimiento de candidatos. Limpio y legible."
+    },
+    "steps": {
+      "step1Title": "Elige tu idioma",
+      "step1Desc": "17 opciones disponibles. Nos adaptamos a ti.",
+      "step2Title": "Elige una plantilla",
+      "step2Desc": "Tres diseños limpios y profesionales. Todos listos para ATS.",
+      "step3Title": "Elige tu área profesional",
+      "step3Desc": "Linnea adaptará sus preguntas a tu industria específica.",
+      "step4Title": "Solo conversa",
+      "step4Desc": "Mira cómo tu currículum se escribe solo, en tiempo real.",
+    "moreLangs": "+ {{count}} idiomas más"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Bienvenido de nuevo",
+    "createAccount": "Crea tu cuenta",
+    "subtitleSignIn": "Inicia sesión para continuar editando.",
+    "subtitleSignUp": "Toma solo unos segundos y tus datos son solo tuyos.",
+    "continueWithGoogle": "Continuar con Google",
+    "or": "o",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordHint": "Al menos 8 caracteres",
+    "newHere": "¿Eres nuevo?",
+    "alreadyHave": "¿Ya tienes una cuenta?",
+    "createAnAccount": "Crear una cuenta",
+    "signInInstead": "Iniciar sesión"
+  },
+  "templates": {
+    "heading": "Elige tu plantilla.",
+    "subheading": "Tres diseños limpios y probados contra sistemas reales de seguimiento de candidatos.",
+    "stepLanguage": "Idioma",
+    "stepTemplate": "Plantilla",
+    "stepField": "Área profesional"
+  },
+  "industry": {
+    "heading": "¿A qué área profesional estás aplicando?",
+    "subheading": "Linnea adaptará sus preguntas, sugerencias de habilidades y tono a esta área.",
+    "other": "Otro",
+    "customPlaceholder": "Escribe tu área (ej. semiconductor QA, sector público, hostelería)",
+    "customLabel": "Tu área profesional"
+  },
+  "dashboard": {
+    "workspace": "Tu espacio de trabajo",
+    "resumes": "Currículums",
+    "newResume": "Nuevo currículum",
+    "emptyTitle": "Escribamos tu primer currículum.",
+    "emptyBody": "Elige una plantilla, tu área profesional y comienza a conversar en tu idioma. Linnea se encarga del inglés.",
+    "createResume": "Crear currículum",
+    "open": "Abrir",
+    "duplicate": "Duplicar",
+    "delete": "Eliminar",
+    "editedAgo": "Editado hace {{time}}",
+    "complete": "{{pct}}% completo",
+    "deleteConfirm": "¿Eliminar este currículum? Esta acción no se puede deshacer.",
+    "duplicated": "Duplicado correctamente",
+    "deleted": "Eliminado",
+    "copySuffix": " (copia)",
+    "failed": "Error"
+  },
+  "builder": {
+    "assistantName": "Linnea",
+    "speaking": "Hablando…",
+    "thinking": "Pensando…",
+    "listening": "Escuchando…",
+    "tapOrbToTalk": "Toca el orbe para hablar",
+    "voice": "Voz",
+    "text": "Texto",
+    "intro": "Hola. Construyamos tu currículum. Toca el orbe y responde en {{language}}.",
+    "tapToStop": "Toca para detener · Habla con naturalidad",
+    "aiThinking": "Linnea está pensando",
+    "tapToInterrupt": "Toca el orbe para interrumpir",
+    "tapToSpeak": "Toca para hablar",
+    "shortRepliesHint": "Respuestas cortas, una pregunta a la vez.",
+    "replyPlaceholder": "Responde en {{language}}…",
+    "stop": "Detener",
+    "exportEnglish": "Exportar en inglés",
+    "exportNative": "Exportar en {{language}}",
+    "exportBilingual": "Exportar bilingüe (Inglés + {{language}})",
+    "preparingTranslation": "Preparando traducción…",
+    "resumeNotFound": "Currículum no encontrado",
+    "saved": "Guardado",
+    "voiceErrMic": "No se pudo iniciar la voz. Verifica los permisos de micrófono.",
+    "emptyResumeState": "Tu currículum aparecerá aquí, línea por línea, a medida que respondas a las preguntas de Linnea.",
+    "tabAssistant": "Asistente",
+    "tabPreview": "Vista previa",
+    "tapToListen": "Toca para escuchar de nuevo",
+    "changeLanguage": "Cambiar idioma"
+  },
+  "errors": {
+    "pageDidntLoad": "Esta página no cargó",
+    "somethingWentWrong": "Algo salió mal. Puedes recargar la página o volver al inicio.",
+    "pageNotFound": "Página no encontrada",
+    "notFoundBody": "La página que buscas no existe o ha sido movida."
+  },
+  "authLeft": {
+    "tagline": "Una forma más tranquila de escribir un currículum",
+    "quote": "“Solo respondí unas preguntas en español. Cinco minutos después tenía un currículum hermoso en inglés.”",
+    "attribution": "— Priya, graduada reciente"
+  },
+  "industries": {
+    "software": { "name": "Desarrollador de software", "hint": "Ingeniería, programación, sistemas" },
+    "design": { "name": "Diseñador", "hint": "UI, UX, producto, diseño visual" },
+    "doctor": { "name": "Médico", "hint": "Medicina, clínica, salud" },
+    "teacher": { "name": "Profesor", "hint": "Educación, docencia, capacitación" },
+    "marketing": { "name": "Marketing", "hint": "Crecimiento, marca, contenidos" },
+    "sales": { "name": "Ventas", "hint": "B2B, B2C, gestión de cuentas" },
+    "photographer": { "name": "Fotógrafo", "hint": "Creativo, narrativa visual" },
+    "student": { "name": "Estudiante", "hint": "Escuela, universidad, sin experiencia" },
+    "freelancer": { "name": "Freelancer", "hint": "Trabajo independiente o por contrato" },
+    "business": { "name": "Negocios / Administración", "hint": "Operaciones, estrategia, liderazgo" },
+    "finance": { "name": "Finanzas", "hint": "Banca, análisis, contabilidad" },
+    "engineer": { "name": "Ingeniero", "hint": "Civil, mecánico, eléctrico" }
+  },
+  "templatesList": {
+    "ats": {
+      "name": "ATS Profesional",
+      "description": "Una sola columna. Listo para reclutadores. Se procesa de forma limpia en todos los sistemas de seguimiento.",
+      "tag": "100% ATS",
+      "bestFor": "Corporativo · Banca · Consultoría"
+    },
+    "modern": {
+      "name": "Moderno Mínimo",
+      "description": "Un diseño sutil de dos columnas con tipografía premium. Jerarquía visual limpia sin decoraciones.",
+      "tag": "Apto para ATS",
+      "bestFor": "Startups · Producto · Diseño"
+    },
+    "fresher": {
+      "name": "Fresher Inteligente",
+      "description": "Diseño centrado en proyectos, ideal para estudiantes y profesionales en etapa inicial.",
+      "tag": "Apto para ATS",
+      "bestFor": "Estudiantes · Becarios · Recién graduados"
+    }
+  }
+}

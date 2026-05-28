@@ -1,23 +1,30 @@
 import type { ResumeContent } from "@/lib/constants";
+import type { ResumeSectionLabels } from "@/lib/resume/section-labels";
+import { useTranslation } from "react-i18next";
 
-type Props = { content: ResumeContent; template: "ats" | "modern" | "fresher" };
+type Props = {
+  content: ResumeContent;
+  template: "ats" | "modern" | "fresher";
+  labels?: ResumeSectionLabels;
+};
 
-export function ResumePreview({ content, template }: Props) {
-  if (template === "modern") return <ModernTemplate c={content} />;
-  if (template === "fresher") return <FresherTemplate c={content} />;
-  return <AtsTemplate c={content} />;
+export function ResumePreview({ content, template, labels }: Props) {
+  if (template === "modern") return <ModernTemplate c={content} labels={labels} />;
+  if (template === "fresher") return <FresherTemplate c={content} labels={labels} />;
+  return <AtsTemplate c={content} labels={labels} />;
 }
 
 const C = (s?: string) => s && s.trim().length > 0;
 const A = <T,>(a?: T[]) => Array.isArray(a) && a.length > 0;
 
 function Empty() {
+  const { t } = useTranslation();
   return (
     <div className="flex h-full items-center justify-center p-12 text-center">
       <div className="max-w-xs">
         <div className="mx-auto h-14 w-14 rounded-full bg-accent grid place-items-center text-primary font-serif text-3xl">L</div>
         <p className="mt-6 text-sm text-muted-foreground leading-relaxed">
-          Your resume will appear here, line by line, as you answer Linnea's questions.
+          {t("builder.emptyResumeState")}
         </p>
       </div>
     </div>
@@ -29,7 +36,7 @@ function isEmpty(c: ResumeContent) {
 }
 
 /* ---------------- ATS Professional ---------------- */
-function AtsTemplate({ c }: { c: ResumeContent }) {
+function AtsTemplate({ c, labels }: { c: ResumeContent; labels?: ResumeSectionLabels }) {
   if (isEmpty(c)) return <Empty />;
   return (
     <div className="px-10 py-10 text-[13px] leading-[1.55] text-neutral-900 font-sans">
@@ -45,13 +52,13 @@ function AtsTemplate({ c }: { c: ResumeContent }) {
       </header>
 
       {C(c.summary) && (
-        <Section title="Summary">
+        <Section title={labels?.summary ?? "Summary"}>
           <p>{c.summary}</p>
         </Section>
       )}
 
       {A(c.experience) && (
-        <Section title="Experience">
+        <Section title={labels?.experience ?? "Experience"}>
           {c.experience!.map((e, i) => (
             <div key={i} className="mb-3 last:mb-0">
               <div className="flex justify-between gap-4">
@@ -70,7 +77,7 @@ function AtsTemplate({ c }: { c: ResumeContent }) {
       )}
 
       {A(c.education) && (
-        <Section title="Education">
+        <Section title={labels?.education ?? "Education"}>
           {c.education!.map((ed, i) => (
             <div key={i} className="mb-2 last:mb-0">
               <div className="flex justify-between gap-4">
@@ -86,7 +93,7 @@ function AtsTemplate({ c }: { c: ResumeContent }) {
       )}
 
       {A(c.projects) && (
-        <Section title="Projects">
+        <Section title={labels?.projects ?? "Projects"}>
           {c.projects!.map((p, i) => (
             <div key={i} className="mb-2 last:mb-0">
               <p className="font-semibold">{p.name}{p.tech && p.tech.length > 0 && <span className="font-normal text-neutral-700"> · {p.tech.join(", ")}</span>}</p>
@@ -98,18 +105,18 @@ function AtsTemplate({ c }: { c: ResumeContent }) {
       )}
 
       {A(c.skills) && (
-        <Section title="Skills"><p>{c.skills!.join(" · ")}</p></Section>
+        <Section title={labels?.skills ?? "Skills"}><p>{c.skills!.join(" · ")}</p></Section>
       )}
 
       {A(c.certifications) && (
-        <Section title="Certifications">
+        <Section title={labels?.certifications ?? "Certifications"}>
           {c.certifications!.map((cert, i) => (
             <p key={i}>{cert.name}{cert.issuer && ` — ${cert.issuer}`}{cert.year && ` (${cert.year})`}</p>
           ))}
         </Section>
       )}
 
-      {A(c.languages) && <Section title="Languages"><p>{c.languages!.join(" · ")}</p></Section>}
+      {A(c.languages) && <Section title={labels?.languages ?? "Languages"}><p>{c.languages!.join(" · ")}</p></Section>}
     </div>
   );
 }
@@ -124,7 +131,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 /* ---------------- Modern Minimal ---------------- */
-function ModernTemplate({ c }: { c: ResumeContent }) {
+function ModernTemplate({ c, labels }: { c: ResumeContent; labels?: ResumeSectionLabels }) {
   if (isEmpty(c)) return <Empty />;
   return (
     <div className="grid grid-cols-[1fr_2fr] text-[12.5px] text-neutral-900 font-sans min-h-full">
@@ -138,15 +145,15 @@ function ModernTemplate({ c }: { c: ResumeContent }) {
           {A(c.links) && c.links!.map((l, i) => <p key={i}>{l.label}</p>)}
         </div>
         {A(c.skills) && (
-          <Block title="Skills">
+          <Block title={labels?.skills ?? "Skills"}>
             <ul className="space-y-0.5">{c.skills!.map((s, i) => <li key={i}>{s}</li>)}</ul>
           </Block>
         )}
         {A(c.languages) && (
-          <Block title="Languages"><p>{c.languages!.join(", ")}</p></Block>
+          <Block title={labels?.languages ?? "Languages"}><p>{c.languages!.join(", ")}</p></Block>
         )}
         {A(c.certifications) && (
-          <Block title="Certifications">
+          <Block title={labels?.certifications ?? "Certifications"}>
             {c.certifications!.map((cert, i) => (
               <p key={i}>{cert.name}{cert.year && ` · ${cert.year}`}</p>
             ))}
@@ -154,9 +161,9 @@ function ModernTemplate({ c }: { c: ResumeContent }) {
         )}
       </aside>
       <main className="p-8">
-        {C(c.summary) && <ModBlock title="Profile"><p className="leading-relaxed">{c.summary}</p></ModBlock>}
+        {C(c.summary) && <ModBlock title={labels?.profile ?? "Profile"}><p className="leading-relaxed">{c.summary}</p></ModBlock>}
         {A(c.experience) && (
-          <ModBlock title="Experience">
+          <ModBlock title={labels?.experience ?? "Experience"}>
             {c.experience!.map((e, i) => (
               <div key={i} className="mb-3 last:mb-0">
                 <p className="font-semibold">{e.title}</p>
@@ -169,7 +176,7 @@ function ModernTemplate({ c }: { c: ResumeContent }) {
           </ModBlock>
         )}
         {A(c.projects) && (
-          <ModBlock title="Projects">
+          <ModBlock title={labels?.projects ?? "Projects"}>
             {c.projects!.map((p, i) => (
               <div key={i} className="mb-2 last:mb-0">
                 <p className="font-semibold">{p.name}</p>
@@ -181,7 +188,7 @@ function ModernTemplate({ c }: { c: ResumeContent }) {
           </ModBlock>
         )}
         {A(c.education) && (
-          <ModBlock title="Education">
+          <ModBlock title={labels?.education ?? "Education"}>
             {c.education!.map((ed, i) => (
               <div key={i} className="mb-2 last:mb-0">
                 <p className="font-semibold">{ed.degree}</p>
@@ -214,7 +221,7 @@ function ModBlock({ title, children }: { title: string; children: React.ReactNod
 }
 
 /* ---------------- Fresher Smart ---------------- */
-function FresherTemplate({ c }: { c: ResumeContent }) {
+function FresherTemplate({ c, labels }: { c: ResumeContent; labels?: ResumeSectionLabels }) {
   if (isEmpty(c)) return <Empty />;
   return (
     <div className="px-10 py-10 text-[13px] leading-[1.55] text-neutral-900 font-sans">
@@ -229,10 +236,10 @@ function FresherTemplate({ c }: { c: ResumeContent }) {
         </div>
       </header>
 
-      {C(c.summary) && <Section title="About"><p>{c.summary}</p></Section>}
+      {C(c.summary) && <Section title={labels?.about ?? "About"}><p>{c.summary}</p></Section>}
 
       {A(c.projects) && (
-        <Section title="Projects">
+        <Section title={labels?.projects ?? "Projects"}>
           {c.projects!.map((p, i) => (
             <div key={i} className="mb-3 last:mb-0">
               <p className="font-semibold">{p.name}</p>
@@ -245,7 +252,7 @@ function FresherTemplate({ c }: { c: ResumeContent }) {
       )}
 
       {A(c.education) && (
-        <Section title="Education">
+        <Section title={labels?.education ?? "Education"}>
           {c.education!.map((ed, i) => (
             <div key={i} className="mb-2 last:mb-0">
               <div className="flex justify-between">
@@ -259,7 +266,7 @@ function FresherTemplate({ c }: { c: ResumeContent }) {
       )}
 
       {A(c.experience) && (
-        <Section title="Experience">
+        <Section title={labels?.experience ?? "Experience"}>
           {c.experience!.map((e, i) => (
             <div key={i} className="mb-3 last:mb-0">
               <div className="flex justify-between gap-4">
@@ -272,13 +279,13 @@ function FresherTemplate({ c }: { c: ResumeContent }) {
         </Section>
       )}
 
-      {A(c.skills) && <Section title="Skills"><p>{c.skills!.join(" · ")}</p></Section>}
+      {A(c.skills) && <Section title={labels?.skills ?? "Skills"}><p>{c.skills!.join(" · ")}</p></Section>}
       {A(c.certifications) && (
-        <Section title="Certifications">
+        <Section title={labels?.certifications ?? "Certifications"}>
           {c.certifications!.map((cert, i) => <p key={i}>{cert.name}{cert.issuer && ` — ${cert.issuer}`}{cert.year && ` (${cert.year})`}</p>)}
         </Section>
       )}
-      {A(c.languages) && <Section title="Languages"><p>{c.languages!.join(" · ")}</p></Section>}
+      {A(c.languages) && <Section title={labels?.languages ?? "Languages"}><p>{c.languages!.join(" · ")}</p></Section>}
     </div>
   );
 }

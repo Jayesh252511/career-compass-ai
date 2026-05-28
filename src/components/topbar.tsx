@@ -5,14 +5,25 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { LogOut, User as UserIcon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
+import { LANGUAGES } from "@/lib/constants";
+import { i18n, setStoredLanguage } from "@/i18n";
 
 export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
   const { user } = useAuth();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const signOut = async () => {
     await supabase.auth.signOut();
     router.navigate({ to: "/" });
+  };
+
+  const currentLang = i18n.language || "en";
+  const langMeta = LANGUAGES.find((l) => l.code === currentLang);
+  const setLang = (code: string) => {
+    i18n.changeLanguage(code);
+    setStoredLanguage(code);
   };
 
   return (
@@ -21,6 +32,26 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
         <Link to="/"><Logo /></Link>
         <div className="flex items-center gap-2">
           {rightSlot}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="h-9 px-3 rounded-full border border-border bg-background text-xs text-muted-foreground hover:text-foreground">
+                {langMeta?.flag} {langMeta?.native ?? "English"}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 max-h-[320px] overflow-auto">
+              <DropdownMenuLabel className="font-normal text-xs text-muted-foreground">
+                {t("templates.stepLanguage")}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {LANGUAGES.map((l) => (
+                <DropdownMenuItem key={l.code} onClick={() => setLang(l.code)}>
+                  <span className="mr-2">{l.flag}</span>
+                  <span className="flex-1">{l.native}</span>
+                  {currentLang === l.code && <span className="text-[10px] text-muted-foreground">✓</span>}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -30,21 +61,21 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel className="font-normal">
-                  <p className="text-xs text-muted-foreground">Signed in as</p>
+                  <p className="text-xs text-muted-foreground">{t("nav.signedInAs")}</p>
                   <p className="text-sm truncate">{user.email}</p>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/dashboard"><UserIcon className="mr-2 h-4 w-4" /> Dashboard</Link>
+                  <Link to="/dashboard"><UserIcon className="mr-2 h-4 w-4" /> {t("common.dashboard")}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={signOut} className="text-destructive focus:text-destructive">
-                  <LogOut className="mr-2 h-4 w-4" /> Sign out
+                  <LogOut className="mr-2 h-4 w-4" /> {t("common.signOut")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Button asChild size="sm" variant="ghost">
-              <Link to="/auth">Sign in</Link>
+              <Link to="/auth">{t("common.signIn")}</Link>
             </Button>
           )}
         </div>

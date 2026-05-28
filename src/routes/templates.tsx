@@ -6,6 +6,7 @@ import { TEMPLATES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/templates")({
   component: TemplatesPage,
@@ -15,6 +16,7 @@ function TemplatesPage() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [selected, setSelected] = useState<string>("ats");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/auth", search: { next: "/templates" } });
@@ -25,22 +27,22 @@ function TemplatesPage() {
       <TopBar />
       <div className="mx-auto max-w-6xl px-6 py-14">
         <Steps current={2} />
-        <h1 className="mt-8 font-display text-4xl tracking-tight">Choose your template.</h1>
-        <p className="mt-2 text-muted-foreground">Three layouts, each tested against real applicant tracking systems.</p>
+        <h1 className="mt-8 font-display text-4xl tracking-tight">{t("templates.heading")}</h1>
+        <p className="mt-2 text-muted-foreground">{t("templates.subheading")}</p>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {TEMPLATES.map((t) => (
+          {TEMPLATES.map((tmpl) => (
             <button
-              key={t.id}
-              onClick={() => setSelected(t.id)}
+              key={tmpl.id}
+              onClick={() => setSelected(tmpl.id)}
               className={cn(
                 "group text-left rounded-3xl border bg-card p-1 transition-all overflow-hidden",
-                selected === t.id ? "border-primary shadow-[0_0_0_4px_oklch(0.32_0.08_268_/_0.08)]" : "border-border hover:-translate-y-0.5"
+                selected === tmpl.id ? "border-primary shadow-[0_0_0_4px_oklch(0.32_0.08_268_/_0.08)]" : "border-border hover:-translate-y-0.5"
               )}
             >
               <div className="relative aspect-[3/4] rounded-2xl bg-neutral-50 overflow-hidden border border-border/60">
-                <TemplateThumbnail id={t.id} />
-                {selected === t.id && (
+                <TemplateThumbnail id={tmpl.id} />
+                {selected === tmpl.id && (
                   <div className="absolute top-3 right-3 grid h-7 w-7 place-items-center rounded-full bg-primary text-primary-foreground">
                     <Check className="h-4 w-4" />
                   </div>
@@ -48,20 +50,28 @@ function TemplatesPage() {
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2">
-                  <p className="font-display text-lg font-medium">{t.name}</p>
-                  <span className="text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded-md bg-accent text-accent-foreground">{t.tag}</span>
+                  <p className="font-display text-lg font-medium">
+                    {t(`templatesList.${tmpl.id}.name`, { defaultValue: tmpl.name })}
+                  </p>
+                  <span className="text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded-md bg-accent text-accent-foreground">
+                    {t(`templatesList.${tmpl.id}.tag`, { defaultValue: tmpl.tag })}
+                  </span>
                 </div>
-                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{t.description}</p>
-                <p className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">{t.bestFor}</p>
+                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                  {t(`templatesList.${tmpl.id}.description`, { defaultValue: tmpl.description })}
+                </p>
+                <p className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">
+                  {t(`templatesList.${tmpl.id}.bestFor`, { defaultValue: tmpl.bestFor })}
+                </p>
               </div>
             </button>
           ))}
         </div>
 
         <div className="mt-10 flex items-center justify-between">
-          <Button variant="ghost" asChild><Link to="/">Back</Link></Button>
+          <Button variant="ghost" asChild><Link to="/">{t("common.back")}</Link></Button>
           <Button onClick={() => navigate({ to: "/industry", search: { template: selected } })} className="h-11 rounded-full px-6">
-            Continue <ArrowRight className="ml-2 h-4 w-4" />
+            {t("common.continue")} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -70,10 +80,11 @@ function TemplatesPage() {
 }
 
 export function Steps({ current }: { current: 1 | 2 | 3 }) {
+  const { t } = useTranslation();
   const items = [
-    { n: 1, t: "Language" },
-    { n: 2, t: "Template" },
-    { n: 3, t: "Field" },
+    { n: 1, t: t("templates.stepLanguage") },
+    { n: 2, t: t("templates.stepTemplate") },
+    { n: 3, t: t("templates.stepField") },
   ];
   return (
     <div className="flex items-center gap-3 text-xs text-muted-foreground">

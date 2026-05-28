@@ -1,0 +1,173 @@
+﻿{
+  "app": {
+    "name": "Linnea"
+  },
+  "common": {
+    "back": "Zurück",
+    "continue": "Weiter",
+    "startWriting": "Jetzt schreiben",
+    "pdf": "PDF",
+    "saved": "Gespeichert",
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "dashboard": "Dashboard",
+    "tryAgain": "Erneut versuchen",
+    "goHome": "Zur Startseite"
+  },
+  "nav": {
+    "signedInAs": "Angemeldet als"
+  },
+  "landing": {
+    "badge": "Jetzt in 17 Sprachen",
+    "title1": "Ihr Lebenslauf,",
+    "title2": "geschrieben im Gespräch.",
+    "subtitle": "Sprechen Sie in Ihrer eigenen Sprache mit Linnea. Sie wandelt jede Antwort leise in einen recruiter-bereiten englischen Lebenslauf um, den jedes ATS lesen kann.",
+    "chooseLanguage": "Sprache wählen",
+    "freeToTry": "Kostenlos testen · Keine Kreditkarte",
+    "pickLanguageToBegin": "Wählen Sie eine Sprache, um zu beginnen",
+    "continueIn": "Weiter auf {{language}}",
+    "howItWorksTitle": "Wie es funktioniert",
+    "howItWorksHeading": "Vier ruhige Schritte zu einem hervorragenden Lebenslauf.",
+    "footer": "© {{year}} Linnea. Mit Sorgfalt gebaut.",
+    "features": {
+      "conversationalTitle": "Im Gespräch, kein starres Formular",
+      "conversationalBody": "Eine Frage nach der anderen. Antworten Sie ganz natürlich, wie im Gespräch mit einem Freund. Keine leeren Felder, auf die Sie starren müssen.",
+      "nativeInTitle": "In Ihrer Sprache sprechen, perfektes Englisch erhalten",
+      "nativeInBody": "Sagen Sie Linnea einfach 'ich habe ein Spiel programmiert' – sie formuliert daraus 'Designed an interactive game focused on user engagement.'",
+      "atsReadyTitle": "Jederzeit ATS-konform",
+      "atsReadyBody": "Drei Vorlagen, die ausführlich an echten Bewerbermanagementsystemen (ATS) getestet wurden. Klar, sauber und maschinenlesbar."
+    },
+    "steps": {
+      "step1Title": "Sprache wählen",
+      "step1Desc": "17 Sprachen zur Auswahl. Wir holen Sie da ab, wo Sie sind.",
+      "step2Title": "Vorlage wählen",
+      "step2Desc": "Drei ehrliche Layouts. Alle ATS-konform.",
+      "step3Title": "Fachbereich nennen",
+      "step3Desc": "Linnea passt ihre Fragen individuell an Ihre Branche an.",
+      "step4Title": "Einfach plaudern",
+      "step4Desc": "Sehen Sie zu, wie sich Ihr Lebenslauf in Echtzeit von selbst schreibt.",
+    "moreLangs": "+ {{count}} weitere Sprachen"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Willkommen zurück",
+    "createAccount": "Konto erstellen",
+    "subtitleSignIn": "Melden Sie sich an, um fortzufahren.",
+    "subtitleSignUp": "Dauert nur Sekunden – und Ihre Daten gehören ganz Ihnen.",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "or": "oder",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordHint": "Mindestens 8 Zeichen",
+    "newHere": "Neu hier?",
+    "alreadyHave": "Bereits ein Konto?",
+    "createAnAccount": "Konto erstellen",
+    "signInInstead": "Anmelden"
+  },
+  "templates": {
+    "heading": "Wählen Sie Ihre Vorlage.",
+    "subheading": "Drei Layouts, getestet an echten Bewerbermanagementsystemen.",
+    "stepLanguage": "Sprache",
+    "stepTemplate": "Vorlage",
+    "stepField": "Bereich"
+  },
+  "industry": {
+    "heading": "Für welchen Bereich bewerben Sie sich?",
+    "subheading": "Linnea passt Fragen, Kompetenzvorschläge und Tonfall an diesen Bereich an.",
+    "other": "Anderer",
+    "customPlaceholder": "Geben Sie Ihren Bereich ein (z. B. Halbleiter-QA, Öffentlicher Dienst, Gastronomie)",
+    "customLabel": "Ihr Fachbereich"
+  },
+  "dashboard": {
+    "workspace": "Ihr Arbeitsbereich",
+    "resumes": "Lebensläufe",
+    "newResume": "Neuer Lebenslauf",
+    "emptyTitle": "Schreiben wir Ihren ersten Lebenslauf.",
+    "emptyBody": "Wählen Sie eine Vorlage und Ihre Branche und starten Sie das Gespräch in Ihrer Sprache. Linnea kümmert sich ums Englische.",
+    "createResume": "Lebenslauf erstellen",
+    "open": "Öffnen",
+    "duplicate": "Duplizieren",
+    "delete": "Löschen",
+    "editedAgo": "Bearbeitet vor {{time}}",
+    "complete": "{{pct}}% abgeschlossen",
+    "deleteConfirm": "Diesen Lebenslauf löschen? Dies kann nicht rückgängig gemacht werden.",
+    "duplicated": "Dupliziert",
+    "deleted": "Gelöscht",
+    "copySuffix": " (Kopie)",
+    "failed": "Fehlgeschlagen"
+  },
+  "builder": {
+    "assistantName": "Linnea",
+    "speaking": "Spricht…",
+    "thinking": "Überlegt…",
+    "listening": "Hört zu…",
+    "tapOrbToTalk": "Tippen, um zu sprechen",
+    "voice": "Sprache",
+    "text": "Text",
+    "intro": "Hallo. Lassen Sie uns Ihren Lebenslauf erstellen. Tippen Sie auf den Orb und antworten Sie auf {{language}}.",
+    "tapToStop": "Tippen zum Stoppen · Sprechen Sie ganz natürlich",
+    "aiThinking": "Linnea überlegt",
+    "tapToInterrupt": "Auf den Orb tippen zum Unterbrechen",
+    "tapToSpeak": "Tippen, um zu sprechen",
+    "shortRepliesHint": "Kurze Antworten, eine Frage nach der anderen.",
+    "replyPlaceholder": "Antworten auf {{language}}…",
+    "stop": "Stopp",
+    "exportEnglish": "Auf Englisch exportieren",
+    "exportNative": "Auf {{language}} exportieren",
+    "exportBilingual": "Zweisprachig exportieren (Englisch + {{language}})",
+    "preparingTranslation": "Übersetzung wird vorbereitet…",
+    "resumeNotFound": "Lebenslauf nicht gefunden",
+    "saved": "Gespeichert",
+    "voiceErrMic": "Sprachdienst konnte nicht gestartet werden. Bitte Mikrofonberechtigung prüfen.",
+    "emptyResumeState": "Ihr Lebenslauf wird hier Zeile für Zeile erscheinen, während Sie Linneas Fragen beantworten.",
+    "tabAssistant": "Assistent",
+    "tabPreview": "Vorschau",
+    "tapToListen": "Tippen zum erneuten Anhören",
+    "changeLanguage": "Sprache ändern"
+  },
+  "errors": {
+    "pageDidntLoad": "Diese Seite konnte nicht geladen werden",
+    "somethingWentWrong": "Etwas ist schiefgelaufen. Bitte laden Sie die Seite neu oder kehren Sie zur Startseite zurück.",
+    "pageNotFound": "Seite nicht gefunden",
+    "notFoundBody": "Die gesuchte Seite existiert nicht oder wurde verschoben."
+  },
+  "authLeft": {
+    "tagline": "Ein ruhigerer Weg, einen Lebenslauf zu schreiben",
+    "quote": "“Ich habe nur ein paar Fragen auf Deutsch beantwortet. Fünf Minuten später hatte ich einen wunderschönen englischen Lebenslauf.”",
+    "attribution": "— Priya, Absolventin"
+  },
+  "industries": {
+    "software": { "name": "Softwareentwickler", "hint": "Entwicklung, Programmierung, Systeme" },
+    "design": { "name": "Designer", "hint": "UI, UX, Produkt, visuelles Design" },
+    "doctor": { "name": "Arzt / Medizinbereich", "hint": "Medizinisch, klinisch, Gesundheit" },
+    "teacher": { "name": "Lehrer", "hint": "Bildung, Schule, Training" },
+    "marketing": { "name": "Marketing", "hint": "Wachstum, Marke, Content" },
+    "sales": { "name": "Vertrieb / Sales", "hint": "B2B, B2C, Account-Management" },
+    "photographer": { "name": "Fotograf", "hint": "Kreativ, visuelles Storytelling" },
+    "student": { "name": "Student", "hint": "Hochschule, Universität, Berufseinsteiger" },
+    "freelancer": { "name": "Freelancer", "hint": "Freiberuflich, Projektarbeit" },
+    "business": { "name": "Business / Management", "hint": "Operations, Strategie, Führung" },
+    "finance": { "name": "Finanzen", "hint": "Banking, Analyse, Rechnungswesen" },
+    "engineer": { "name": "Ingenieur", "hint": "Bau, Maschinenbau, Elektrotechnik" }
+  },
+  "templatesList": {
+    "ats": {
+      "name": "ATS Professional",
+      "description": "Einspaltig. Recruiter-bereit. Wird von allen Bewerbermanagementsystemen sauber ausgelesen.",
+      "tag": "100% ATS",
+      "bestFor": "Konzern · Banking · Beratung"
+    },
+    "modern": {
+      "name": "Modern Minimal",
+      "description": "Ein schlichtes zweispaltiges Layout mit Premium-Typografie. Ruhige visuelle Hierarchie ohne Ablenkungen.",
+      "tag": "ATS-freundlich",
+      "bestFor": "Start-ups · Produkt · Design"
+    },
+    "fresher": {
+      "name": "Fresher Smart",
+      "description": "Projektorientiertes Layout, ideal für Studenten und Berufseinsteiger.",
+      "tag": "ATS-freundlich",
+      "bestFor": "Studenten · Praktikanten · Berufseinsteiger"
+    }
+  }
+}

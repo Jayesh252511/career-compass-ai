@@ -1,0 +1,173 @@
+{
+  "app": {
+    "name": "Linnea"
+  },
+  "common": {
+    "back": "Back",
+    "continue": "Continue",
+    "startWriting": "Start writing",
+    "pdf": "PDF",
+    "saved": "Saved",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "tryAgain": "Try again",
+    "goHome": "Go home"
+  },
+  "nav": {
+    "signedInAs": "Signed in as"
+  },
+  "landing": {
+    "badge": "Now in 17 languages",
+    "title1": "Your resume,",
+    "title2": "written by conversation.",
+    "subtitle": "Chat with Linnea in your own language. She quietly turns every answer into a recruiter-ready English resume that any ATS can read.",
+    "chooseLanguage": "Choose your language",
+    "freeToTry": "Free to try · No credit card",
+    "pickLanguageToBegin": "Pick a language to begin",
+    "continueIn": "Continue in {{language}}",
+    "howItWorksTitle": "How it works",
+    "howItWorksHeading": "Four quiet steps to a great resume.",
+    "footer": "© {{year}} Linnea. Built with care.",
+    "features": {
+      "conversationalTitle": "Conversational, not a form",
+      "conversationalBody": "One question at a time. Answer naturally, the way you'd talk to a friend. No empty fields to stare at.",
+      "nativeInTitle": "Native in, polished English out",
+      "nativeInBody": "Tell Linnea ‘maine ek game banayi’ — she writes ‘Designed an interactive game focused on user engagement.’",
+      "atsReadyTitle": "ATS-ready, every time",
+      "atsReadyBody": "Three templates, each tested against real applicant tracking systems. Clean. Parsable. Quiet."
+    },
+    "steps": {
+      "step1Title": "Pick your language",
+      "step1Desc": "17 to choose from. We meet you where you are.",
+      "step2Title": "Pick a template",
+      "step2Desc": "Three honest layouts. All ATS-ready.",
+      "step3Title": "Tell us your field",
+      "step3Desc": "Linnea tunes her questions to your industry.",
+      "step4Title": "Just chat",
+      "step4Desc": "Watch your resume write itself, in real time."
+    },
+    "moreLangs": "+ {{count}} more languages"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "createAccount": "Create your account",
+    "subtitleSignIn": "Sign in to continue building.",
+    "subtitleSignUp": "It takes seconds — and your data stays yours.",
+    "continueWithGoogle": "Continue with Google",
+    "or": "or",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters",
+    "newHere": "New here?",
+    "alreadyHave": "Already have an account?",
+    "createAnAccount": "Create an account",
+    "signInInstead": "Sign in"
+  },
+  "templates": {
+    "heading": "Choose your template.",
+    "subheading": "Three layouts, each tested against real applicant tracking systems.",
+    "stepLanguage": "Language",
+    "stepTemplate": "Template",
+    "stepField": "Field"
+  },
+  "industry": {
+    "heading": "Which field are you applying for?",
+    "subheading": "Linnea will tailor her questions, skill suggestions and tone for this field.",
+    "other": "Other",
+    "customPlaceholder": "Type your field (e.g., Semiconductor QA, Government Exams, Hospitality)",
+    "customLabel": "Your field"
+  },
+  "dashboard": {
+    "workspace": "Your workspace",
+    "resumes": "Resumes",
+    "newResume": "New resume",
+    "emptyTitle": "Let's write your first resume.",
+    "emptyBody": "Pick a template, choose your field, and start chatting in your language. Linnea handles the English.",
+    "createResume": "Create a resume",
+    "open": "Open",
+    "duplicate": "Duplicate",
+    "delete": "Delete",
+    "editedAgo": "Edited {{time}} ago",
+    "complete": "{{pct}}% complete",
+    "deleteConfirm": "Delete this resume? This cannot be undone.",
+    "duplicated": "Duplicated",
+    "deleted": "Deleted",
+    "copySuffix": " (copy)",
+    "failed": "Failed"
+  },
+  "builder": {
+    "assistantName": "Linnea",
+    "speaking": "Speaking…",
+    "thinking": "Thinking…",
+    "listening": "Listening…",
+    "tapOrbToTalk": "Tap the orb to talk",
+    "voice": "Voice",
+    "text": "Text",
+    "intro": "Hi. Let's build your resume. Tap the orb and answer in {{language}}.",
+    "tapToStop": "Tap to stop · Speak naturally",
+    "aiThinking": "Linnea is thinking",
+    "tapToInterrupt": "Tap orb to interrupt",
+    "tapToSpeak": "Tap to speak",
+    "shortRepliesHint": "Short replies, one question at a time.",
+    "replyPlaceholder": "Reply in {{language}}…",
+    "stop": "Stop",
+    "exportEnglish": "Export in English",
+    "exportNative": "Export in {{language}}",
+    "exportBilingual": "Export bilingual (English + {{language}})",
+    "preparingTranslation": "Preparing translation…",
+    "resumeNotFound": "Resume not found",
+    "saved": "Saved",
+    "voiceErrMic": "Couldn't start voice. Check microphone permission.",
+    "emptyResumeState": "Your resume will appear here, line by line, as you answer Linnea's questions.",
+    "tabAssistant": "Assistant",
+    "tabPreview": "Live Preview",
+    "tapToListen": "Tap to listen again",
+    "changeLanguage": "Change language"
+  },
+  "errors": {
+    "pageDidntLoad": "This page didn't load",
+    "somethingWentWrong": "Something went wrong. You can try refreshing or head back home.",
+    "pageNotFound": "Page not found",
+    "notFoundBody": "The page you're looking for doesn't exist or has been moved."
+  },
+  "authLeft": {
+    "tagline": "A quieter way to write a resume",
+    "quote": "“I just answered a few questions in Hindi. Five minutes later I had a beautiful resume in English.”",
+    "attribution": "— Priya, recent graduate"
+  },
+  "industries": {
+    "software": { "name": "Software Developer", "hint": "Engineering, programming, systems" },
+    "design": { "name": "Designer", "hint": "UI, UX, product, visual" },
+    "doctor": { "name": "Doctor", "hint": "Medical, clinical, healthcare" },
+    "teacher": { "name": "Teacher", "hint": "Education, academic, training" },
+    "marketing": { "name": "Marketing", "hint": "Growth, brand, content" },
+    "sales": { "name": "Sales", "hint": "B2B, B2C, account management" },
+    "photographer": { "name": "Photographer", "hint": "Creative, visual storytelling" },
+    "student": { "name": "Student", "hint": "College, university, fresher" },
+    "freelancer": { "name": "Freelancer", "hint": "Independent, contract work" },
+    "business": { "name": "Business", "hint": "Operations, strategy, leadership" },
+    "finance": { "name": "Finance", "hint": "Banking, analysis, accounting" },
+    "engineer": { "name": "Engineer", "hint": "Civil, mechanical, electrical" }
+  },
+  "templatesList": {
+    "ats": {
+      "name": "ATS Professional",
+      "description": "Single column. Recruiter-ready. Parses cleanly through every applicant tracking system.",
+      "tag": "100% ATS",
+      "bestFor": "Corporate · Banking · Consulting"
+    },
+    "modern": {
+      "name": "Modern Minimal",
+      "description": "A quiet two-column layout with premium typography. Calm hierarchy, no decoration.",
+      "tag": "ATS Friendly",
+      "bestFor": "Startups · Product · Design"
+    },
+    "fresher": {
+      "name": "Fresher Smart",
+      "description": "Project-first layout designed for students and early-career applicants.",
+      "tag": "ATS Friendly",
+      "bestFor": "Students · Interns · New grads"
+    }
+  }
+}

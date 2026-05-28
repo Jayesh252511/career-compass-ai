@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { LANGUAGES } from "@/lib/constants";
 import { Logo } from "@/components/logo";
@@ -7,6 +7,7 @@ import { TopBar } from "@/components/topbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, FileCheck2, MessagesSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,18 +22,32 @@ export const Route = createFileRoute("/")({
 function Landing() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [picked, setPicked] = useState<string | null>(null);
+  const [picked, setPicked] = useState<string | null>("en");
+  const { t, i18n } = useTranslation();
+  const didInit = useRef(false);
 
+  // On first mount (page load / refresh), reset to English once.
+  // Using an empty dep array so this never re-runs after a language click.
   useEffect(() => {
-    // pre-pick saved language
-    if (typeof window !== "undefined") {
-      const saved = window.localStorage.getItem("linnea_lang");
-      if (saved) setPicked(saved);
-    }
+    if (didInit.current) return;
+    didInit.current = true;
+    setPicked("en");
+    i18n.changeLanguage("en");
+    window.localStorage.setItem("linnea_lang", "en");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const onPickLanguage = (code: string) => {
+    setPicked(code);
+    i18n.changeLanguage(code);
+    window.localStorage.setItem("linnea_lang", code);
+  };
+
   const onStart = () => {
-    if (picked) window.localStorage.setItem("linnea_lang", picked);
+    if (picked) {
+      window.localStorage.setItem("linnea_lang", picked);
+      i18n.changeLanguage(picked);
+    }
     if (loading) return;
     if (!user) navigate({ to: "/auth", search: { next: "/templates" } });
     else navigate({ to: "/templates" });
@@ -48,24 +63,24 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-6 pt-20 pb-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            Now in 17 languages
+            {t("landing.badge")}
           </div>
           <h1 className="mt-6 font-display text-[44px] leading-[1.05] sm:text-6xl md:text-7xl font-medium tracking-[-0.03em] text-foreground">
-            Your resume,
+            {t("landing.title1")}
             <br />
-            <span className="font-serif italic font-normal text-primary">written by conversation.</span>
+            <span className="font-serif italic font-normal text-primary">{t("landing.title2")}</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-            Chat with Linnea in your own language. She quietly turns every answer into a recruiter-ready English resume that any ATS can read.
+            {t("landing.subtitle")}
           </p>
 
           <div className="mt-10 mx-auto max-w-3xl">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground mb-4">Choose your language</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground mb-4">{t("landing.chooseLanguage")}</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
               {LANGUAGES.slice(0, 12).map((l) => (
                 <button
                   key={l.code}
-                  onClick={() => setPicked(l.code)}
+                  onClick={() => onPickLanguage(l.code)}
                   className={cn(
                     "group flex flex-col items-center gap-1 rounded-2xl border bg-card px-2 py-3 transition-all",
                     picked === l.code
@@ -79,12 +94,12 @@ function Landing() {
               ))}
             </div>
             <details className="mt-3 text-xs text-muted-foreground">
-              <summary className="cursor-pointer hover:text-foreground">+ 5 more languages</summary>
+              <summary className="cursor-pointer hover:text-foreground">{t("landing.moreLangs", { count: LANGUAGES.length - 12 })}</summary>
               <div className="mt-3 grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {LANGUAGES.slice(12).map((l) => (
                   <button
                     key={l.code}
-                    onClick={() => setPicked(l.code)}
+                    onClick={() => onPickLanguage(l.code)}
                     className={cn(
                       "flex flex-col items-center gap-1 rounded-2xl border bg-card px-2 py-3 transition-all",
                       picked === l.code ? "border-primary" : "border-border hover:border-foreground/20"
@@ -105,10 +120,12 @@ function Landing() {
               disabled={!picked}
               className="h-12 rounded-full px-7 text-[15px]"
             >
-              {picked ? `Continue in ${LANGUAGES.find(l => l.code === picked)?.native}` : "Pick a language to begin"}
+              {picked
+                ? t("landing.continueIn", { language: LANGUAGES.find((l) => l.code === picked)?.native ?? "English" })
+                : t("landing.pickLanguageToBegin")}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <p className="text-xs text-muted-foreground">Free to try · No credit card</p>
+            <p className="text-xs text-muted-foreground">{t("landing.freeToTry")}</p>
           </div>
         </div>
       </section>
@@ -118,18 +135,18 @@ function Landing() {
         <div className="grid gap-4 md:grid-cols-3">
           <FeatureCard
             icon={<MessagesSquare className="h-4 w-4" />}
-            title="Conversational, not a form"
-            body="One question at a time. Answer naturally, the way you'd talk to a friend. No empty fields to stare at."
+            title={t("landing.features.conversationalTitle")}
+            body={t("landing.features.conversationalBody")}
           />
           <FeatureCard
             icon={<Sparkles className="h-4 w-4" />}
-            title="Native in, polished English out"
-            body="Tell Linnea ‘maine ek game banayi’ — she writes ‘Designed an interactive game focused on user engagement.’"
+            title={t("landing.features.nativeInTitle")}
+            body={t("landing.features.nativeInBody")}
           />
           <FeatureCard
             icon={<FileCheck2 className="h-4 w-4" />}
-            title="ATS-ready, every time"
-            body="Three templates, each tested against real applicant tracking systems. Clean. Parsable. Quiet."
+            title={t("landing.features.atsReadyTitle")}
+            body={t("landing.features.atsReadyBody")}
           />
         </div>
       </section>
@@ -137,14 +154,14 @@ function Landing() {
       {/* How it works */}
       <section className="bg-secondary/60 border-y border-border">
         <div className="mx-auto max-w-5xl px-6 py-20">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground text-center">How it works</p>
-          <h2 className="mt-3 text-center font-display text-3xl sm:text-4xl tracking-tight">Four quiet steps to a great resume.</h2>
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground text-center">{t("landing.howItWorksTitle")}</p>
+          <h2 className="mt-3 text-center font-display text-3xl sm:text-4xl tracking-tight">{t("landing.howItWorksHeading")}</h2>
           <div className="mt-12 grid gap-8 md:grid-cols-4 text-center">
             {[
-              { n: "01", t: "Pick your language", d: "17 to choose from. We meet you where you are." },
-              { n: "02", t: "Pick a template", d: "Three honest layouts. All ATS-ready." },
-              { n: "03", t: "Tell us your field", d: "Linnea tunes her questions to your industry." },
-              { n: "04", t: "Just chat", d: "Watch your resume write itself, in real time." },
+              { n: "01", t: t("landing.steps.step1Title"), d: t("landing.steps.step1Desc") },
+              { n: "02", t: t("landing.steps.step2Title"), d: t("landing.steps.step2Desc") },
+              { n: "03", t: t("landing.steps.step3Title"), d: t("landing.steps.step3Desc") },
+              { n: "04", t: t("landing.steps.step4Title"), d: t("landing.steps.step4Desc") },
             ].map((s) => (
               <div key={s.n}>
                 <p className="font-serif italic text-2xl text-primary">{s.n}</p>
@@ -158,7 +175,7 @@ function Landing() {
 
       <footer className="mx-auto max-w-6xl px-6 py-10 flex items-center justify-between text-xs text-muted-foreground">
         <Logo />
-        <p>© {new Date().getFullYear()} Linnea. Built with care.</p>
+        <p>{t("landing.footer", { year: new Date().getFullYear() })}</p>
       </footer>
     </div>
   );

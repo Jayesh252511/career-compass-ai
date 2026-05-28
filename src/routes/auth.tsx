@@ -2,7 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const search = z.object({ next: z.string().optional() }).optional();
 
@@ -23,6 +23,7 @@ function AuthPage() {
   const navigate = useNavigate();
   const params = Route.useSearch();
   const next = params?.next ?? "/dashboard";
+  const { t } = useTranslation();
 
   useEffect(() => { if (user) navigate({ to: next }); }, [user, next, navigate]);
 
@@ -41,11 +42,11 @@ function AuthPage() {
           options: { emailRedirectTo: window.location.origin + "/dashboard" },
         });
         if (error) throw error;
-        toast.success("Welcome! You're signed in.");
+        toast.success(t("auth.welcomeBack"));
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        toast.success("Welcome back.");
+        toast.success(t("auth.welcomeBack"));
       }
       navigate({ to: next });
     } catch (err) {
@@ -57,12 +58,17 @@ function AuthPage() {
 
   const google = async () => {
     setBusy(true);
-    const res = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + next,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin + next },
     });
-    if (res.error) { toast.error("Google sign-in failed"); setBusy(false); return; }
-    if (res.redirected) return;
-    navigate({ to: next });
+    if (error) {
+      toast.error(t("auth.continueWithGoogle") + " failed");
+      setBusy(false);
+      return;
+    }
+    // OAuth flow redirects away; if it doesn't, we just stop showing busy.
+    setBusy(false);
   };
 
   return (
@@ -70,11 +76,11 @@ function AuthPage() {
       <div className="hidden md:flex flex-col justify-between p-10 bg-secondary/60 border-r border-border">
         <Link to="/"><Logo /></Link>
         <div className="max-w-md">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A quieter way to write a resume</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t("authLeft.tagline")}</p>
           <h2 className="mt-3 font-display text-3xl tracking-tight">
-            “I just answered a few questions in Hindi. Five minutes later I had a beautiful resume in English.”
+            {t("authLeft.quote")}
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">— Priya, recent graduate</p>
+          <p className="mt-3 text-sm text-muted-foreground">{t("authLeft.attribution")}</p>
         </div>
         <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Linnea</p>
       </div>
@@ -82,38 +88,38 @@ function AuthPage() {
       <div className="flex items-center justify-center p-6">
         <div className="w-full max-w-sm">
           <Link to="/" className="md:hidden block mb-8"><Logo /></Link>
-          <h1 className="font-display text-3xl tracking-tight">{mode === "signin" ? "Welcome back" : "Create your account"}</h1>
+          <h1 className="font-display text-3xl tracking-tight">{mode === "signin" ? t("auth.welcomeBack") : t("auth.createAccount")}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {mode === "signin" ? "Sign in to continue building." : "It takes seconds — and your data stays yours."}
+            {mode === "signin" ? t("auth.subtitleSignIn") : t("auth.subtitleSignUp")}
           </p>
 
           <Button onClick={google} disabled={busy} variant="outline" className="mt-8 w-full h-11 rounded-full">
-            <GoogleIcon className="mr-2 h-4 w-4" /> Continue with Google
+            <GoogleIcon className="mr-2 h-4 w-4" /> {t("auth.continueWithGoogle")}
           </Button>
 
           <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-            <div className="h-px flex-1 bg-border" />or<div className="h-px flex-1 bg-border" />
+            <div className="h-px flex-1 bg-border" />{t("auth.or")}<div className="h-px flex-1 bg-border" />
           </div>
 
           <form onSubmit={submit} className="space-y-3">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 h-11 rounded-xl" placeholder="you@example.com" />
             </div>
             <div>
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 h-11 rounded-xl" placeholder="At least 8 characters" />
+              <Label htmlFor="password">{t("auth.password")}</Label>
+              <Input id="password" type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 h-11 rounded-xl" placeholder={t("auth.passwordHint")} />
             </div>
             <Button type="submit" disabled={busy} className="w-full h-11 rounded-full">
               {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {mode === "signin" ? "Sign in" : "Create account"}
+              {mode === "signin" ? t("common.signIn") : t("auth.createAnAccount")}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            {mode === "signin" ? "New here?" : "Already have an account?"}{" "}
+            {mode === "signin" ? t("auth.newHere") : t("auth.alreadyHave")}{" "}
             <button onClick={() => setMode(mode === "signin" ? "signup" : "signin")} className="text-foreground underline-offset-4 hover:underline">
-              {mode === "signin" ? "Create an account" : "Sign in"}
+              {mode === "signin" ? t("auth.createAnAccount") : t("common.signIn")}
             </button>
           </p>
         </div>
