@@ -30,6 +30,29 @@ export const Route = createFileRoute("/builder/$id")({
   component: Builder,
 });
 
+const getLangToast = (code: string, native: string) => {
+  const map: Record<string, string> = {
+    en: `Language updated! The AI will now speak ${native}.`,
+    hi: `भाषा अपडेट की गई! AI अब ${native} में बात करेगा।`,
+    mr: `भाषा अपडेट केली! AI आता ${native} मध्ये बोलेल.`,
+    ta: `மொழி புதுப்பிக்கப்பட்டது! AI இப்போது ${native} மொழியில் பேசும்.`,
+    te: `భాష నవీకరించబడింది! AI ఇప్పుడు ${native} లో మాట్లాడుతుంది.`,
+    bn: `ভাষা আপডেট করা হয়েছে! এআই এখন ${native} ভাষায় কথা বলবে।`,
+    gu: `ભાષા અપડેટ થઈ ગઈ! AI હવે ${native} માં વાત કરશે.`,
+    pa: `ਭਾਸ਼ਾ ਅੱਪਡੇਟ ਕੀਤੀ ਗਈ! AI ਹੁਣ ${native} ਵਿੱਚ ਗੱਲ ਕਰੇਗਾ।`,
+    ml: `ഭാഷ അപ്ഡേറ്റ് ചെയ്തു! AI ഇനി ${native} സംസാരിക്കും.`,
+    kn: `ಭಾಷೆ ನವೀಕರಿಸಲಾಗಿದೆ! AI ಈಗ ${native} ನಲ್ಲಿ ಮಾತನಾಡುತ್ತದೆ.`,
+    ur: `زبان اپ ڈیٹ ہو گئی! اب AI ${native} میں بات کرے گا۔`,
+    es: `¡Idioma actualizado! La IA ahora hablará en ${native}.`,
+    fr: `Langue mise à jour ! L'IA parlera désormais en ${native}.`,
+    de: `Sprache aktualisiert! Die KI wird nun auf ${native} sprechen.`,
+    ar: `تم تحديث اللغة! سيتحدث الذكاء الاصطناعي الآن بـ ${native}.`,
+    ja: `言語が更新されました！AIは${native}で話します。`,
+    ko: `언어가 업데이트되었습니다! 이제 AI가 ${native}로 말합니다.`
+  };
+  return map[code] || map.en;
+};
+
 function getResumeSignature(content: any, template: string, language: string): string {
   const cleanContent = { ...content };
   delete cleanContent.premium_unlocked;
@@ -641,7 +664,8 @@ function Builder() {
     try {
       await supabase.from("resumes").update({ language: lng }).eq("id", resume.id);
       setResume({ ...resume, language: lng });
-      toast.success(t("common.saved") + ` (${LANGUAGES.find(l => l.code === lng)?.native})`);
+      const languageName = LANGUAGES.find(l => l.code === lng)?.native || lng;
+      toast.success(getLangToast(lng, languageName));
     } catch (e) {
       toast.error("Failed to update conversation language.");
     } finally {

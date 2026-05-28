@@ -118,7 +118,7 @@ export function SupportWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 print:hidden select-none">
+    <div className="fixed bottom-6 right-6 z-50 print:hidden select-none hidden md:block">
       {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}

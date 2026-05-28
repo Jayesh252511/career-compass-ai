@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { LogOut, User as UserIcon } from "lucide-react";
+import { LogOut, User as UserIcon, Headphones } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "@/lib/constants";
@@ -67,6 +67,9 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard"><UserIcon className="mr-2 h-4 w-4" /> {t("common.dashboard")}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="md:hidden">
+                  <a href="mailto:jayeshneo07@gmail.com"><Headphones className="mr-2 h-4 w-4" /> Support</a>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={signOut} className="text-destructive focus:text-destructive">
                   <LogOut className="mr-2 h-4 w-4" /> {t("common.signOut")}
