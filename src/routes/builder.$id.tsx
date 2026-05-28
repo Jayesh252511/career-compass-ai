@@ -635,6 +635,19 @@ function Builder() {
     setResume({ ...resume, template });
     await supabase.from("resumes").update({ template }).eq("id", resume.id);
   };
+  const changeConversationLanguage = async (lng: string) => {
+    if (!resume || resume.language === lng) return;
+    setThinking(true);
+    try {
+      await supabase.from("resumes").update({ language: lng }).eq("id", resume.id);
+      setResume({ ...resume, language: lng });
+      toast.success(t("common.saved") + ` (${LANGUAGES.find(l => l.code === lng)?.native})`);
+    } catch (e) {
+      toast.error("Failed to update conversation language.");
+    } finally {
+      setThinking(false);
+    }
+  };
   const renameTitle = async (title: string) => {
     if (!resume) return;
     setResume({ ...resume, title });
@@ -650,25 +663,9 @@ function Builder() {
 
   // -------- Cleanup & Global Listeners --------
   useEffect(() => {
-    const handleLangChange = async (lng: string) => {
-      if (!resume || resume.language === lng) return;
-      setThinking(true);
-      try {
-        await supabase.from("resumes").update({ language: lng }).eq("id", resume.id);
-        setResume(prev => prev ? { ...prev, language: lng } : prev);
-        toast.success(t("common.saved") + ` (${LANGUAGES.find(l => l.code === lng)?.native})`);
-      } catch (e) {
-        toast.error("Failed to update resume language.");
-      } finally {
-        setThinking(false);
-      }
-    };
-    i18n.on('languageChanged', handleLangChange);
-    
     return () => {
       stopSpeaking();
       if (scribe.isConnected) scribe.disconnect();
-      i18n.off('languageChanged', handleLangChange);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resume?.id, resume?.language]);
@@ -855,7 +852,7 @@ function Builder() {
                       {LANGUAGES.map((l) => (
                         <DropdownMenuItem 
                           key={l.code} 
-                          onClick={() => i18n.changeLanguage(l.code)}
+                          onClick={() => changeConversationLanguage(l.code)}
                           className="cursor-pointer"
                         >
                           <span className="mr-2">{l.flag}</span>
