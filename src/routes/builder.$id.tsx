@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy } from "lucide-react";
+import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy, Globe } from "lucide-react";
 import { computeProgress, INDUSTRIES, LANGUAGES, TEMPLATES, type ResumeContent, type TemplateType } from "@/lib/constants";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -845,6 +845,26 @@ function Builder() {
                         mode === "text" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
                     ><Keyboard className="h-3 w-3" /> {t("builder.text")}</button>
                   </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="h-8 w-8 ml-2 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title={t("templates.stepLanguage")}>
+                        <Globe className="h-4 w-4" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48 max-h-[300px] overflow-auto">
+                      {LANGUAGES.map((l) => (
+                        <DropdownMenuItem 
+                          key={l.code} 
+                          onClick={() => i18n.changeLanguage(l.code)}
+                          className="cursor-pointer"
+                        >
+                          <span className="mr-2">{l.flag}</span>
+                          <span className="flex-1">{l.native}</span>
+                          {resume.language === l.code && <span className="text-[10px] text-muted-foreground">✓</span>}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
 
                 {/* Body */}

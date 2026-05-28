@@ -50,7 +50,11 @@ export function AtsMatcher({ resumeContent, isPremium }: Props) {
       setResult(data as AtsResult);
     } catch (err: any) {
       console.error(err);
-      toast.error("Failed to analyze resume. Please try again.");
+      if (err.message?.includes("Failed to fetch") || err.message?.includes("Not Found")) {
+        toast.error("ATS Matcher requires backend deployment. Please run `npx supabase functions deploy ats-matcher` in your terminal.");
+      } else {
+        toast.error("Failed to analyze resume. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

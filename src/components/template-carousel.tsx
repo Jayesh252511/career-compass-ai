@@ -29,17 +29,12 @@ export function TemplateCarousel() {
               <CarouselItem key={tpl.id} className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/4">
                 <div className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10">
                   <div className="aspect-[1/1.4] w-full bg-neutral-100 dark:bg-neutral-900 relative">
-                    <img 
-                      src={`/templates/${tpl.id}.png`} 
-                      alt={tpl.name}
-                      className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                      onError={(e) => {
-                        // Fallback if image doesn't exist
-                        (e.target as HTMLImageElement).src = "/demo-thumbnail.png";
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                      <p className="text-white font-medium text-sm">{tpl.name}</p>
+                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-primary/5 to-primary/10">
+                      <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                        <span className="text-primary font-bold text-xl">{tpl.name.charAt(0)}</span>
+                      </div>
+                      <h3 className="font-semibold text-foreground/90">{tpl.name}</h3>
+                      <p className="text-xs text-muted-foreground mt-2">ATS-Optimized Layout</p>
                     </div>
                   </div>
                 </div>

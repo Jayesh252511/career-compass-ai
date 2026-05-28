@@ -18,9 +18,9 @@ const logos = [
 export function TrustedMarquee() {
   return (
     <div className="w-full bg-secondary/30 border-y border-border/60 py-10 overflow-hidden flex flex-col items-center">
-      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-8">
-        Trusted by 10,000+ professionals at top companies
-      </p>
+        <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
+          Combine your talent with our resumes to stand out at top companies like:
+        </p>
       
       <div className="relative w-full max-w-7xl mx-auto overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div className="flex w-max animate-scroll hover:[animation-play-state:paused] gap-12 sm:gap-24 items-center">
