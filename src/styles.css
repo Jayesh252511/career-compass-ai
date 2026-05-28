@@ -161,3 +161,9 @@
     40% { opacity: 1; transform: translateY(-2px); }
   }
 }
+
+@media print {
+  @page { margin: 0; }
+  body { margin: 0; }
+  [data-sonner-toaster] { display: none !important; }
+}
