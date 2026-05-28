@@ -26,8 +26,10 @@ export const LANGUAGES: Language[] = [
   { code: "ko", name: "Korean", native: "한국어", flag: "🇰🇷", sample: "이름이 무엇입니까?" },
 ];
 
+export type TemplateType = "ats" | "modern" | "fresher" | "executive" | "corporate";
+
 export type Template = {
-  id: "ats" | "modern" | "fresher";
+  id: TemplateType;
   name: string;
   description: string;
   tag: string;
@@ -55,6 +57,20 @@ export const TEMPLATES: Template[] = [
     description: "Project-first layout designed for students and early-career applicants.",
     tag: "ATS Friendly",
     bestFor: "Students · Interns · New grads",
+  },
+  {
+    id: "executive",
+    name: "Executive Leader",
+    description: "Elegant serif typography with strong horizontal separators. Commands authority.",
+    tag: "100% ATS",
+    bestFor: "Directors · VP · C-Suite",
+  },
+  {
+    id: "corporate",
+    name: "Corporate Classic",
+    description: "The gold-standard Wall Street format. Maximum information density and readability.",
+    tag: "100% ATS",
+    bestFor: "Finance · Law · Operations",
   },
 ];
 

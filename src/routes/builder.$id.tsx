@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy } from "lucide-react";
-import { computeProgress, INDUSTRIES, LANGUAGES, TEMPLATES, type ResumeContent } from "@/lib/constants";
+import { computeProgress, INDUSTRIES, LANGUAGES, TEMPLATES, type ResumeContent, type TemplateType } from "@/lib/constants";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { playStreamingMp3 } from "@/lib/voice/streaming-audio";
@@ -1014,7 +1014,7 @@ function Builder() {
                   {exportMode === "ui" && (
                     <ResumePreview
                       content={resume.content}
-                      template={resume.template as "ats" | "modern" | "fresher"}
+                      template={resume.template as TemplateType}
                       labels={labelsEn}
                       isPremium={isPremium}
                       userEmail={user?.email}
@@ -1023,7 +1023,7 @@ function Builder() {
                   {exportMode === "en" && (
                     <ResumePreview
                       content={resume.content}
-                      template={resume.template as "ats" | "modern" | "fresher"}
+                      template={resume.template as TemplateType}
                       labels={labelsEn}
                       isPremium={isPremium}
                       userEmail={user?.email}
@@ -1032,7 +1032,7 @@ function Builder() {
                   {exportMode === "native" && (
                     <ResumePreview
                       content={(exportContent ?? resume.content) as ResumeContent}
-                      template={resume.template as "ats" | "modern" | "fresher"}
+                      template={resume.template as TemplateType}
                       labels={labelsNative}
                       isPremium={isPremium}
                       userEmail={user?.email}
@@ -1042,7 +1042,7 @@ function Builder() {
                     <div className="print:block">
                       <ResumePreview
                         content={resume.content}
-                        template={resume.template as "ats" | "modern" | "fresher"}
+                        template={resume.template as TemplateType}
                         labels={labelsEn}
                         isPremium={isPremium}
                         userEmail={user?.email}
@@ -1050,7 +1050,7 @@ function Builder() {
                       <div className="print:break-before-page" />
                       <ResumePreview
                         content={(exportContent ?? resume.content) as ResumeContent}
-                        template={resume.template as "ats" | "modern" | "fresher"}
+                        template={resume.template as TemplateType}
                         labels={labelsNative}
                         isPremium={isPremium}
                         userEmail={user?.email}
