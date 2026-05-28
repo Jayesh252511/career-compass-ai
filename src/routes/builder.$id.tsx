@@ -91,6 +91,14 @@ function getResumeSignature(content: any, template: string, language: string): s
   return `${template}_${language}_ex${expCount}_ed${eduCount}_pj${projCount}_sk${skillsCount}_len${roundedCharCount}`;
 }
 
+const formatVipTime = (ms: number) => {
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  const s = Math.floor((ms % 60000) / 1000);
+  if (h > 0) return `${h}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+  return `${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+};
+
 function Builder() {
   const { id } = Route.useParams();
   const { user, loading } = useAuth();
@@ -135,8 +143,14 @@ function Builder() {
   const [exportMode, setExportMode] = useState<"ui" | "en" | "native" | "bilingual">("ui");
   const [exportContent, setExportContent] = useState<ResumeContent | null>(null);
   const [exportLoading, setExportLoading] = useState(false);
+  const [vipRemaining, setVipRemaining] = useState<number | null>(null);
   const [isPremium, setIsPremium] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
+      const vipUntilStr = localStorage.getItem("resumezen_global_vip_until");
+      if (vipUntilStr) {
+        const until = parseInt(vipUntilStr, 10);
+        if (until > Date.now()) return true;
+      }
       return localStorage.getItem(`resumezen_premium_unlocked_${id}`) === "true";
     }
     return false;
@@ -150,6 +164,25 @@ function Builder() {
 
   // Keep messagesRef in sync — lets handleUserUtterance read latest messages synchronously
   useEffect(() => { messagesRef.current = messages; }, [messages]);
+
+  // Global VIP Timer
+  useEffect(() => {
+    const checkVip = () => {
+      const untilStr = localStorage.getItem("resumezen_global_vip_until");
+      if (untilStr) {
+        const diff = parseInt(untilStr, 10) - Date.now();
+        if (diff > 0) {
+          setVipRemaining(diff);
+          setIsPremium(true);
+        } else {
+          setVipRemaining(null);
+        }
+      }
+    };
+    checkVip();
+    const interval = setInterval(checkVip, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const stopSpeaking = useCallback(() => {
     // Bump counter so any in-flight speak() call knows it's been superseded
@@ -211,10 +244,13 @@ function Builder() {
 
       const dbPremium = (contentObj.premium_unlocked === true && contentObj.premium_signature === currentSig) || !!unlockData;
       const localPremium = localStorage.getItem(`resumezen_premium_unlocked_${r.id}`) === "true";
+      const vipUntilStr = localStorage.getItem("resumezen_global_vip_until");
+      const isVip = vipUntilStr ? parseInt(vipUntilStr, 10) > Date.now() : false;
       
-      if (dbPremium || (localPremium && contentObj.premium_signature === currentSig)) {
+      if (isVip || dbPremium || (localPremium && contentObj.premium_signature === currentSig)) {
         setIsPremium(true);
-        if (!contentObj.premium_unlocked || contentObj.premium_signature !== currentSig) {
+        const hasSpecificUnlock = dbPremium || (localPremium && contentObj.premium_signature === currentSig);
+        if (hasSpecificUnlock && (!contentObj.premium_unlocked || contentObj.premium_signature !== currentSig)) {
           // Sync to db
           const updatedContent = {
             ...contentObj,
@@ -286,10 +322,14 @@ function Builder() {
           await supabase.from("resumes").update({ content: syncedContent }).eq("id", id);
         }
         
+        const vipTime = Date.now() + 2 * 60 * 60 * 1000;
+        localStorage.setItem("resumezen_global_vip_until", vipTime.toString());
+        setVipRemaining(vipTime - Date.now());
+        
         setIsPremium(true);
         setResume(prev => prev ? { ...prev, content: syncedContent } : prev);
         setShowUpgradeModal(false);
-        toast.success("Payment detected successfully! Premium features unlocked.");
+        toast.success("Payment detected! 2-Hour VIP unlocked globally.");
       }
     } catch (e) {
       console.warn("Polling payment status failed:", e);
@@ -611,6 +651,9 @@ function Builder() {
       if (error) throw error;
       
       localStorage.setItem(`resumezen_premium_unlocked_${id}`, "true");
+      const vipTime = Date.now() + 2 * 60 * 60 * 1000;
+      localStorage.setItem("resumezen_global_vip_until", vipTime.toString());
+      setVipRemaining(vipTime - Date.now());
       
       setResume(prev => prev ? { ...prev, content: updatedContent } : prev);
       setIsPremium(true);
@@ -811,6 +854,11 @@ function Builder() {
                               ? t("builder.listening")
                               : t("builder.tapOrbToTalk")}
                       </p>
+                      {vipRemaining !== null && (
+                         <p className="text-[10px] sm:text-xs font-bold text-amber-500 animate-pulse mt-0.5">
+                           👑 You are our lucky VIP member! Treated as a king for {formatVipTime(vipRemaining)}
+                         </p>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center rounded-full bg-card border border-border p-0.5 text-xs">
