@@ -118,7 +118,7 @@ function Landing() {
         </div>
       </section>
 
-      <TemplateCarousel />
+      {/* <TemplateCarousel /> */}
 
       {/* How it works */}
       <section className="bg-secondary/60 border-y border-border">
