@@ -749,18 +749,8 @@ function Builder() {
           </div>
         </div>
 
-        {/* Mobile: Big Action Buttons */}
-        <div className="flex sm:hidden w-full gap-3 shrink-0">
-          <Button onClick={() => setShowPreviewModal(true)} variant="outline" className="h-10 flex-1 rounded-xl shadow-sm text-sm border-primary/20 hover:border-primary/50 hover:bg-primary/5">
-            <Eye className="mr-2 h-4 w-4" /> Preview
-          </Button>
-          <Button onClick={() => setShowDownloadModal(true)} className="h-10 flex-1 rounded-xl shadow-md text-sm">
-            <Download className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
-        </div>
-
-        {/* Right Side: Tools & Desktop Download */}
-        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
+        {/* Desktop Right Side: Tools & Download */}
+        <div className="hidden sm:flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
           <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground shrink-0">
             <span>{resume.progress}%</span>
             <Progress value={resume.progress} className="h-1 w-28" />
@@ -800,7 +790,7 @@ function Builder() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden flex flex-col md:flex-row print:block">
+      <div className="flex-1 overflow-hidden flex flex-col md:flex-row print:block pb-[120px] sm:pb-0">
         {/* ============ Conversation panel ============ */}
         <div className="print:hidden flex flex-col border-b md:border-b-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-[45vh] min-h-[300px] md:h-full md:w-[480px]">
               <>
@@ -1197,6 +1187,43 @@ function Builder() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* --- Mobile Bottom Navigation --- */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-t border-border p-3 pb-safe shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.1)] flex flex-col gap-3">
+        <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar w-full pb-1">
+          <Select value={resume.template} onValueChange={changeTemplate}>
+            <SelectTrigger className="h-9 w-[160px] shrink-0 border-primary/20 hover:border-primary/50 transition-all bg-card">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {TEMPLATES.map((tpl) => (
+                <SelectItem key={tpl.id} value={tpl.id}>
+                  {t(`templatesList.${tpl.id}.name`, { defaultValue: tpl.name })}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {!isPremium && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setShowUpgradeModal(true)}
+              className="h-9 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400 font-semibold shrink-0"
+            >
+              Upgrade ✦
+            </Button>
+          )}
+          <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
+        </div>
+        <div className="flex w-full gap-3 shrink-0">
+          <Button onClick={() => setShowPreviewModal(true)} variant="outline" className="h-11 flex-1 rounded-xl shadow-sm text-sm border-primary/20 hover:border-primary/50 bg-card">
+            <Eye className="mr-2 h-4 w-4" /> Preview
+          </Button>
+          <Button onClick={() => setShowDownloadModal(true)} className="h-11 flex-1 rounded-xl shadow-md text-sm">
+            <Download className="mr-2 h-4 w-4" /> Download PDF
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
