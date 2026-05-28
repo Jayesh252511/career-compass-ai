@@ -839,7 +839,7 @@ function Builder() {
 
       <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block pb-[120px] sm:pb-0">
         {/* ============ Conversation panel ============ */}
-        <div className="print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-[45vh] min-h-[300px] md:h-full md:w-[480px]">
+        <div className={cn("print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative md:h-full md:w-[480px]", mode === "text" ? "h-[45vh] min-h-[300px]" : "h-auto pb-4")}>
               <>
                 {/* Header with mode toggle */}
                 <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between">
@@ -941,6 +941,20 @@ function Builder() {
                       )}
                     </div>
                     
+                    {/* Live partial transcript */}
+                    <div className="w-full max-w-md min-h-[3rem] pb-2">
+                      <AnimatePresence>
+                        {partial && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                            className="rounded-2xl bg-card/70 backdrop-blur border border-border px-4 py-2.5 text-sm text-foreground/80 text-center"
+                          >
+                            {partial}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
                     {/* Mobile Voice Pill (Sticky at bottom) */}
                     <div className="md:hidden mt-auto w-full pt-4 pb-2 z-10">
                       <div className="max-w-sm mx-auto bg-card border border-border shadow-[0_0_20px_rgba(0,0,0,0.1)] rounded-full p-2 pl-3 flex items-center gap-3">
@@ -976,20 +990,6 @@ function Builder() {
                            </button>
                         ) : null}
                       </div>
-                    </div>
-
-                    {/* Live partial transcript */}
-                    <div className="w-full max-w-md min-h-[3rem] pb-2">
-                      <AnimatePresence>
-                        {partial && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                            className="rounded-2xl bg-card/70 backdrop-blur border border-border px-4 py-2.5 text-sm text-foreground/80 text-center"
-                          >
-                            {partial}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
                     </div>
 
                     {speaking && (
