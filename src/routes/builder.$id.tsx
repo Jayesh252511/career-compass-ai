@@ -48,7 +48,7 @@ function Builder() {
   // -------- ElevenLabs realtime STT --------
   const scribe = useScribe({
     modelId: "scribe_v2_realtime",
-    commitStrategy: "vad",
+    commitStrategy: CommitStrategy.VAD,
     onPartialTranscript: (data) => setPartial(data.text ?? ""),
     onCommittedTranscript: (data) => {
       const text = (data.text ?? "").trim();
