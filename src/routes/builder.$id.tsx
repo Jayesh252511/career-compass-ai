@@ -817,10 +817,10 @@ function Builder() {
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
             
-            {/* Lang Dropdown on mobile (and desktop) */}
+            {/* Lang Dropdown — hidden on mobile (already near mic) */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1.5 px-2 py-1.5 rounded-md hover:bg-secondary/80 transition-colors shrink-0">
+                <button className="hidden md:flex items-center gap-1.5 px-2 py-1.5 rounded-md hover:bg-secondary/80 transition-colors shrink-0">
                    <span className="text-xs text-foreground/90 font-medium">{lang?.flag} {lang?.native}</span>
                    <Globe className="h-3.5 w-3.5 text-muted-foreground" />
                 </button>
