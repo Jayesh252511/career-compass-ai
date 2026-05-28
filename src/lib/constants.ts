@@ -26,7 +26,17 @@ export const LANGUAGES: Language[] = [
   { code: "ko", name: "Korean", native: "한국어", flag: "🇰🇷", sample: "이름이 무엇입니까?" },
 ];
 
-export type TemplateType = "ats" | "modern" | "fresher" | "executive" | "corporate";
+export type TemplateType = 
+  | "executive-elite" 
+  | "faang-professional" 
+  | "modern-corporate" 
+  | "startup-minimal" 
+  | "product-designer" 
+  | "investment-banking" 
+  | "academic-research" 
+  | "fresher-smart" 
+  | "creative-professional" 
+  | "global-standard";
 
 export type Template = {
   id: TemplateType;
@@ -34,43 +44,122 @@ export type Template = {
   description: string;
   tag: string;
   bestFor: string;
+  atsScore: number;
+  experienceLevel: string;
+  idealIndustry: string;
+  isPremium: boolean;
 };
 
 export const TEMPLATES: Template[] = [
   {
-    id: "ats",
-    name: "ATS Professional",
-    description: "Single column. Recruiter-ready. Parses cleanly through every applicant tracking system.",
+    id: "global-standard",
+    name: "Global Standard",
+    description: "The safest possible ATS layout. Standard margins, bullet styles, and universally parsed headers.",
     tag: "100% ATS",
-    bestFor: "Corporate · Banking · Consulting",
+    bestFor: "Universally accepted",
+    atsScore: 99,
+    experienceLevel: "All Levels",
+    idealIndustry: "All Industries",
+    isPremium: false,
   },
   {
-    id: "modern",
-    name: "Modern Minimal",
-    description: "A quiet two-column layout with premium typography. Calm hierarchy, no decoration.",
-    tag: "ATS Friendly",
-    bestFor: "Startups · Product · Design",
-  },
-  {
-    id: "fresher",
-    name: "Fresher Smart",
-    description: "Project-first layout designed for students and early-career applicants.",
-    tag: "ATS Friendly",
-    bestFor: "Students · Interns · New grads",
-  },
-  {
-    id: "executive",
-    name: "Executive Leader",
-    description: "Elegant serif typography with strong horizontal separators. Commands authority.",
-    tag: "100% ATS",
+    id: "executive-elite",
+    name: "Executive Elite",
+    description: "Luxurious minimal spacing, leadership focused, premium serif typography.",
+    tag: "Premium",
     bestFor: "Directors · VP · C-Suite",
+    atsScore: 96,
+    experienceLevel: "Senior / Executive",
+    idealIndustry: "Management & Enterprise",
+    isPremium: true,
   },
   {
-    id: "corporate",
-    name: "Corporate Classic",
-    description: "The gold-standard Wall Street format. Maximum information density and readability.",
-    tag: "100% ATS",
-    bestFor: "Finance · Law · Operations",
+    id: "faang-professional",
+    name: "FAANG Professional",
+    description: "Highly structured, dense but readable, exacting hierarchy for tech giants.",
+    tag: "ATS Optimized",
+    bestFor: "Engineers · PMs",
+    atsScore: 98,
+    experienceLevel: "Mid to Senior",
+    idealIndustry: "Technology",
+    isPremium: true,
+  },
+  {
+    id: "modern-corporate",
+    name: "Modern Corporate",
+    description: "Enterprise consulting style. Clean separators and a highly traditional, safe format.",
+    tag: "Enterprise",
+    bestFor: "Consultants · B2B",
+    atsScore: 97,
+    experienceLevel: "Mid-Level",
+    idealIndustry: "Consulting & Corporate",
+    isPremium: true,
+  },
+  {
+    id: "startup-minimal",
+    name: "Startup Minimal",
+    description: "YC/founder aesthetic. High-contrast sans-serif typography with compact whitespace.",
+    tag: "Modern",
+    bestFor: "Founders · Marketers",
+    atsScore: 92,
+    experienceLevel: "Junior to Mid",
+    idealIndustry: "Startups",
+    isPremium: true,
+  },
+  {
+    id: "product-designer",
+    name: "Product Designer",
+    description: "Visually refined but ATS-safe. Elegant typography balance and subtle alignments.",
+    tag: "Creative",
+    bestFor: "Designers · UI/UX",
+    atsScore: 88,
+    experienceLevel: "All Levels",
+    idealIndustry: "Design & Product",
+    isPremium: true,
+  },
+  {
+    id: "investment-banking",
+    name: "Investment Banking",
+    description: "Ultra-dense but clean single-column. Strict Ivy League finance style.",
+    tag: "Traditional",
+    bestFor: "Finance · Analysts",
+    atsScore: 98,
+    experienceLevel: "Junior to Senior",
+    idealIndustry: "Finance & Banking",
+    isPremium: true,
+  },
+  {
+    id: "academic-research",
+    name: "Academic Research",
+    description: "Formal structure prioritizing publications, papers, and deep chronological history.",
+    tag: "Academic",
+    bestFor: "Professors · Researchers",
+    atsScore: 95,
+    experienceLevel: "Post-grad",
+    idealIndustry: "Education & Research",
+    isPremium: true,
+  },
+  {
+    id: "fresher-smart",
+    name: "Fresher Smart",
+    description: "Project-first layout designed for students. Fills space elegantly.",
+    tag: "Students",
+    bestFor: "Students · Interns",
+    atsScore: 94,
+    experienceLevel: "Entry-Level",
+    idealIndustry: "General",
+    isPremium: true,
+  },
+  {
+    id: "creative-professional",
+    name: "Creative Professional",
+    description: "Distinct typography scale and elegant visual personality while remaining parsable.",
+    tag: "Media",
+    bestFor: "Media · Photographers",
+    atsScore: 85,
+    experienceLevel: "All Levels",
+    idealIndustry: "Creative Arts",
+    isPremium: true,
   },
 ];
 

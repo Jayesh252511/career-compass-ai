@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/industry")({
-  validateSearch: z.object({ template: z.string().default("ats") }),
+  validateSearch: z.object({ template: z.string().default("global-standard") }),
   component: IndustryPage,
 });
 

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/templates")({
 function TemplatesPage() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [selected, setSelected] = useState<string>("ats");
+  const [selected, setSelected] = useState<string>("global-standard");
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -49,20 +49,41 @@ function TemplatesPage() {
                 )}
               </div>
               <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <p className="font-display text-lg font-medium">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <p className="font-display text-lg font-semibold leading-tight">
                     {t(`templatesList.${tmpl.id}.name`, { defaultValue: tmpl.name })}
                   </p>
-                  <span className="text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded-md bg-accent text-accent-foreground">
-                    {t(`templatesList.${tmpl.id}.tag`, { defaultValue: tmpl.tag })}
+                  {tmpl.isPremium && (
+                    <span className="shrink-0 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                      Premium
+                    </span>
+                  )}
+                </div>
+                
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  <span className="text-[10px] font-medium tracking-wide uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-100">
+                    ATS: {tmpl.atsScore}/100
+                  </span>
+                  <span className="text-[10px] font-medium tracking-wide uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    {tmpl.experienceLevel}
                   </span>
                 </div>
-                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+
+                <p className="text-[13px] text-muted-foreground leading-relaxed mb-4">
                   {t(`templatesList.${tmpl.id}.description`, { defaultValue: tmpl.description })}
                 </p>
-                <p className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {t(`templatesList.${tmpl.id}.bestFor`, { defaultValue: tmpl.bestFor })}
-                </p>
+                
+                <div className="pt-4 border-t border-border/50">
+                  <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-1">
+                    Ideal For
+                  </p>
+                  <p className="text-[12px] text-foreground font-medium">
+                    {t(`templatesList.${tmpl.id}.idealIndustry`, { defaultValue: tmpl.idealIndustry })}
+                  </p>
+                  <p className="text-[12px] text-muted-foreground mt-0.5">
+                    {t(`templatesList.${tmpl.id}.bestFor`, { defaultValue: tmpl.bestFor })}
+                  </p>
+                </div>
               </div>
             </button>
           ))}
