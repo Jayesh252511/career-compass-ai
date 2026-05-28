@@ -21,7 +21,6 @@ import { useTranslation } from "react-i18next";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { getSectionLabels } from "@/lib/resume/section-labels";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { AtsMatcher } from "@/components/ats-matcher";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
@@ -838,8 +837,8 @@ function Builder() {
           </div>
         </div>
 
-        {/* Tools & Download (Scrollable on Mobile) */}
-        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
+        {/* Tools & Download */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
           <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground shrink-0">
             <span>{resume.progress}%</span>
             <Progress value={resume.progress} className="h-1 w-28" />
@@ -875,7 +874,6 @@ function Builder() {
               Upgrade ✦
             </Button>
           )}
-          <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
           
           <Button size="sm" onClick={() => setShowPreviewModal(true)} variant="outline" className="h-9 rounded-full px-4 shrink-0 shadow-sm border-primary/20 hover:border-primary/50 bg-card sm:hidden flex items-center">
             <Eye className="mr-1.5 h-4 w-4" /> <span>Preview</span>
