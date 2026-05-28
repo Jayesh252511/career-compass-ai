@@ -93,15 +93,7 @@ function AuthPage() {
             {mode === "signin" ? t("auth.subtitleSignIn") : t("auth.subtitleSignUp")}
           </p>
 
-          <Button onClick={google} disabled={busy} variant="outline" className="mt-8 w-full h-11 rounded-full">
-            <GoogleIcon className="mr-2 h-4 w-4" /> {t("auth.continueWithGoogle")}
-          </Button>
-
-          <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-            <div className="h-px flex-1 bg-border" />{t("auth.or")}<div className="h-px flex-1 bg-border" />
-          </div>
-
-          <form onSubmit={submit} className="space-y-3">
+          <form onSubmit={submit} className="mt-8 space-y-3">
             <div>
               <Label htmlFor="email">{t("auth.email")}</Label>
               <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 h-11 rounded-xl" placeholder="you@example.com" />
