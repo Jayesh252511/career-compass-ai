@@ -167,3 +167,12 @@
   body { margin: 0; }
   [data-sonner-toaster] { display: none !important; }
 }
+
+@layer utilities {
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+  @keyframes scroll {
+    to { transform: translateX(calc(-50% - 0.5rem)); }
+  }
+}

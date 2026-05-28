@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { getSectionLabels } from "@/lib/resume/section-labels";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { AtsMatcher } from "@/components/ats-matcher";
 
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
 type Mode = "voice" | "text";
@@ -755,6 +756,7 @@ function Builder() {
               Upgrade ✦
             </Button>
           )}
+          <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button size="sm" className="h-9 rounded-full px-2 sm:px-3">
