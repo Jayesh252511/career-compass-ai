@@ -58,16 +58,12 @@ await esbuild({
   bundle: true,
   platform: "node",
   target: ["node20"],
-  format: "esm",
-  // Single output file — all dynamic imports inlined via splitting + chunk merging
-  splitting: true,
-  outdir: funcDir,
-  entryNames: "server.bundle",
-  chunkNames: "chunks/[name]-[hash]",
+  format: "cjs",
+  outfile: path.join(funcDir, "server.bundle.js"),
   external: NODE_BUILTINS,
   logLevel: "warning",
 });
-console.log("  ✓ SSR server bundled (self-contained)");
+console.log("  ✓ SSR server bundled (self-contained CommonJS)");
 
 // ─── 5. Vercel function entry — adapts Node.js req/res ↔ Web Fetch API ────
 const funcEntry = `
@@ -75,10 +71,11 @@ const funcEntry = `
 // The server exports a standard WinterCG fetch handler.
 import serverMod from './server.bundle.js';
 
-// server.bundle is the outer server.js; its default export has a .fetch method.
-const server = serverMod;
+// server.bundle is CommonJS; get default export or module.exports
+const server = serverMod.default || serverMod;
 
 /** Convert Node.js IncomingMessage → Web API Request */
+
 async function toWebRequest(req) {
   const protocol = req.headers["x-forwarded-proto"] || "https";
   const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost";
