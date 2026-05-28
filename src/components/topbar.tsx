@@ -68,8 +68,11 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
                 <DropdownMenuItem asChild>
                   <Link to="/dashboard"><UserIcon className="mr-2 h-4 w-4" /> {t("common.dashboard")}</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="md:hidden">
-                  <a href="mailto:jayeshneo07@gmail.com"><Headphones className="mr-2 h-4 w-4" /> Support</a>
+                <DropdownMenuItem 
+                  className="md:hidden cursor-pointer"
+                  onClick={() => window.dispatchEvent(new Event("open-support"))}
+                >
+                  <Headphones className="mr-2 h-4 w-4" /> Support
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={signOut} className="text-destructive focus:text-destructive">
                   <LogOut className="mr-2 h-4 w-4" /> {t("common.signOut")}

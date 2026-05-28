@@ -35,6 +35,12 @@ export function SupportWidget() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
+  useEffect(() => {
+    const handleOpenSupport = () => setIsOpen(true);
+    window.addEventListener("open-support", handleOpenSupport);
+    return () => window.removeEventListener("open-support", handleOpenSupport);
+  }, []);
+
   const faqs = [
     {
       q: "How do I download a clean, watermark-free PDF?",
@@ -118,12 +124,12 @@ export function SupportWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 print:hidden select-none hidden md:block">
+    <div className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-50 print:hidden select-none">
       {/* Floating Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "h-14 w-14 rounded-full bg-neutral-950 hover:bg-neutral-900 border border-neutral-800 text-white flex items-center justify-center shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer relative",
+          "h-14 w-14 rounded-full bg-neutral-950 hover:bg-neutral-900 border border-neutral-800 text-white hidden sm:flex items-center justify-center shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer relative",
           isOpen ? "rotate-90 bg-destructive hover:bg-destructive/90 border-destructive/30" : ""
         )}
       >
@@ -138,7 +144,7 @@ export function SupportWidget() {
 
       {/* Support Card Container */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-[360px] sm:w-[380px] h-[550px] bg-card text-card-foreground border border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom-5 duration-300">
+        <div className="fixed sm:absolute inset-0 sm:inset-auto sm:bottom-16 sm:right-0 w-full sm:w-[380px] h-[100dvh] sm:h-[550px] bg-card text-card-foreground sm:border sm:border-border sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom-5 duration-300 z-50">
           {/* Header Panel */}
           <div className="p-5 bg-gradient-to-r from-neutral-950 via-neutral-900 to-amber-950 text-white relative">
             <div className="flex items-center gap-3">
@@ -159,10 +165,15 @@ export function SupportWidget() {
               </p>
             </div>
 
-            {/* Support avatars */}
-            <div className="absolute top-5 right-5 flex -space-x-2">
-              <div className="h-8 w-8 rounded-full border border-neutral-800 bg-neutral-900 grid place-items-center text-[10px] font-bold text-amber-400 font-serif">J</div>
-              <div className="h-8 w-8 rounded-full border border-neutral-800 bg-neutral-900 grid place-items-center text-[10px] font-bold text-neutral-400">AI</div>
+            {/* Support avatars & Close button */}
+            <div className="absolute top-5 right-5 flex items-center gap-3">
+              <div className="flex -space-x-2">
+                <div className="h-8 w-8 rounded-full border border-neutral-800 bg-neutral-900 grid place-items-center text-[10px] font-bold text-amber-400 font-serif">J</div>
+                <div className="h-8 w-8 rounded-full border border-neutral-800 bg-neutral-900 grid place-items-center text-[10px] font-bold text-neutral-400">AI</div>
+              </div>
+              <button onClick={() => setIsOpen(false)} className="sm:hidden grid place-items-center h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <X className="h-4 w-4" />
+              </button>
             </div>
           </div>
 

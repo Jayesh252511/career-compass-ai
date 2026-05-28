@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy, Globe } from "lucide-react";
+import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy, Globe, Eye } from "lucide-react";
 import { computeProgress, INDUSTRIES, LANGUAGES, TEMPLATES, type ResumeContent, type TemplateType } from "@/lib/constants";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { getSectionLabels } from "@/lib/resume/section-labels";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AtsMatcher } from "@/components/ats-matcher";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
 type Mode = "voice" | "text";
@@ -144,6 +145,8 @@ function Builder() {
   const [unlockCode, setUnlockCode] = useState("");
   const [verifyingCode, setVerifyingCode] = useState(false);
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
 
   // Keep messagesRef in sync — lets handleUserUtterance read latest messages synchronously
   useEffect(() => { messagesRef.current = messages; }, [messages]);
@@ -740,11 +743,12 @@ function Builder() {
       <div className="print:hidden mx-auto w-full max-w-7xl px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border">
         <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto shrink-0">
           <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
-          <Input
-            value={resume.title}
-            onChange={(e) => renameTitle(e.target.value)}
-            className="h-9 w-full sm:max-w-[260px] border-transparent bg-transparent focus-visible:border-input font-medium disabled:opacity-90 px-2"
-          />
+          <Button size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-3 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all">
+            <Download className="sm:mr-1.5 h-4 w-4" /> <span className="hidden sm:inline">{t("common.pdf")}</span>
+          </Button>
+          <Button size="icon" variant="outline" onClick={() => setShowPreviewModal(true)} className="h-9 w-9 rounded-full shrink-0 lg:hidden shadow-sm">
+            <Eye className="h-4 w-4" />
+          </Button>
           <span className="text-xs text-muted-foreground hidden sm:inline shrink-0">{lang?.flag} {lang?.native}</span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
@@ -780,54 +784,7 @@ function Builder() {
             </Button>
           )}
           <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="sm" className="h-9 rounded-full px-2 sm:px-3 shrink-0">
-                <Download className="sm:mr-1.5 h-4 w-4" /> <span className="hidden sm:inline">{t("common.pdf")}</span> <ChevronDown className="ml-1 sm:ml-1.5 h-4 w-4 opacity-70" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64">
-              {!isPremium && (
-                <>
-                  <DropdownMenuItem 
-                    className="font-semibold text-amber-600 dark:text-amber-400 focus:text-amber-700 focus:bg-amber-500/10 cursor-pointer"
-                    onClick={() => setShowUpgradeModal(true)}
-                  >
-                    ✦ Download Clean PDF
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                </>
-              )}
-              <DropdownMenuItem onClick={() => runExportPrint("en")} className="cursor-pointer">
-                {t("builder.exportEnglish")} {!isPremium && "(Watermarked)"}
-              </DropdownMenuItem>
-              <DropdownMenuItem 
-                onClick={() => {
-                  if (!isPremium) {
-                    setShowUpgradeModal(true);
-                  } else {
-                    runExportPrint("native");
-                  }
-                }}
-                className="cursor-pointer"
-              >
-                {t("builder.exportNative", { language: lang?.native ?? "your language" })} {!isPremium && "✦"}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                onClick={() => {
-                  if (!isPremium) {
-                    setShowUpgradeModal(true);
-                  } else {
-                    runExportPrint("bilingual");
-                  }
-                }}
-                className="cursor-pointer"
-              >
-                {t("builder.exportBilingual", { language: lang?.native ?? "your language" })} {!isPremium && "✦"}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
         </div>
       </div>
 
@@ -1157,6 +1114,77 @@ function Builder() {
           </div>
         </div>
       )}
+
+      <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>{t("builder.nameResume", "Name your Resume")}</DialogTitle>
+            <DialogDescription>
+              {t("builder.nameResumeDesc", "Give your resume a name before downloading.")}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <Input
+              value={resume.title}
+              onChange={(e) => renameTitle(e.target.value)}
+              placeholder="e.g. John_Doe_Resume"
+              className="w-full"
+              autoFocus
+            />
+          </div>
+          <div className="flex flex-col gap-2 mt-2">
+            {!isPremium && (
+              <Button 
+                variant="outline" 
+                className="w-full justify-between font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700 hover:bg-amber-500/10 border-amber-500/30"
+                onClick={() => { setShowDownloadModal(false); setShowUpgradeModal(true); }}
+              >
+                <span>✦ Download Clean PDF</span>
+                <span className="text-xs opacity-70">Upgrade</span>
+              </Button>
+            )}
+            <Button 
+              className="w-full justify-between" 
+              onClick={() => { setShowDownloadModal(false); runExportPrint("en"); }}
+            >
+              <span>{t("builder.exportEnglish", "Standard Download (English)")}</span>
+              {!isPremium && <span className="text-xs opacity-70">(Watermarked)</span>}
+            </Button>
+            <Button 
+              className="w-full justify-between" 
+              variant="outline"
+              onClick={() => { 
+                setShowDownloadModal(false); 
+                if (!isPremium) setShowUpgradeModal(true);
+                else runExportPrint("native"); 
+              }}
+            >
+              <span>{t("builder.exportNative", { defaultValue: `Standard Download (${lang?.native ?? "Native"})` })}</span>
+              {!isPremium && <span className="text-xs opacity-70">✦</span>}
+            </Button>
+            <Button 
+              variant="secondary"
+              className="w-full justify-between" 
+              onClick={() => { 
+                setShowDownloadModal(false); 
+                if (!isPremium) setShowUpgradeModal(true);
+                else runExportPrint("bilingual"); 
+              }}
+            >
+              <span>{t("builder.exportBilingual", { defaultValue: `Bilingual (${lang?.native ?? "Native"} + English)` })}</span>
+              {!isPremium && <span className="text-xs opacity-70">✦</span>}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showPreviewModal} onOpenChange={setShowPreviewModal}>
+        <DialogContent className="max-w-[95vw] w-full h-[95vh] p-0 sm:max-w-4xl overflow-hidden flex flex-col rounded-2xl bg-card border-none">
+          <div className="flex-1 overflow-y-auto bg-neutral-100/50 dark:bg-neutral-900/50 p-2 sm:p-4 rounded-b-2xl hide-scrollbar">
+            <ResumePreview content={resume.content} template={resume.template as any} labels={exportMode === "native" ? labelsNative : labelsEn} />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
