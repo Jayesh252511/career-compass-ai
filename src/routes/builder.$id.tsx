@@ -741,16 +741,25 @@ function Builder() {
 
       {/* Sub-header */}
       <div className="print:hidden mx-auto w-full max-w-7xl px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border">
-        <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto shrink-0">
-          <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
-          <Button size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-3 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all">
-            <Download className="sm:mr-1.5 h-4 w-4" /> <span className="hidden sm:inline">{t("common.pdf")}</span>
-          </Button>
-          <Button size="icon" variant="outline" onClick={() => setShowPreviewModal(true)} className="h-9 w-9 rounded-full shrink-0 lg:hidden shadow-sm">
-            <Eye className="h-4 w-4" />
-          </Button>
-          <span className="text-xs text-muted-foreground hidden sm:inline shrink-0">{lang?.flag} {lang?.native}</span>
+        {/* Left Side: Back & Lang */}
+        <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto shrink-0">
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
+            <span className="text-xs text-muted-foreground">{lang?.flag} {lang?.native}</span>
+          </div>
         </div>
+
+        {/* Mobile: Big Action Buttons */}
+        <div className="flex sm:hidden w-full gap-3 shrink-0">
+          <Button onClick={() => setShowPreviewModal(true)} variant="outline" className="h-10 flex-1 rounded-xl shadow-sm text-sm border-primary/20 hover:border-primary/50 hover:bg-primary/5">
+            <Eye className="mr-2 h-4 w-4" /> Preview
+          </Button>
+          <Button onClick={() => setShowDownloadModal(true)} className="h-10 flex-1 rounded-xl shadow-md text-sm">
+            <Download className="mr-2 h-4 w-4" /> Download PDF
+          </Button>
+        </div>
+
+        {/* Right Side: Tools & Desktop Download */}
         <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
           <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground shrink-0">
             <span>{resume.progress}%</span>
@@ -784,7 +793,10 @@ function Builder() {
             </Button>
           )}
           <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
-
+          
+          <Button size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-4 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all hidden sm:flex">
+            <Download className="mr-1.5 h-4 w-4" /> <span>{t("common.pdf") || "Download"}</span>
+          </Button>
         </div>
       </div>
 
