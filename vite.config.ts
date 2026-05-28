@@ -10,9 +10,6 @@ export default defineConfig({
     tanstackStart({
       server: {
         entry: "server",
-        // Deploy target: Vercel serverless functions
-        // Outputs to .vercel/output/ which Vercel auto-detects.
-        preset: "vercel",
       },
     }),
     viteReact(),
