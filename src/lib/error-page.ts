@@ -1,4 +1,7 @@
-export function renderErrorPage(): string {
+export function renderErrorPage(error?: any): string {
+  const errorDetails = error
+    ? `\n<!--\nERROR DETAILS:\n${error.stack || error.message || String(error)}\n-->`
+    : "";
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -26,5 +29,6 @@ export function renderErrorPage(): string {
       </div>
     </div>
   </body>
-</html>`;
+</html>${errorDetails}`;
 }
+
