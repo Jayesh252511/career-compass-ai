@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "Retour",
@@ -21,19 +21,19 @@
     "badge": "Disponible en 17 langues",
     "title1": "Votre CV,",
     "title2": "rédigé en discutant.",
-    "subtitle": "Parlez avec Linnea dans votre langue. Elle transforme discrètement vos réponses en un CV en anglais de qualité professionnelle et compatible avec les systèmes ATS.",
+    "subtitle": "Parlez avec resume-zen Ai dans votre langue. Elle transforme discrètement vos réponses en un CV en anglais de qualité professionnelle et compatible avec les systèmes ATS.",
     "chooseLanguage": "Choisissez votre langue",
     "freeToTry": "Essai gratuit · Sans carte bancaire",
     "pickLanguageToBegin": "Choisissez une langue pour commencer",
     "continueIn": "Continuer en {{language}}",
     "howItWorksTitle": "Comment ça marche",
     "howItWorksHeading": "Quatre étapes calmes pour un excellent CV.",
-    "footer": "© {{year}} Linnea. Conçu avec soin.",
+    "footer": "© {{year}} resume-zen Ai. Conçu avec soin.",
     "features": {
       "conversationalTitle": "Conversationnel, pas un formulaire",
       "conversationalBody": "Une question à la fois. Répondez naturellement, comme si vous parliez à un ami. Fini l'angoisse de la page blanche.",
       "nativeInTitle": "Parlez dans votre langue, obtenez un anglais parfait",
-      "nativeInBody": "Dites à Linnea ‘j'ai développé un petit jeu’ et elle rédigera ‘Designed an interactive game focused on user engagement.’",
+      "nativeInBody": "Dites à resume-zen Ai ‘j'ai développé un petit jeu’ et elle rédigera ‘Designed an interactive game focused on user engagement.’",
       "atsReadyTitle": "CV compatible ATS, à chaque fois",
       "atsReadyBody": "Trois modèles testés rigoureusement face aux vrais logiciels de recrutement. Propres, sobres et lisibles."
     },
@@ -43,7 +43,7 @@
       "step2Title": "Choisissez un modèle",
       "step2Desc": "Trois modèles sobres. Tous compatibles ATS.",
       "step3Title": "Indiquez votre secteur",
-      "step3Desc": "Linnea adapte ses questions à votre secteur d'activité.",
+      "step3Desc": "resume-zen Ai adapte ses questions à votre secteur d'activité.",
       "step4Title": "Discutez tout simplement",
       "step4Desc": "Regardez votre CV s'écrire tout seul en temps réel.",
     "moreLangs": "+ {{count}} langues supplémentaires"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "Pour quel secteur postulez-vous ?",
-    "subheading": "Linnea adaptera ses questions, suggestions et son ton à ce secteur.",
+    "subheading": "resume-zen Ai adaptera ses questions, suggestions et son ton à ce secteur.",
     "other": "Autre",
     "customPlaceholder": "Saisissez votre secteur (ex. QA Semi-conducteurs, Fonction publique, Hôtellerie)",
     "customLabel": "Votre secteur d'activité"
@@ -83,7 +83,7 @@
     "resumes": "CVs",
     "newResume": "Nouveau CV",
     "emptyTitle": "Créons votre premier CV.",
-    "emptyBody": "Sélectionnez un modèle, indiquez votre secteur et commencez à discuter. Linnea s'occupe de l'anglais.",
+    "emptyBody": "Sélectionnez un modèle, indiquez votre secteur et commencez à discuter. resume-zen Ai s'occupe de l'anglais.",
     "createResume": "Créer un CV",
     "open": "Ouvrir",
     "duplicate": "Dupliquer",
@@ -97,7 +97,7 @@
     "failed": "Échec"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "Parle…",
     "thinking": "Réfléchit…",
     "listening": "Écoute…",
@@ -106,7 +106,7 @@
     "text": "Texte",
     "intro": "Bonjour. Créons votre CV. Touchez l'orbe et répondez en {{language}}.",
     "tapToStop": "Touchez pour arrêter · Parlez naturellement",
-    "aiThinking": "Linnea réfléchit",
+    "aiThinking": "resume-zen Ai réfléchit",
     "tapToInterrupt": "Touchez l'orbe pour interrompre",
     "tapToSpeak": "Touchez pour parler",
     "shortRepliesHint": "Réponses courtes, une question à la fois.",
@@ -119,7 +119,7 @@
     "resumeNotFound": "CV introuvable",
     "saved": "Enregistré",
     "voiceErrMic": "Impossible de démarrer la voix. Vérifiez les permissions du micro.",
-    "emptyResumeState": "Votre CV s'affichera ici, ligne après ligne, au fil de vos réponses à Linnea.",
+    "emptyResumeState": "Votre CV s'affichera ici, ligne après ligne, au fil de vos réponses à resume-zen Ai.",
     "tabAssistant": "Assistant",
     "tabPreview": "Aperçu en direct",
     "tapToListen": "Appuyer pour réécouter",

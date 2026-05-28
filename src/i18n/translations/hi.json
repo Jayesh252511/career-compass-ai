@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "वापस",
@@ -21,19 +21,19 @@
     "badge": "अब 17 भाषाओं में",
     "title1": "आपका रिज़्यूमे,",
     "title2": "बातचीत से लिखा गया।",
-    "subtitle": "अपनी भाषा में Linnea से बात करें। वह आपके जवाबों को ATS‑ready English रिज़्यूमे में बदल देती है।",
+    "subtitle": "अपनी भाषा में resume-zen Ai से बात करें। वह आपके जवाबों को ATS‑ready English रिज़्यूमे में बदल देती है।",
     "chooseLanguage": "अपनी भाषा चुनें",
     "freeToTry": "फ्री ट्राय · कार्ड नहीं चाहिए",
     "pickLanguageToBegin": "शुरू करने के लिए भाषा चुनें",
     "continueIn": "{{language}} में जारी रखें",
     "howItWorksTitle": "कैसे काम करता है",
     "howItWorksHeading": "एक शानदार रिज़्यूमे के 4 आसान कदम।",
-    "footer": "© {{year}} Linnea. प्यार से बनाया गया।",
+    "footer": "© {{year}} resume-zen Ai. प्यार से बनाया गया।",
     "features": {
       "conversationalTitle": "बातचीत के ज़रिये, फॉर्म नहीं",
       "conversationalBody": "एक बार में सिर्फ एक सवाल। ऐसे जवाब दें जैसे किसी दोस्त से बात कर रहे हों। खाली फॉर्म देखने की कोई ज़रूरत नहीं।",
       "nativeInTitle": "अपनी भाषा में बोलें, पॉलिश इंग्लिश पाएं",
-      "nativeInBody": "Linnea को कहें 'मैंने एक गेम बनाया' — वह इसे 'Designed an interactive game focused on user engagement' में बदल देगी।",
+      "nativeInBody": "resume-zen Ai को कहें 'मैंने एक गेम बनाया' — वह इसे 'Designed an interactive game focused on user engagement' में बदल देगी।",
       "atsReadyTitle": "हर बार ATS-रेडी",
       "atsReadyBody": "तीन अलग लेआउट, जो असली आवेदक ट्रैकिंग सिस्टम (ATS) पर टेस्ट किए गए हैं। साफ़-सुथरे और सटीक।"
     },
@@ -43,7 +43,7 @@
       "step2Title": "टेम्पलेट चुनें",
       "step2Desc": "तीन ईमानदार लेआउट। सभी ATS-रेडी।",
       "step3Title": "अपना फील्ड बताएँ",
-      "step3Desc": "Linnea आपके उद्योग के अनुसार ही सवाल तैयार करेगी।",
+      "step3Desc": "resume-zen Ai आपके उद्योग के अनुसार ही सवाल तैयार करेगी।",
       "step4Title": "बस बात करें",
       "step4Desc": "अपनी आँखों के सामने रिज़्यूमे को खुद-ब-खुद बनते हुए देखें।",
     "moreLangs": "+ {{count}} और भाषाएँ"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "आप किस फील्ड के लिए अप्लाई कर रहे हैं?",
-    "subheading": "Linnea इसी के हिसाब से सवाल और सुझाव देगी।",
+    "subheading": "resume-zen Ai इसी के हिसाब से सवाल और सुझाव देगी।",
     "other": "अन्य",
     "customPlaceholder": "अपना फील्ड लिखें (जैसे: Semiconductor QA, Government Exams)",
     "customLabel": "आपका फील्ड"
@@ -97,7 +97,7 @@
     "failed": "विफल रहा"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "बोल रही है…",
     "thinking": "सोच रही है…",
     "listening": "सुन रही है…",
@@ -106,7 +106,7 @@
     "text": "टेक्स्ट",
     "intro": "हाय। चलिए आपका रिज़्यूमे बनाते हैं। ऑर्ब टैप करें और {{language}} में जवाब दें।",
     "tapToStop": "रोकने के लिए टैप · आराम से बोलें",
-    "aiThinking": "Linnea सोच रही है",
+    "aiThinking": "resume-zen Ai सोच रही है",
     "tapToInterrupt": "रोकने के लिए ऑर्ब टैप करें",
     "tapToSpeak": "बोलने के लिए टैप करें",
     "shortRepliesHint": "छोटे जवाब, एक बार में एक सवाल।",
@@ -119,7 +119,7 @@
     "resumeNotFound": "रिज़्यूमे नहीं मिला",
     "saved": "सेव हुआ",
     "voiceErrMic": "आवाज़ शुरू नहीं की जा सकी। माइक्रोफ़ोन अनुमति की जाँच करें।",
-    "emptyResumeState": "जैसे-जैसे आप Linnea के सवालों के जवाब देंगे, आपका रिज़्यूमे यहाँ लाइन दर लाइन दिखाई देने लगेगा।",
+    "emptyResumeState": "जैसे-जैसे आप resume-zen Ai के सवालों के जवाब देंगे, आपका रिज़्यूमे यहाँ लाइन दर लाइन दिखाई देने लगेगा।",
     "tabAssistant": "असिस्टेंट",
     "tabPreview": "लाइव प्रीव्यू",
     "tapToListen": "फिर से सुनने के लिए टैप करें",

@@ -12,8 +12,8 @@ import { useTranslation } from "react-i18next";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Linnea — Build a world-class English resume in your own language" },
-      { name: "description", content: "Chat in Hindi, Tamil, Spanish or 14 other languages. Linnea quietly turns it into an ATS-ready English resume." },
+      { title: "resume-zen Ai — Build a world-class English resume in your own language" },
+      { name: "description", content: "Chat in Hindi, Tamil, Spanish or 14 other languages. resume-zen Ai quietly turns it into an ATS-ready English resume." },
     ],
   }),
   component: Landing,

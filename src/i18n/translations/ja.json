@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "戻る",
@@ -21,19 +21,19 @@
     "badge": "17の言語に対応",
     "title1": "会話をするだけで、",
     "title2": "英文履歴書が完成。",
-    "subtitle": "あなたの母国語でLinneaに話しかけてください。AIが回答を自動で読み取り、採用担当者の目に留まる高品質なATS対応の英語履歴書を作成します。",
+    "subtitle": "あなたの母国語でresume-zen Aiに話しかけてください。AIが回答を自動で読み取り、採用担当者の目に留まる高品質なATS対応の英語履歴書を作成します。",
     "chooseLanguage": "言語を選択",
     "freeToTry": "無料でお試し · クレジットカード不要",
     "pickLanguageToBegin": "始めるには言語を選択してください",
     "continueIn": "{{language}} で続ける",
     "howItWorksTitle": "使い方",
     "howItWorksHeading": "美しい履歴書を作る4つのシンプルなステップ。",
-    "footer": "© {{year}} Linnea. 丁寧に作られています。",
+    "footer": "© {{year}} resume-zen Ai. 丁寧に作られています。",
     "features": {
       "conversationalTitle": "フォーム入力ではなく、会話形式",
       "conversationalBody": "質問は一度に一つだけ。友人と話すように自然に答えてください。空白のフォームを前に悩む必要はありません。",
       "nativeInTitle": "母国語で話せば、洗練された英語に",
-      "nativeInBody": "Linneaに「ゲームアプリを作った」と伝えるだけで、「Designed an interactive gaming application focused on user engagement」のように表現を洗練させます。",
+      "nativeInBody": "resume-zen Aiに「ゲームアプリを作った」と伝えるだけで、「Designed an interactive gaming application focused on user engagement」のように表現を洗練させます。",
       "atsReadyTitle": "いつでもATS（採用管理システム）対応",
       "atsReadyBody": "実際の採用システムで検証済みの3つのテンプレート。無駄のない、すっきりと読みやすいレイアウトです。"
     },
@@ -43,7 +43,7 @@
       "step2Title": "デザインを選ぶ",
       "step2Desc": "3つの美しいレイアウト。すべてATS対応。",
       "step3Title": "専門分野を伝える",
-      "step3Desc": "Linneaがあなたの業界に合わせて質問を最適化します。",
+      "step3Desc": "resume-zen Aiがあなたの業界に合わせて質問を最適化します。",
       "step4Title": "ただ会話するだけ",
       "step4Desc": "履歴書がリアルタイムで自動作成されていく様子をご覧ください。",
     "moreLangs": "+ {{count}} 言語追加"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "どの専門分野に応募しますか？",
-    "subheading": "Linneaは、その分野に合わせて質問、スキル提案、口調を調整します。",
+    "subheading": "resume-zen Aiは、その分野に合わせて質問、スキル提案、口調を調整します。",
     "other": "その他",
     "customPlaceholder": "専門分野を入力してください（例：半導体QA、公務員試験、ホテル接客など）",
     "customLabel": "専門分野"
@@ -83,7 +83,7 @@
     "resumes": "履歴書一覧",
     "newResume": "履歴書を新規作成",
     "emptyTitle": "最初の履歴書を作成しましょう。",
-    "emptyBody": "テンプレートと専門分野を選択し、あなたの言語で会話を始めてください。Linneaが英語での書類作成をすべて引き受けます。",
+    "emptyBody": "テンプレートと専門分野を選択し、あなたの言語で会話を始めてください。resume-zen Aiが英語での書類作成をすべて引き受けます。",
     "createResume": "履歴書を作成する",
     "open": "開く",
     "duplicate": "複製",
@@ -97,7 +97,7 @@
     "failed": "失敗しました"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "お話し中…",
     "thinking": "思考中…",
     "listening": "音声を聞き取り中…",
@@ -106,7 +106,7 @@
     "text": "テキストモード",
     "intro": "こんにちは。履歴書を作成しましょう。球体をタップして、{{language}}で答えてくださいね。",
     "tapToStop": "タップして停止 · 自然に話しかけてください",
-    "aiThinking": "Linneaが考えています",
+    "aiThinking": "resume-zen Aiが考えています",
     "tapToInterrupt": "球体をタップして発言を遮る",
     "tapToSpeak": "タップして話す",
     "shortRepliesHint": "1回につき1つの質問に、簡潔にお答えください。",
@@ -119,7 +119,7 @@
     "resumeNotFound": "履歴書が見つかりません",
     "saved": "保存されました",
     "voiceErrMic": "音声を起動できませんでした。マイクの権限を確認してください。",
-    "emptyResumeState": "Linneaの質問に答えていくと、あなたの履歴書がここに一行ずつリアルタイムで構築されていきます。",
+    "emptyResumeState": "resume-zen Aiの質問に答えていくと、あなたの履歴書がここに一行ずつリアルタイムで構築されていきます。",
     "tabAssistant": "アシスタント",
     "tabPreview": "ライブプレビュー",
     "tapToListen": "もう一度聴くにはタップ",

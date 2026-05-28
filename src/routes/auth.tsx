@@ -82,7 +82,7 @@ function AuthPage() {
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">{t("authLeft.attribution")}</p>
         </div>
-        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Linnea</p>
+        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} resume-zen Ai</p>
       </div>
 
       <div className="flex items-center justify-center p-6">

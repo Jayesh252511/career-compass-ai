@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "Back",
@@ -21,19 +21,19 @@
     "badge": "Now in 17 languages",
     "title1": "Your resume,",
     "title2": "written by conversation.",
-    "subtitle": "Chat with Linnea in your own language. She quietly turns every answer into a recruiter-ready English resume that any ATS can read.",
+    "subtitle": "Chat with resume-zen Ai in your own language. She quietly turns every answer into a recruiter-ready English resume that any ATS can read.",
     "chooseLanguage": "Choose your language",
     "freeToTry": "Free to try · No credit card",
     "pickLanguageToBegin": "Pick a language to begin",
     "continueIn": "Continue in {{language}}",
     "howItWorksTitle": "How it works",
     "howItWorksHeading": "Four quiet steps to a great resume.",
-    "footer": "© {{year}} Linnea. Built with care.",
+    "footer": "© {{year}} resume-zen Ai. Built with care.",
     "features": {
       "conversationalTitle": "Conversational, not a form",
       "conversationalBody": "One question at a time. Answer naturally, the way you'd talk to a friend. No empty fields to stare at.",
       "nativeInTitle": "Native in, polished English out",
-      "nativeInBody": "Tell Linnea ‘maine ek game banayi’ — she writes ‘Designed an interactive game focused on user engagement.’",
+      "nativeInBody": "Tell resume-zen Ai ‘maine ek game banayi’ — she writes ‘Designed an interactive game focused on user engagement.’",
       "atsReadyTitle": "ATS-ready, every time",
       "atsReadyBody": "Three templates, each tested against real applicant tracking systems. Clean. Parsable. Quiet."
     },
@@ -43,7 +43,7 @@
       "step2Title": "Pick a template",
       "step2Desc": "Three honest layouts. All ATS-ready.",
       "step3Title": "Tell us your field",
-      "step3Desc": "Linnea tunes her questions to your industry.",
+      "step3Desc": "resume-zen Ai tunes her questions to your industry.",
       "step4Title": "Just chat",
       "step4Desc": "Watch your resume write itself, in real time."
     },
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "Which field are you applying for?",
-    "subheading": "Linnea will tailor her questions, skill suggestions and tone for this field.",
+    "subheading": "resume-zen Ai will tailor her questions, skill suggestions and tone for this field.",
     "other": "Other",
     "customPlaceholder": "Type your field (e.g., Semiconductor QA, Government Exams, Hospitality)",
     "customLabel": "Your field"
@@ -83,7 +83,7 @@
     "resumes": "Resumes",
     "newResume": "New resume",
     "emptyTitle": "Let's write your first resume.",
-    "emptyBody": "Pick a template, choose your field, and start chatting in your language. Linnea handles the English.",
+    "emptyBody": "Pick a template, choose your field, and start chatting in your language. resume-zen Ai handles the English.",
     "createResume": "Create a resume",
     "open": "Open",
     "duplicate": "Duplicate",
@@ -97,7 +97,7 @@
     "failed": "Failed"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "Speaking…",
     "thinking": "Thinking…",
     "listening": "Listening…",
@@ -106,7 +106,7 @@
     "text": "Text",
     "intro": "Hi. Let's build your resume. Tap the orb and answer in {{language}}.",
     "tapToStop": "Tap to stop · Speak naturally",
-    "aiThinking": "Linnea is thinking",
+    "aiThinking": "resume-zen Ai is thinking",
     "tapToInterrupt": "Tap orb to interrupt",
     "tapToSpeak": "Tap to speak",
     "shortRepliesHint": "Short replies, one question at a time.",
@@ -119,7 +119,7 @@
     "resumeNotFound": "Resume not found",
     "saved": "Saved",
     "voiceErrMic": "Couldn't start voice. Check microphone permission.",
-    "emptyResumeState": "Your resume will appear here, line by line, as you answer Linnea's questions.",
+    "emptyResumeState": "Your resume will appear here, line by line, as you answer resume-zen Ai's questions.",
     "tabAssistant": "Assistant",
     "tabPreview": "Live Preview",
     "tapToListen": "Tap to listen again",

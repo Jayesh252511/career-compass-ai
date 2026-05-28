@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "رجوع",
@@ -21,19 +21,19 @@
     "badge": "الآن في 17 لغة",
     "title1": "سيرتك الذاتية،",
     "title2": "تُكتب من خلال محادثة.",
-    "subtitle": "تحدث مع Linnea بلغتك الخاصة. تقوم بهدوء بتحويل كل إجابة إلى سيرة ذاتية إنجليزية ممتازة جاهزة للتوظيف ومتوافقة مع أنظمة ATS.",
+    "subtitle": "تحدث مع resume-zen Ai بلغتك الخاصة. تقوم بهدوء بتحويل كل إجابة إلى سيرة ذاتية إنجليزية ممتازة جاهزة للتوظيف ومتوافقة مع أنظمة ATS.",
     "chooseLanguage": "اختر لغتك",
     "freeToTry": "مجانًا للتجربة · لا حاجة لبطاقة ائتمان",
     "pickLanguageToBegin": "اختر لغة للبدء",
     "continueIn": "متابعة باللغة {{language}}",
     "howItWorksTitle": "كيف تعمل",
     "howItWorksHeading": "أربع خطوات هادئة للحصول على سيرة ذاتية رائعة.",
-    "footer": "© {{year}} Linnea. صُنعت بكل حب.",
+    "footer": "© {{year}} resume-zen Ai. صُنعت بكل حب.",
     "features": {
       "conversationalTitle": "تفاعلية، وليست استمارة مملة",
       "conversationalBody": "سؤال واحد في كل مرة. أجب بشكل طبيعي كما لو كنت تتحدث إلى صديق. لا داعي للتحديق في خانات فارغة.",
       "nativeInTitle": "تحدث بلغتك، واحصل على إنجليزية مصقولة",
-      "nativeInBody": "أخبر Linnea 'لقد قمت بتطوير لعبة بسيطة' - وستقوم بكتابة 'Designed an interactive game focused on user engagement.'",
+      "nativeInBody": "أخبر resume-zen Ai 'لقد قمت بتطوير لعبة بسيطة' - وستقوم بكتابة 'Designed an interactive game focused on user engagement.'",
       "atsReadyTitle": "متوافقة مع أنظمة ATS دائمًا",
       "atsReadyBody": "ثلاثة قوالب تم اختبارها بعناية على أنظمة التوظيف الحقيقية. واضحة، أنيقة، وقابلة للقراءة للـ ATS."
     },
@@ -43,7 +43,7 @@
       "step2Title": "اختر قالبًا",
       "step2Desc": "ثلاثة تنسيقات أنيقة وكلها متوافقة مع أنظمة ATS.",
       "step3Title": "أخبرنا بمجالك",
-      "step3Desc": "تقوم Linnea بتعديل أسئلتها وفقًا لقطاعك المهني.",
+      "step3Desc": "تقوم resume-zen Ai بتعديل أسئلتها وفقًا لقطاعك المهني.",
       "step4Title": "فقط تحدث",
       "step4Desc": "شاهد سيرتك الذاتية وهي تكتب نفسها مباشرة، في الوقت الفعلي.",
     "moreLangs": "+ {{count}} لغات إضافية"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "ما هو المجال المهني الذي تقدم إليه؟",
-    "subheading": "ستقوم Linnea بتفصيل أسئلتها واقتراحات المهارات ونبرتها لهذا المجال.",
+    "subheading": "ستقوم resume-zen Ai بتفصيل أسئلتها واقتراحات المهارات ونبرتها لهذا المجال.",
     "other": "آخر",
     "customPlaceholder": "اكتب مجالك المهني (مثال: Semiconductor QA, Government Exams, Hospitality)",
     "customLabel": "مجالك المهني"
@@ -83,7 +83,7 @@
     "resumes": "السير الذاتية",
     "newResume": "سيرة ذاتية جديدة",
     "emptyTitle": "لنكتب سيرتك الذاتية الأولى.",
-    "emptyBody": "اختر قالبًا، وحدد مجالك، ثم ابدأ المحادثة بلغتك الخاصة. وتتولى Linnea كتابة الإنجليزية الممتازة.",
+    "emptyBody": "اختر قالبًا، وحدد مجالك، ثم ابدأ المحادثة بلغتك الخاصة. وتتولى resume-zen Ai كتابة الإنجليزية الممتازة.",
     "createResume": "إنشاء سيرة ذاتية",
     "open": "افتح",
     "duplicate": "تكرار",
@@ -97,7 +97,7 @@
     "failed": "فشل الإجراء"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "يتحدث الآن…",
     "thinking": "يفكر…",
     "listening": "يستمع…",
@@ -106,7 +106,7 @@
     "text": "النص",
     "intro": "أهلاً بك. لنقم ببناء سيرتك الذاتية. اضغط على الكرة وأجب باللغة {{language}}.",
     "tapToStop": "اضغط للإيقاف · تحدث بشكل طبيعي",
-    "aiThinking": "Linnea تفكر حاليًا",
+    "aiThinking": "resume-zen Ai تفكر حاليًا",
     "tapToInterrupt": "اضغط على الكرة للمقاطعة",
     "tapToSpeak": "اضغط للتحدث",
     "shortRepliesHint": "إجابات قصيرة، سؤال واحد في كل مرة.",
@@ -119,7 +119,7 @@
     "resumeNotFound": "لم يتم العثور على السيرة الذاتية",
     "saved": "تم الحفظ",
     "voiceErrMic": "تعذر تشغيل الصوت. يرجى التحقق من صلاحيات الميكروفون.",
-    "emptyResumeState": "ستظهر سيرتك الذاتية هنا، سطرًا بسطر، بينما تجيب على أسئلة Linnea التوجيهية.",
+    "emptyResumeState": "ستظهر سيرتك الذاتية هنا، سطرًا بسطر، بينما تجيب على أسئلة resume-zen Ai التوجيهية.",
     "tabAssistant": "المساعد",
     "tabPreview": "معاينة مباشرة",
     "tapToListen": "اضغط للاستماع مجدداً",

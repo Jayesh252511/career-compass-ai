@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "वाਪਸ",
@@ -21,19 +21,19 @@
     "badge": "ਹੁਣ 17 ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ",
     "title1": "ਤੁਹਾਡਾ ਰਿਜ਼ਿਊਮੇ,",
     "title2": "ਗੱਲਬਾਤ ਰਾਹੀਂ ਤਿਆਰ।",
-    "subtitle": "ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ Linnea ਨਾਲ ਗੱਲ ਕਰੋ। ਉਹ ਤੁਹਾਡੇ ਜਵਾਬਾਂ ਨੂੰ ਸ਼ਾਂਤੀ ਨਾਲ ਇੱਕ ਉੱਤਮ ਅੰਗਰੇਜ਼ੀ ਰਿਜ਼ਿਊਮੇ ਵਿੱਚ ਬਦਲ ਦਿੰਦੀ ਹੈ ਜੋ ਕਿਸੇ ਵੀ ATS ਦੇ ਅਨੁਕੂਲ ਹੁੰਦੀ ਹੈ।",
+    "subtitle": "ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ resume-zen Ai ਨਾਲ ਗੱਲ ਕਰੋ। ਉਹ ਤੁਹਾਡੇ ਜਵਾਬਾਂ ਨੂੰ ਸ਼ਾਂਤੀ ਨਾਲ ਇੱਕ ਉੱਤਮ ਅੰਗਰੇਜ਼ੀ ਰਿਜ਼ਿਊਮੇ ਵਿੱਚ ਬਦਲ ਦਿੰਦੀ ਹੈ ਜੋ ਕਿਸੇ ਵੀ ATS ਦੇ ਅਨੁਕੂਲ ਹੁੰਦੀ ਹੈ।",
     "chooseLanguage": "ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ",
     "freeToTry": "ਮੁਫ਼ਤ ਅਜ਼ਮਾਓ · ਕੋਈ ਕ੍ਰੈਡਿਟ ਕਾਰਡ ਨਹੀਂ ਚਾਹੀਦਾ",
     "pickLanguageToBegin": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਭਾਸ਼ਾ ਚੁਣੋ",
     "continueIn": "{{language}} ਵਿੱਚ ਜਾਰੀ ਰੱਖੋ",
     "howItWorksTitle": "ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
     "howItWorksHeading": "ਇੱਕ ਵਧੀਆ ਰਿਜ਼ਿਊਮੇ ਲਈ ਚਾਰ ਆਸਾਨ ਕਦਮ।",
-    "footer": "© {{year}} Linnea. ਪਿਆਰ ਨਾਲ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
+    "footer": "© {{year}} resume-zen Ai. ਪਿਆਰ ਨਾਲ ਬਣਾਇਆ ਗਿਆ ਹੈ।",
     "features": {
       "conversationalTitle": "ਗੱਲਬਾਤ 'ਤੇ ਅਧਾਰਤ, ਕੋਈ ਫਾਰਮ ਨਹੀਂ",
       "conversationalBody": "ਇੱਕ ਵਾਰ ਵਿੱਚ ਸਿਰਫ਼ ਇੱਕ ਸਵਾਲ। ਬਿਲਕੁਲ ਕੁਦਰਤੀ ਤਰੀਕੇ ਨਾਲ ਜਵਾਬ ਦਿਓ ਜਿਵੇਂ ਕਿਸੇ ਦੋਸਤ ਨਾਲ ਗੱਲ ਕਰ ਰਹੇ ਹੋ। ਖਾਲੀ ਫਾਰਮਾਂ ਨੂੰ ਦੇਖਣ ਦੀ ਕੋਈ ਲੋੜ ਨਹੀਂ ਹੈ।",
       "nativeInTitle": "ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਬੋਲੋ, ਵਧੀਆ ਅੰਗਰੇਜ਼ੀ ਪਾਓ",
-      "nativeInBody": "Linnea ਨੂੰ ਦੱਸੋ 'ਮੈਂ ਇੱਕ ਗੇਮ ਬਣਾਈ ਹੈ' — ਉਹ ਲਿਖੇਗੀ 'Designed an interactive game focused on user engagement.'",
+      "nativeInBody": "resume-zen Ai ਨੂੰ ਦੱਸੋ 'ਮੈਂ ਇੱਕ ਗੇਮ ਬਣਾਈ ਹੈ' — ਉਹ ਲਿਖੇਗੀ 'Designed an interactive game focused on user engagement.'",
       "atsReadyTitle": "ਹਮੇਸ਼ਾ ATS-ਰੇਡੀ",
       "atsReadyBody": "ਤਿੰਨ ਸ਼ਾਨਦਾਰ Vorlagen ਜੋ ਅਸਲ ਭਰਤੀ ਪ੍ਰਣਾਲੀਆਂ (ATS) ਦੇ ਵਿਰੁੱਧ ਟੈਸਟ ਕੀਤੇ ਗਏ ਹਨ।"
     },
@@ -43,7 +43,7 @@
       "step2Title": "ਟੈਂਪਲੇਟ ਚੁਣੋ",
       "step2Desc": "ਤਿੰਨ ਸ਼ਾਨਦาร ਲੇਆਉਟ। ਸਭ ATS-ਰੇਡੀ।",
       "step3Title": "ਆਪਣਾ ਖੇਤਰ ਦੱਸੋ",
-      "step3Desc": "Linnea ਤੁਹਾਡੀ ਇੰਡਸਟਰੀ ਦੇ ਮੁਤਾਬਕ ਸਵਾਲ ਤਿਆਰ ਕਰੇਗੀ।",
+      "step3Desc": "resume-zen Ai ਤੁਹਾਡੀ ਇੰਡਸਟਰੀ ਦੇ ਮੁਤਾਬਕ ਸਵਾਲ ਤਿਆਰ ਕਰੇਗੀ।",
       "step4Title": "ਬੱਸ ਗੱਲ ਕਰੋ",
       "step4Desc": "ਆਪਣੀਆਂ ਅੱਖਾਂ ਦੇ ਸਾਹਮਣੇ ਆਪਣੇ ਰਿਜ਼ਿਊਮੇ ਨੂੰ ਆਪਣੇ ਆਪ ਬਣਦੇ ਹੋਏ ਦੇਖੋ।",
     "moreLangs": "+ {{count}} ਹੋਰ ਭਾਸ਼ਾਵਾਂ"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "ਤੁਸੀਂ ਕਿਸ ਖੇਤਰ ਲਈ ਅਰਜ਼ੀ ਦੇ ਰਹੇ ਹੋ?",
-    "subheading": "Linnea ਇਸ ਖੇਤਰ ਦੇ ਮੁਤਾਬਕ ਸਵਾਲ, ਹੁਨਰ ਸੁਝਾਅ ਅਤੇ ਲਹਿਜਾ ਚੁਣੇਗੀ।",
+    "subheading": "resume-zen Ai ਇਸ ਖੇਤਰ ਦੇ ਮੁਤਾਬਕ ਸਵਾਲ, ਹੁਨਰ ਸੁਝਾਅ ਅਤੇ ਲਹਿਜਾ ਚੁਣੇਗੀ।",
     "other": "ਹੋਰ",
     "customPlaceholder": "ਆਪਣਾ ਖੇਤਰ ਲਿਖੋ (ਜਿਵੇਂ: Semiconductor QA, Government Exams)",
     "customLabel": "ਤੁਹਾਡਾ ਖੇਤਰ"
@@ -83,7 +83,7 @@
     "resumes": "ਰਿਜ਼ਿਊਮੇ",
     "newResume": "ਨਵਾਂ ਰਿਜ਼ਿਊਮੇ",
     "emptyTitle": "ਆਓ ਤੁਹਾਡਾ ਪਹਿਲਾ ਰਿਜ਼ਿਊਮੇ ਬਣਾਉਂਦੇ ਹਾਂ।",
-    "emptyBody": "ਟੈਂਪਲੇਟ ਚੁਣੋ, ਖੇਤਰ ਦੱਸੋ, ਅਤੇ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ। ਅੰਗਰੇਜ਼ੀ ਰਿਜ਼ਿਊਮੇ ਦੀ ਚਿੰਤਾ Linnea 'ਤੇ ਛੱਡੋ।",
+    "emptyBody": "ਟੈਂਪਲੇਟ ਚੁਣੋ, ਖੇਤਰ ਦੱਸੋ, ਅਤੇ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ। ਅੰਗਰੇਜ਼ੀ ਰਿਜ਼ਿਊਮੇ ਦੀ ਚਿੰਤਾ resume-zen Ai 'ਤੇ ਛੱਡੋ।",
     "createResume": "ਰਿਜ਼ਿਊਮੇ ਬਣਾਓ",
     "open": "ਖੋਲ੍ਹੋ",
     "duplicate": "ਕਾਪੀ ਬਣਾਓ",
@@ -97,7 +97,7 @@
     "failed": "ਅਸਫਲ ਰਿਹਾ"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "ਬੋਲ ਰਹੀ ਹੈ…",
     "thinking": "ਸੋਚ ਰਹੀ है…",
     "listening": "ਸੁਣ ਰਹੀ ਹੈ…",
@@ -106,7 +106,7 @@
     "text": "ਟੈਕਸਟ",
     "intro": "ਹੈਲੋ। ਆਓ ਤੁਹਾਡਾ ਰਿਜ਼ਿਊਮੇ ਬਣਾਉਂਦੇ ਹਾਂ। ਔਰਬ 'ਤੇ ਟੈਪ ਕਰੋ ਅਤੇ {{language}} ਵਿੱਚ ਜਵਾਬ ਦਿਓ।",
     "tapToStop": "ਰੋਕਣ ਲਈ ਟੈਪ ਕਰੋ · ਆਰਾਮ ਨਾਲ ਬੋਲੋ",
-    "aiThinking": "Linnea ਸੋਚ ਰਹੀ ਹੈ",
+    "aiThinking": "resume-zen Ai ਸੋਚ ਰਹੀ ਹੈ",
     "tapToInterrupt": "ਰੋਕਣ ਲਈ ਔਰਬ 'ਤੇ ਟੈপ ਕਰੋ",
     "tapToSpeak": "ਬੋਲਣ ਲਈ ਟੈਪ ਕਰੋ",
     "shortRepliesHint": "ਛੋਟੇ ਜਵਾਬ, ਇੱਕ ਵਾਰ ਵਿੱਚ ਇੱਕ ਸਵਾਲ।",
@@ -119,7 +119,7 @@
     "resumeNotFound": "ਰਿਜ਼ਿਊਮੇ ਨਹੀਂ ਮਿਲਿਆ",
     "saved": "ਸੇਵ ਹੋ ਗਿਆ",
     "voiceErrMic": "ਆਵਾਜ਼ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ। ਮਾਈਕ੍ਰੋਫੋਨ ਦੀ ਇਜਾਜ਼ਤ ਚੈੱਕ ਕਰੋ।",
-    "emptyResumeState": "ਜਿਵੇਂ-ਜਿਵੇਂ ਤੁਸੀਂ Linnea ਦੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿਓਗੇ, ਤੁਹਾਡਾ ਰਿਜ਼ਿਊਮੇ ਇੱਥੇ ਲਾਈਨ ਦਰ ਲਾਈਨ ਆਪਣੇ ਆਪ ਤਿਆਰ ਹੁੰਦਾ ਜਾਵੇਗਾ।",
+    "emptyResumeState": "ਜਿਵੇਂ-ਜਿਵੇਂ ਤੁਸੀਂ resume-zen Ai ਦੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿਓਗੇ, ਤੁਹਾਡਾ ਰਿਜ਼ਿਊਮੇ ਇੱਥੇ ਲਾਈਨ ਦਰ ਲਾਈਨ ਆਪਣੇ ਆਪ ਤਿਆਰ ਹੁੰਦਾ ਜਾਵੇਗਾ।",
     "tabAssistant": "ਸਹਾਇਕ",
     "tabPreview": "ਲਾਈਵ ਪ੍ਰੀਵਿਊ",
     "tapToListen": "ਦੁਬਾਰਾ ਸੁਣਨ ਲਈ ਟੈਪ ਕਰੋ",

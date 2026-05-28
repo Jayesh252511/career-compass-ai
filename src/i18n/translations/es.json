@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "Atrás",
@@ -21,19 +21,19 @@
     "badge": "Ahora en 17 idiomas",
     "title1": "Tu currículum,",
     "title2": "escrito conversando.",
-    "subtitle": "Habla con Linnea en tu propio idioma. Ella convierte silenciosamente tus respuestas en un currículum en inglés listo para reclutadores y compatible con ATS.",
+    "subtitle": "Habla con resume-zen Ai en tu propio idioma. Ella convierte silenciosamente tus respuestas en un currículum en inglés listo para reclutadores y compatible con ATS.",
     "chooseLanguage": "Elige tu idioma",
     "freeToTry": "Gratis para probar · Sin tarjeta de crédito",
     "pickLanguageToBegin": "Elige un idioma para comenzar",
     "continueIn": "Continuar en {{language}}",
     "howItWorksTitle": "Cómo funciona",
     "howItWorksHeading": "Cuatro sencillos pasos para un gran currículum.",
-    "footer": "© {{year}} Linnea. Creado con esmero.",
+    "footer": "© {{year}} resume-zen Ai. Creado con esmero.",
     "features": {
       "conversationalTitle": "Conversacional, no un formulario",
       "conversationalBody": "Una pregunta a la vez. Responde con naturalidad, como si hablaras con un amigo. Sin campos vacíos que mirar fijamente.",
       "nativeInTitle": "Habla en tu idioma, obtén inglés pulido",
-      "nativeInBody": "Dile a Linnea ‘creé un juego interactivo’ y ella escribirá ‘Designed an interactive game focused on user engagement.’",
+      "nativeInBody": "Dile a resume-zen Ai ‘creé un juego interactivo’ y ella escribirá ‘Designed an interactive game focused on user engagement.’",
       "atsReadyTitle": "Listo para ATS, siempre",
       "atsReadyBody": "Tres plantillas diseñadas meticulosamente y probadas contra sistemas reales de seguimiento de candidatos. Limpio y legible."
     },
@@ -43,7 +43,7 @@
       "step2Title": "Elige una plantilla",
       "step2Desc": "Tres diseños limpios y profesionales. Todos listos para ATS.",
       "step3Title": "Elige tu área profesional",
-      "step3Desc": "Linnea adaptará sus preguntas a tu industria específica.",
+      "step3Desc": "resume-zen Ai adaptará sus preguntas a tu industria específica.",
       "step4Title": "Solo conversa",
       "step4Desc": "Mira cómo tu currículum se escribe solo, en tiempo real.",
     "moreLangs": "+ {{count}} idiomas más"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "¿A qué área profesional estás aplicando?",
-    "subheading": "Linnea adaptará sus preguntas, sugerencias de habilidades y tono a esta área.",
+    "subheading": "resume-zen Ai adaptará sus preguntas, sugerencias de habilidades y tono a esta área.",
     "other": "Otro",
     "customPlaceholder": "Escribe tu área (ej. semiconductor QA, sector público, hostelería)",
     "customLabel": "Tu área profesional"
@@ -83,7 +83,7 @@
     "resumes": "Currículums",
     "newResume": "Nuevo currículum",
     "emptyTitle": "Escribamos tu primer currículum.",
-    "emptyBody": "Elige una plantilla, tu área profesional y comienza a conversar en tu idioma. Linnea se encarga del inglés.",
+    "emptyBody": "Elige una plantilla, tu área profesional y comienza a conversar en tu idioma. resume-zen Ai se encarga del inglés.",
     "createResume": "Crear currículum",
     "open": "Abrir",
     "duplicate": "Duplicar",
@@ -97,7 +97,7 @@
     "failed": "Error"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "Hablando…",
     "thinking": "Pensando…",
     "listening": "Escuchando…",
@@ -106,7 +106,7 @@
     "text": "Texto",
     "intro": "Hola. Construyamos tu currículum. Toca el orbe y responde en {{language}}.",
     "tapToStop": "Toca para detener · Habla con naturalidad",
-    "aiThinking": "Linnea está pensando",
+    "aiThinking": "resume-zen Ai está pensando",
     "tapToInterrupt": "Toca el orbe para interrumpir",
     "tapToSpeak": "Toca para hablar",
     "shortRepliesHint": "Respuestas cortas, una pregunta a la vez.",
@@ -119,7 +119,7 @@
     "resumeNotFound": "Currículum no encontrado",
     "saved": "Guardado",
     "voiceErrMic": "No se pudo iniciar la voz. Verifica los permisos de micrófono.",
-    "emptyResumeState": "Tu currículum aparecerá aquí, línea por línea, a medida que respondas a las preguntas de Linnea.",
+    "emptyResumeState": "Tu currículum aparecerá aquí, línea por línea, a medida que respondas a las preguntas de resume-zen Ai.",
     "tabAssistant": "Asistente",
     "tabPreview": "Vista previa",
     "tapToListen": "Toca para escuchar de nuevo",

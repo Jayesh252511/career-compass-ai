@@ -72,10 +72,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Linnea — AI Resume Builder" },
+      { title: "resume-zen Ai — AI Resume Builder" },
       { name: "description", content: "Build an ATS-friendly resume by chatting in your language." },
-      { name: "author", content: "Linnea" },
-      { property: "og:title", content: "Linnea — AI Resume Builder" },
+      { name: "author", content: "resume-zen Ai" },
+      { property: "og:title", content: "resume-zen Ai — AI Resume Builder" },
       { property: "og:description", content: "Build an ATS-friendly resume by chatting in your language." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

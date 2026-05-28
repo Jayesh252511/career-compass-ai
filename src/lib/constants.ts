@@ -78,6 +78,7 @@ export const INDUSTRIES: Industry[] = [
   { id: "business", name: "Business", emoji: "△", hint: "Operations, strategy, leadership" },
   { id: "finance", name: "Finance", emoji: "$", hint: "Banking, analysis, accounting" },
   { id: "engineer", name: "Engineer", emoji: "⚙", hint: "Civil, mechanical, electrical" },
+  { id: "custom", name: "Custom Industry...", emoji: "✧", hint: "Type your own custom industry" },
 ];
 
 export type ResumeContent = {

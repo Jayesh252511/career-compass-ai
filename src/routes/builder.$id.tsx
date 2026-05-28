@@ -74,6 +74,13 @@ function Builder() {
   const [exportMode, setExportMode] = useState<"ui" | "en" | "native" | "bilingual">("ui");
   const [exportContent, setExportContent] = useState<ResumeContent | null>(null);
   const [exportLoading, setExportLoading] = useState(false);
+  const [isPremium, setIsPremium] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem(`resumezen_premium_unlocked_${id}`) === "true";
+    }
+    return false;
+  });
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Keep messagesRef in sync — lets handleUserUtterance read latest messages synchronously
   useEffect(() => { messagesRef.current = messages; }, [messages]);
@@ -143,10 +150,74 @@ function Builder() {
   }, [messages, thinking, partial]);
 
   useEffect(() => {
-    if (!scribe.isConnected) { setFakeLevel(0); return; }
-    const i = setInterval(() => setFakeLevel(0.2 + Math.random() * 0.6), 120);
-    return () => clearInterval(i);
-  }, [scribe.isConnected]);
+    if (speaking) {
+      const audioEl = audioElRef.current;
+      if (!audioEl) return;
+
+      let audioCtx: AudioContext | undefined;
+      let analyser: AnalyserNode | undefined;
+      let sourceNode: MediaElementAudioSourceNode | undefined;
+      let animationFrameId: number;
+      let active = true;
+
+      try {
+        const AudioContextClass = (window.AudioContext || (window as any).webkitAudioContext);
+        audioCtx = new AudioContextClass();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 64;
+        
+        audioEl.crossOrigin = "anonymous";
+        sourceNode = audioCtx.createMediaElementSource(audioEl);
+        sourceNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        const update = () => {
+          if (!active) return;
+          if (audioCtx && audioCtx.state === "suspended") {
+            audioCtx.resume();
+          }
+          if (analyser) {
+            analyser.getByteFrequencyData(dataArray);
+            let sum = 0;
+            for (let i = 0; i < dataArray.length; i++) {
+              sum += dataArray[i];
+            }
+            const average = sum / dataArray.length;
+            const level = Math.min(1, average / 120);
+            setFakeLevel(level);
+          }
+          animationFrameId = requestAnimationFrame(update);
+        };
+        animationFrameId = requestAnimationFrame(update);
+      } catch (e) {
+        let time = 0;
+        const update = () => {
+          if (!active) return;
+          time += 0.12;
+          const syllable = Math.sin(time * 6.5) * 0.45 + 0.45;
+          const word = Math.sin(time * 1.8) * 0.5 + 0.5;
+          const level = syllable * word * 0.95;
+          setFakeLevel(level > 0.08 ? level : 0);
+          animationFrameId = requestAnimationFrame(update);
+        };
+        animationFrameId = requestAnimationFrame(update);
+      }
+
+      return () => {
+        active = false;
+        cancelAnimationFrame(animationFrameId);
+      };
+    } else if (scribe.isConnected) {
+      const i = setInterval(() => setFakeLevel(0.25 + Math.random() * 0.55), 110);
+      return () => {
+        clearInterval(i);
+        setFakeLevel(0);
+      };
+    } else {
+      setFakeLevel(0);
+    }
+  }, [speaking, scribe.isConnected]);
 
   // -------- TTS playback --------
   const speak = useCallback(async (text: string, languageCode?: string) => {
@@ -418,6 +489,20 @@ function Builder() {
               ))}
             </SelectContent>
           </Select>
+          {isPremium ? (
+            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none">
+              Premium ✦
+            </span>
+          ) : (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setShowUpgradeModal(true)}
+              className="h-9 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 border-amber-500/30 hover:border-amber-500/50 text-amber-700 dark:text-amber-400 font-semibold"
+            >
+              Upgrade ✦
+            </Button>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button size="sm" className="h-9 rounded-full">
@@ -620,6 +705,8 @@ function Builder() {
                       content={resume.content}
                       template={resume.template as "ats" | "modern" | "fresher"}
                       labels={labelsEn}
+                      isPremium={isPremium}
+                      userEmail={user?.email}
                     />
                   )}
                   {exportMode === "en" && (
@@ -627,6 +714,8 @@ function Builder() {
                       content={resume.content}
                       template={resume.template as "ats" | "modern" | "fresher"}
                       labels={labelsEn}
+                      isPremium={isPremium}
+                      userEmail={user?.email}
                     />
                   )}
                   {exportMode === "native" && (
@@ -634,6 +723,8 @@ function Builder() {
                       content={(exportContent ?? resume.content) as ResumeContent}
                       template={resume.template as "ats" | "modern" | "fresher"}
                       labels={labelsNative}
+                      isPremium={isPremium}
+                      userEmail={user?.email}
                     />
                   )}
                   {exportMode === "bilingual" && (
@@ -642,12 +733,16 @@ function Builder() {
                         content={resume.content}
                         template={resume.template as "ats" | "modern" | "fresher"}
                         labels={labelsEn}
+                        isPremium={isPremium}
+                        userEmail={user?.email}
                       />
                       <div className="print:break-before-page" />
                       <ResumePreview
                         content={(exportContent ?? resume.content) as ResumeContent}
                         template={resume.template as "ats" | "modern" | "fresher"}
                         labels={labelsNative}
+                        isPremium={isPremium}
+                        userEmail={user?.email}
                       />
                     </div>
                   )}
@@ -662,6 +757,63 @@ function Builder() {
           </div>
         )}
       </div>
+
+      {showUpgradeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="relative bg-card text-card-foreground border border-border max-w-md w-full rounded-3xl p-6 shadow-2xl animate-in zoom-in-95 duration-200">
+            <h3 className="font-display text-2xl font-bold tracking-tight text-center">Unlock Premium ✦</h3>
+            <p className="text-sm text-muted-foreground text-center mt-1">
+              Remove all watermarks and download unlimited professional resumes instantly.
+            </p>
+            
+            <div className="my-6 p-4 rounded-2xl bg-secondary/50 border border-border/80 flex flex-col items-center">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground">UPI Payment Details</span>
+              <span className="font-mono text-lg font-bold text-primary mt-2 select-all">jayeshneo07@oksbi</span>
+              <span className="text-xl font-extrabold text-foreground mt-3">₹99 <span className="text-xs font-normal text-muted-foreground">one-time payment</span></span>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 text-xs leading-relaxed text-muted-foreground">
+                <span className="text-emerald-500 font-bold">✓</span>
+                <span>Watermark-free high-definition PDF downloads.</span>
+              </div>
+              <div className="flex items-start gap-3 text-xs leading-relaxed text-muted-foreground">
+                <span className="text-emerald-500 font-bold">✓</span>
+                <span>Full access to ATS-compliant bilingual exports.</span>
+              </div>
+            </div>
+
+            {/* Manual test bypass control */}
+            <div className="mt-6 border-t border-border/80 pt-4">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-100">
+                <div className="text-xs font-medium">
+                  <p className="font-bold">Manual Test Unlock</p>
+                  <p className="opacity-80">Tap to bypass payment instantly for testing.</p>
+                </div>
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="bg-background text-foreground hover:bg-accent border-amber-500/30 text-xs h-8"
+                  onClick={() => {
+                    localStorage.setItem(`resumezen_premium_unlocked_${id}`, "true");
+                    setIsPremium(true);
+                    setShowUpgradeModal(false);
+                    toast.success("Premium successfully unlocked for this resume!");
+                  }}
+                >
+                  Bypass
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <Button variant="ghost" className="flex-1 rounded-full h-11" onClick={() => setShowUpgradeModal(false)}>
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

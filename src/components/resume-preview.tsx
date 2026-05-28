@@ -6,12 +6,48 @@ type Props = {
   content: ResumeContent;
   template: "ats" | "modern" | "fresher";
   labels?: ResumeSectionLabels;
+  isPremium?: boolean;
+  userEmail?: string;
 };
 
-export function ResumePreview({ content, template, labels }: Props) {
-  if (template === "modern") return <ModernTemplate c={content} labels={labels} />;
-  if (template === "fresher") return <FresherTemplate c={content} labels={labels} />;
-  return <AtsTemplate c={content} labels={labels} />;
+function maskEmail(email?: string) {
+  if (!email) return "";
+  const parts = email.split("@");
+  if (parts.length !== 2) return email;
+  const [name, domain] = parts;
+  const masked = name.length > 2 ? name.substring(0, 2) + "***" : name + "***";
+  return `${masked}@${domain}`;
+}
+
+export function ResumePreview({ content, template, labels, isPremium = false, userEmail }: Props) {
+  const hasContent = !isEmpty(content);
+  return (
+    <div className="relative h-full w-full">
+      {template === "modern" ? (
+        <ModernTemplate c={content} labels={labels} />
+      ) : template === "fresher" ? (
+        <FresherTemplate c={content} labels={labels} />
+      ) : (
+        <AtsTemplate c={content} labels={labels} />
+      )}
+      {!isPremium && hasContent && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-10 flex flex-col justify-around items-center opacity-[0.04] rotate-[-26deg] scale-125 print:opacity-[0.04]">
+          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
+            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
+          </div>
+          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
+            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
+          </div>
+          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
+            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
+          </div>
+          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
+            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 const C = (s?: string) => s && s.trim().length > 0;
@@ -22,7 +58,7 @@ function Empty() {
   return (
     <div className="flex h-full items-center justify-center p-12 text-center">
       <div className="max-w-xs">
-        <div className="mx-auto h-14 w-14 rounded-full bg-accent grid place-items-center text-primary font-serif text-3xl">L</div>
+        <div className="mx-auto h-14 w-14 rounded-full bg-accent grid place-items-center text-primary font-serif text-3xl">Z</div>
         <p className="mt-6 text-sm text-muted-foreground leading-relaxed">
           {t("builder.emptyResumeState")}
         </p>

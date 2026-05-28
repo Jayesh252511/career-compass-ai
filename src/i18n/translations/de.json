@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "name": "Linnea"
+    "name": "resume-zen Ai"
   },
   "common": {
     "back": "Zurück",
@@ -21,19 +21,19 @@
     "badge": "Jetzt in 17 Sprachen",
     "title1": "Ihr Lebenslauf,",
     "title2": "geschrieben im Gespräch.",
-    "subtitle": "Sprechen Sie in Ihrer eigenen Sprache mit Linnea. Sie wandelt jede Antwort leise in einen recruiter-bereiten englischen Lebenslauf um, den jedes ATS lesen kann.",
+    "subtitle": "Sprechen Sie in Ihrer eigenen Sprache mit resume-zen Ai. Sie wandelt jede Antwort leise in einen recruiter-bereiten englischen Lebenslauf um, den jedes ATS lesen kann.",
     "chooseLanguage": "Sprache wählen",
     "freeToTry": "Kostenlos testen · Keine Kreditkarte",
     "pickLanguageToBegin": "Wählen Sie eine Sprache, um zu beginnen",
     "continueIn": "Weiter auf {{language}}",
     "howItWorksTitle": "Wie es funktioniert",
     "howItWorksHeading": "Vier ruhige Schritte zu einem hervorragenden Lebenslauf.",
-    "footer": "© {{year}} Linnea. Mit Sorgfalt gebaut.",
+    "footer": "© {{year}} resume-zen Ai. Mit Sorgfalt gebaut.",
     "features": {
       "conversationalTitle": "Im Gespräch, kein starres Formular",
       "conversationalBody": "Eine Frage nach der anderen. Antworten Sie ganz natürlich, wie im Gespräch mit einem Freund. Keine leeren Felder, auf die Sie starren müssen.",
       "nativeInTitle": "In Ihrer Sprache sprechen, perfektes Englisch erhalten",
-      "nativeInBody": "Sagen Sie Linnea einfach 'ich habe ein Spiel programmiert' – sie formuliert daraus 'Designed an interactive game focused on user engagement.'",
+      "nativeInBody": "Sagen Sie resume-zen Ai einfach 'ich habe ein Spiel programmiert' – sie formuliert daraus 'Designed an interactive game focused on user engagement.'",
       "atsReadyTitle": "Jederzeit ATS-konform",
       "atsReadyBody": "Drei Vorlagen, die ausführlich an echten Bewerbermanagementsystemen (ATS) getestet wurden. Klar, sauber und maschinenlesbar."
     },
@@ -43,7 +43,7 @@
       "step2Title": "Vorlage wählen",
       "step2Desc": "Drei ehrliche Layouts. Alle ATS-konform.",
       "step3Title": "Fachbereich nennen",
-      "step3Desc": "Linnea passt ihre Fragen individuell an Ihre Branche an.",
+      "step3Desc": "resume-zen Ai passt ihre Fragen individuell an Ihre Branche an.",
       "step4Title": "Einfach plaudern",
       "step4Desc": "Sehen Sie zu, wie sich Ihr Lebenslauf in Echtzeit von selbst schreibt.",
     "moreLangs": "+ {{count}} weitere Sprachen"
@@ -73,7 +73,7 @@
   },
   "industry": {
     "heading": "Für welchen Bereich bewerben Sie sich?",
-    "subheading": "Linnea passt Fragen, Kompetenzvorschläge und Tonfall an diesen Bereich an.",
+    "subheading": "resume-zen Ai passt Fragen, Kompetenzvorschläge und Tonfall an diesen Bereich an.",
     "other": "Anderer",
     "customPlaceholder": "Geben Sie Ihren Bereich ein (z. B. Halbleiter-QA, Öffentlicher Dienst, Gastronomie)",
     "customLabel": "Ihr Fachbereich"
@@ -83,7 +83,7 @@
     "resumes": "Lebensläufe",
     "newResume": "Neuer Lebenslauf",
     "emptyTitle": "Schreiben wir Ihren ersten Lebenslauf.",
-    "emptyBody": "Wählen Sie eine Vorlage und Ihre Branche und starten Sie das Gespräch in Ihrer Sprache. Linnea kümmert sich ums Englische.",
+    "emptyBody": "Wählen Sie eine Vorlage und Ihre Branche und starten Sie das Gespräch in Ihrer Sprache. resume-zen Ai kümmert sich ums Englische.",
     "createResume": "Lebenslauf erstellen",
     "open": "Öffnen",
     "duplicate": "Duplizieren",
@@ -97,7 +97,7 @@
     "failed": "Fehlgeschlagen"
   },
   "builder": {
-    "assistantName": "Linnea",
+    "assistantName": "resume-zen Ai",
     "speaking": "Spricht…",
     "thinking": "Überlegt…",
     "listening": "Hört zu…",
@@ -106,7 +106,7 @@
     "text": "Text",
     "intro": "Hallo. Lassen Sie uns Ihren Lebenslauf erstellen. Tippen Sie auf den Orb und antworten Sie auf {{language}}.",
     "tapToStop": "Tippen zum Stoppen · Sprechen Sie ganz natürlich",
-    "aiThinking": "Linnea überlegt",
+    "aiThinking": "resume-zen Ai überlegt",
     "tapToInterrupt": "Auf den Orb tippen zum Unterbrechen",
     "tapToSpeak": "Tippen, um zu sprechen",
     "shortRepliesHint": "Kurze Antworten, eine Frage nach der anderen.",
@@ -119,7 +119,7 @@
     "resumeNotFound": "Lebenslauf nicht gefunden",
     "saved": "Gespeichert",
     "voiceErrMic": "Sprachdienst konnte nicht gestartet werden. Bitte Mikrofonberechtigung prüfen.",
-    "emptyResumeState": "Ihr Lebenslauf wird hier Zeile für Zeile erscheinen, während Sie Linneas Fragen beantworten.",
+    "emptyResumeState": "Ihr Lebenslauf wird hier Zeile für Zeile erscheinen, während Sie resume-zen Ais Fragen beantworten.",
     "tabAssistant": "Assistent",
     "tabPreview": "Vorschau",
     "tapToListen": "Tippen zum erneuten Anhören",
