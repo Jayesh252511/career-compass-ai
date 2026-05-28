@@ -816,24 +816,6 @@ function Builder() {
         <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto shrink-0">
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
-            
-            {/* Lang Dropdown — hidden on mobile (already near mic) */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="hidden md:flex items-center gap-1.5 px-2 py-1.5 rounded-md hover:bg-secondary/80 transition-colors shrink-0">
-                   <span className="text-xs text-foreground/90 font-medium">{lang?.flag} {lang?.native}</span>
-                   <Globe className="h-3.5 w-3.5 text-muted-foreground" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48 max-h-[300px] overflow-auto">
-                {LANGUAGES.map((l) => (
-                  <DropdownMenuItem key={l.code} onClick={() => changeConversationLanguage(l.code)} className="cursor-pointer">
-                    <span className="mr-2">{l.flag}</span><span className="flex-1">{l.native}</span>
-                    {resume.language === l.code && <span className="text-[10px] text-muted-foreground">✓</span>}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
 
