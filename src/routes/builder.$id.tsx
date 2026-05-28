@@ -837,9 +837,9 @@ function Builder() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden flex flex-col md:flex-row print:block pb-[120px] sm:pb-0">
+      <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block pb-[120px] sm:pb-0">
         {/* ============ Conversation panel ============ */}
-        <div className="print:hidden flex flex-col border-b md:border-b-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-[45vh] min-h-[300px] md:h-full md:w-[480px]">
+        <div className="print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-[45vh] min-h-[300px] md:h-full md:w-[480px]">
               <>
                 {/* Header with mode toggle */}
                 <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between">
@@ -1321,7 +1321,7 @@ function Bubble({ role, children }: { role: "user" | "assistant"; children: Reac
     <div className={cn("flex", role === "user" ? "justify-end" : "justify-start")}>
       <div className={cn(
         "max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap",
-        role === "user" ? "bg-primary text-primary-foreground rounded-br-md" : "bg-card border border-border rounded-bl-md",
+        role === "user" ? "bg-primary text-primary-foreground rounded-br-md shadow-sm" : "bg-transparent px-1 font-medium text-foreground/90",
       )}>
         {children}
       </div>
