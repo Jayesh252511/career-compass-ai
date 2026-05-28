@@ -201,6 +201,35 @@ function Builder() {
     setSpeaking(false);
   }, []);
 
+  // -------- Unlock audio on first user gesture (mobile fix) --------
+  useEffect(() => {
+    let unlocked = false;
+    const unlock = () => {
+      if (unlocked) return;
+      unlocked = true;
+      // Play a tiny silent buffer to permanently unlock audio on this page
+      const el = audioElRef.current;
+      if (el) {
+        el.src = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABhgC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYoRwBHAAAAAAD/+1DEAAAGAAGn9AAAIgAANP8AAAATEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxB4AAADSAAAAAAAAANIAAAAATEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==";
+        el.volume = 0.01;
+        el.play().then(() => { el.pause(); el.volume = 1; el.removeAttribute("src"); }).catch(() => {});
+      }
+      // Also resume any suspended AudioContext
+      try {
+        const AC = window.AudioContext || (window as any).webkitAudioContext;
+        if (AC) { const ctx = new AC(); ctx.resume().then(() => ctx.close()); }
+      } catch {}
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("touchstart", unlock);
+    };
+    document.addEventListener("click", unlock, { once: true });
+    document.addEventListener("touchstart", unlock, { once: true });
+    return () => {
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("touchstart", unlock);
+    };
+  }, []);
+
   // -------- ElevenLabs realtime STT --------
   const scribe = useScribe({
     modelId: "scribe_v2_realtime",
@@ -860,7 +889,7 @@ function Builder() {
 
       <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block pb-0">
         {/* ============ Conversation panel ============ */}
-        <div className={cn("print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative md:h-full md:w-[480px]", mode === "text" ? "h-[45vh] min-h-[300px]" : "h-auto pb-4")}>
+        <div className={cn("print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative md:h-full md:w-[480px]", mode === "text" ? "h-[45vh] min-h-[300px]" : "h-auto md:h-full")}>
               <>
                 {/* Header with mode toggle (Hidden on Mobile) */}
                 <div className="hidden md:flex px-5 py-4 border-b border-border/60 items-center justify-between">
@@ -919,9 +948,9 @@ function Builder() {
 
                 {/* Body */}
                 {mode === "voice" ? (
-                  <div className="flex flex-col items-center justify-center px-4 py-4 sm:py-6 overflow-hidden gap-4 sm:gap-6">
+                  <div className="flex flex-col items-center md:flex-1 md:justify-center justify-end w-full px-4 py-2 md:py-8 overflow-hidden gap-3 md:gap-6">
                     {/* Last AI line — large, centered */}
-                    <div className="w-full max-w-md text-center min-h-[3rem] flex items-center justify-center">
+                    <div className="w-full max-w-md text-center min-h-[2.5rem] md:min-h-[5rem] flex items-center justify-center">
                       <AnimatePresence mode="wait">
                         <motion.p
                           key={lastAssistant?.content ?? "intro"}
@@ -929,22 +958,22 @@ function Builder() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
                           transition={{ duration: 0.35 }}
-                          className="text-[17px] sm:text-[18px] leading-relaxed text-foreground/90 font-medium tracking-tight"
+                          className="text-[15px] md:text-[18px] leading-relaxed text-foreground/90 font-medium tracking-tight"
                         >
                           {lastAssistant?.content ?? t("builder.intro", { language: lang?.native ?? "your language" })}
                         </motion.p>
                       </AnimatePresence>
                     </div>
 
-                    {/* Orb Area */}
-                    <div className="flex flex-col items-center gap-3 sm:gap-4 justify-center w-full relative">
-                      {/* One-line Voice Controls for Mobile */}
-                      <div className="flex items-center justify-center gap-2 sm:gap-6 w-full relative px-2">
-                        {/* 1. Language Button */}
+                    {/* Orb + Controls */}
+                    <div className="flex flex-col items-center gap-2 md:gap-4 justify-center w-full relative">
+                      {/* Voice Controls Row */}
+                      <div className="flex items-center justify-center gap-2 md:gap-5 w-full relative px-1">
+                        {/* Mobile: Language */}
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <button className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
-                              <Globe className="w-4 h-4" />
+                            <button className="md:hidden h-10 w-10 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-sm flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                              <Globe className="w-3.5 h-3.5" />
                             </button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="start" className="w-48 max-h-[300px] overflow-auto">
@@ -957,37 +986,44 @@ function Builder() {
                           </DropdownMenuContent>
                         </DropdownMenu>
 
-                        {/* 2. Big Mic (VoiceOrb) */}
-                        <div className="flex-shrink-0 relative z-0 scale-75 sm:scale-100 transform origin-center -mx-2 sm:mx-0">
-                          <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
-                        </div>
-
-                        {/* 3. Pause (Stop) */}
-                        <button onClick={toggleVoice} className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
-                          <Square className="w-4 h-4"/>
+                        {/* Desktop: Replay */}
+                        <button onClick={() => { if(lastSpeakRef.current.text) speak(lastSpeakRef.current.text, lastSpeakRef.current.lang) }} className={cn("hidden md:flex h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10", ttsFailed && "animate-pulse ring-2 ring-primary text-primary")}>
+                          <RefreshCcw className="w-5 h-5"/>
                         </button>
 
-                        {/* 4. Replay */}
-                        <button onClick={() => { if(lastSpeakRef.current.text) speak(lastSpeakRef.current.text, lastSpeakRef.current.lang) }} className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
-                          <RefreshCcw className="w-4 h-4"/>
-                        </button>
-
-                        {/* 5. Text (Keyboard) */}
-                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
-                          <Keyboard className="w-4 h-4"/>
-                        </button>
-
-                        {/* Desktop versions (Hidden on Mobile) */}
+                        {/* Desktop: Stop/Mic */}
                         <button onClick={toggleVoice} className="hidden md:flex h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
                           {(scribe.isConnected || speaking) ? <Square className="w-5 h-5 fill-current"/> : <Mic className="w-5 h-5"/>}
                         </button>
+
+                        {/* Big Mic (VoiceOrb) — centered */}
+                        <div className="flex-shrink-0 relative z-0 scale-[0.65] md:scale-100 transform origin-center -mx-3 md:mx-0">
+                          <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
+                        </div>
+
+                        {/* Mobile: Stop */}
+                        <button onClick={toggleVoice} className="md:hidden h-10 w-10 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-sm flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          <Square className="w-3.5 h-3.5"/>
+                        </button>
+
+                        {/* Mobile: Replay */}
+                        <button onClick={() => { if(lastSpeakRef.current.text) speak(lastSpeakRef.current.text, lastSpeakRef.current.lang) }} className={cn("md:hidden h-10 w-10 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-sm flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10", ttsFailed && "animate-pulse ring-2 ring-primary text-primary")}>
+                          <RefreshCcw className="w-3.5 h-3.5"/>
+                        </button>
+
+                        {/* Mobile: Text mode */}
+                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-10 w-10 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-sm flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          <Keyboard className="w-3.5 h-3.5"/>
+                        </button>
+
+                        {/* Desktop: Keyboard */}
                         <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="hidden md:flex h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
                           <Keyboard className="w-5 h-5"/>
                         </button>
                       </div>
 
                       <Waveform active={scribe.isConnected} level={fakeLevel} />
-                      <p className="text-xs text-muted-foreground text-center">
+                      <p className="text-[11px] md:text-xs text-muted-foreground text-center">
                         {scribe.isConnected
                           ? t("builder.tapToStop")
                           : thinking
@@ -996,15 +1032,21 @@ function Builder() {
                               ? t("builder.tapToInterrupt")
                               : t("builder.tapToSpeak")}
                       </p>
+                      {/* TTS failure message */}
+                      {ttsFailed && !speaking && !thinking && (
+                        <p className="text-[10px] text-primary animate-pulse text-center font-medium">
+                          {t("builder.tapToListen", "Audio blocked. Tap replay button to listen.")}
+                        </p>
+                      )}
                     </div>
-                    
+
                     {/* Live partial transcript */}
-                    <div className="w-full max-w-md min-h-[3rem] pb-2">
+                    <div className="w-full max-w-md min-h-[2rem] md:min-h-[3rem]">
                       <AnimatePresence>
                         {partial && (
                           <motion.div
                             initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                            className="rounded-2xl bg-card/70 backdrop-blur border border-border px-4 py-2.5 text-sm text-foreground/80 text-center"
+                            className="rounded-2xl bg-card/70 backdrop-blur border border-border px-4 py-2 text-sm text-foreground/80 text-center"
                           >
                             {partial}
                           </motion.div>
