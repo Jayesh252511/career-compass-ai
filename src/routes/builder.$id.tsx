@@ -788,19 +788,36 @@ function Builder() {
         <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto shrink-0">
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
-            <span className="text-xs text-muted-foreground">{lang?.flag} {lang?.native}</span>
+            
+            {/* Lang Dropdown on mobile (and desktop) */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1.5 px-2 py-1.5 rounded-md hover:bg-secondary/80 transition-colors shrink-0">
+                   <span className="text-xs text-foreground/90 font-medium">{lang?.flag} {lang?.native}</span>
+                   <Globe className="h-3.5 w-3.5 text-muted-foreground" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48 max-h-[300px] overflow-auto">
+                {LANGUAGES.map((l) => (
+                  <DropdownMenuItem key={l.code} onClick={() => changeConversationLanguage(l.code)} className="cursor-pointer">
+                    <span className="mr-2">{l.flag}</span><span className="flex-1">{l.native}</span>
+                    {resume.language === l.code && <span className="text-[10px] text-muted-foreground">✓</span>}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
-        {/* Desktop Right Side: Tools & Download */}
-        <div className="hidden sm:flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
+        {/* Tools & Download (Scrollable on Mobile) */}
+        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
           <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground shrink-0">
             <span>{resume.progress}%</span>
             <Progress value={resume.progress} className="h-1 w-28" />
             {savedTick && <span className="text-primary">{t("common.saved")}</span>}
           </div>
           <Select value={resume.template} onValueChange={changeTemplate}>
-            <SelectTrigger className="h-9 w-[160px] shrink-0 border-primary/20 hover:border-primary/50 hover:shadow-[0_0_10px_rgba(var(--color-primary),0.2)] transition-all">
+            <SelectTrigger className="h-9 w-[150px] shrink-0 border-primary/20 hover:border-primary/50 hover:shadow-[0_0_10px_rgba(var(--color-primary),0.2)] transition-all">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -812,11 +829,11 @@ function Builder() {
             </SelectContent>
           </Select>
           {vipRemaining !== null ? (
-            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none animate-pulse shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none animate-pulse shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
               👑 VIP {formatVipTime(vipRemaining)}
             </span>
           ) : isPremium ? (
-            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none shrink-0">
+            <span className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none shrink-0">
               Premium ✦
             </span>
           ) : (
@@ -831,7 +848,11 @@ function Builder() {
           )}
           <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
           
-          <Button size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-4 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all hidden sm:flex">
+          <Button size="sm" onClick={() => setShowPreviewModal(true)} variant="outline" className="h-9 rounded-full px-4 shrink-0 shadow-sm border-primary/20 hover:border-primary/50 bg-card sm:hidden flex items-center">
+            <Eye className="mr-1.5 h-4 w-4" /> <span>Preview</span>
+          </Button>
+
+          <Button size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-4 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all flex">
             <Download className="mr-1.5 h-4 w-4" /> <span>{t("common.pdf") || "Download"}</span>
           </Button>
         </div>
@@ -841,8 +862,8 @@ function Builder() {
         {/* ============ Conversation panel ============ */}
         <div className={cn("print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative md:h-full md:w-[480px]", mode === "text" ? "h-[45vh] min-h-[300px]" : "h-auto pb-4")}>
               <>
-                {/* Header with mode toggle */}
-                <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between">
+                {/* Header with mode toggle (Hidden on Mobile) */}
+                <div className="hidden md:flex px-5 py-4 border-b border-border/60 items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="grid h-7 w-7 place-items-center rounded-full bg-foreground text-background">
                       <Sparkles className="h-3.5 w-3.5" />
@@ -915,9 +936,24 @@ function Builder() {
                       </AnimatePresence>
                     </div>
 
-                    {/* Orb */}
-                    <div className="hidden md:flex flex-col items-center gap-4 sm:gap-5 flex-1 justify-center">
-                      <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
+                    {/* Orb Area */}
+                    <div className="flex flex-col items-center gap-4 sm:gap-5 flex-1 justify-center w-full relative">
+                      <div className="flex items-center justify-center gap-6 sm:gap-10 w-full relative">
+                        {/* Left Action Button (Mute/Stop on Mobile) */}
+                        <button onClick={toggleVoice} className="md:hidden h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          {(scribe.isConnected || speaking) ? <Square className="w-5 h-5 fill-current"/> : <Mic className="w-5 h-5"/>}
+                        </button>
+                        
+                        <div className="flex-shrink-0 relative z-0">
+                          <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
+                        </div>
+
+                        {/* Right Action Button (Switch to Text on Mobile) */}
+                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          <Keyboard className="w-5 h-5"/>
+                        </button>
+                      </div>
+
                       <Waveform active={scribe.isConnected} level={fakeLevel} />
                       <p className="text-xs text-muted-foreground">
                         {scribe.isConnected
@@ -955,43 +991,6 @@ function Builder() {
                       </AnimatePresence>
                     </div>
 
-                    {/* Mobile Voice Pill (Sticky at bottom) */}
-                    <div className="md:hidden mt-auto w-full pt-4 pb-2 z-10">
-                      <div className="max-w-sm mx-auto bg-card border border-border shadow-[0_0_20px_rgba(0,0,0,0.1)] rounded-full p-2 pl-3 flex items-center gap-3">
-                        {/* Smaller Orb */}
-                        <div className="relative h-10 w-10 shrink-0 cursor-pointer" onClick={toggleVoice}>
-                          <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
-                        </div>
-                        {/* Text / Waveform */}
-                        <div className="flex-1 flex flex-col justify-center min-w-0">
-                           <span className="text-xs font-medium text-foreground/80 truncate">
-                              {scribe.isConnected
-                                ? "Listening..."
-                                : thinking
-                                  ? "Thinking..."
-                                  : speaking
-                                    ? "Speaking..."
-                                    : "Tap to speak"}
-                           </span>
-                           <Waveform active={scribe.isConnected} level={fakeLevel} />
-                        </div>
-                        {/* Stop Button */}
-                        {speaking ? (
-                           <button onClick={stopSpeaking} className="h-10 px-4 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center gap-1.5 text-sm font-medium hover:bg-foreground hover:text-background transition-colors cursor-pointer">
-                               <Square className="h-3.5 w-3.5" fill="currentColor" /> Stop
-                           </button>
-                        ) : scribe.isConnected ? (
-                           <button onClick={stopVoice} className="h-10 px-4 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center gap-1.5 text-sm font-medium hover:bg-foreground hover:text-background transition-colors cursor-pointer">
-                               <Square className="h-3.5 w-3.5" fill="currentColor" /> Stop
-                           </button>
-                        ) : ttsFailed && !speaking && !thinking ? (
-                           <button onClick={() => speak(lastSpeakRef.current.text, lastSpeakRef.current.lang)} className="h-10 w-10 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center transition-colors cursor-pointer animate-pulse">
-                               🔊
-                           </button>
-                        ) : null}
-                      </div>
-                    </div>
-
                     {speaking && (
                       <button
                         onClick={stopSpeaking}
@@ -1016,6 +1015,15 @@ function Builder() {
                     </div>
                     <form onSubmit={(e) => { e.preventDefault(); onSendText(); }} className="p-3 sm:p-4 border-t border-border bg-background w-full">
                       <div className="flex items-end gap-2 rounded-2xl border border-input bg-card p-1.5 focus-within:border-foreground/30 transition shadow-sm">
+                        {/* Mobile Text/Voice Toggle in Text Mode */}
+                        <div className="md:hidden flex items-center bg-secondary/50 rounded-full p-1 mr-1 mb-0.5">
+                          <button type="button" onClick={() => setMode('text')} className="p-1.5 rounded-full bg-foreground text-background shadow-sm transition-all">
+                            <Keyboard className="w-4 h-4"/>
+                          </button>
+                          <button type="button" onClick={() => setMode('voice')} className="p-1.5 rounded-full text-muted-foreground hover:text-foreground transition-all">
+                            <Mic className="w-4 h-4"/>
+                          </button>
+                        </div>
                         <textarea
                           value={textInput}
                           onChange={(e) => {
@@ -1272,46 +1280,6 @@ function Builder() {
         </DialogContent>
       </Dialog>
 
-      {/* --- Mobile Bottom Navigation --- */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-t border-border p-3 pb-safe shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.1)] flex flex-col gap-3">
-        <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar w-full pb-1">
-          <Select value={resume.template} onValueChange={changeTemplate}>
-            <SelectTrigger className="h-9 w-[160px] shrink-0 border-primary/20 hover:border-primary/50 transition-all bg-card">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {TEMPLATES.map((tpl) => (
-                <SelectItem key={tpl.id} value={tpl.id}>
-                  {t(`templatesList.${tpl.id}.name`, { defaultValue: tpl.name })}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {vipRemaining !== null ? (
-            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none animate-pulse shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
-              👑 VIP {formatVipTime(vipRemaining)}
-            </span>
-          ) : !isPremium && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setShowUpgradeModal(true)}
-              className="h-9 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400 font-semibold shrink-0"
-            >
-              Upgrade ✦
-            </Button>
-          )}
-          <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
-        </div>
-        <div className="flex w-full gap-3 shrink-0">
-          <Button onClick={() => setShowPreviewModal(true)} variant="outline" className="h-11 flex-1 rounded-xl shadow-sm text-sm border-primary/20 hover:border-primary/50 bg-card">
-            <Eye className="mr-2 h-4 w-4" /> Preview
-          </Button>
-          <Button onClick={() => setShowDownloadModal(true)} className="h-11 flex-1 rounded-xl shadow-md text-sm">
-            <Download className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }
