@@ -46,7 +46,7 @@
       "step3Desc": "resume-zen Ai adapte ses questions à votre secteur d'activité.",
       "step4Title": "Discutez tout simplement",
       "step4Desc": "Regardez votre CV s'écrire tout seul en temps réel.",
-    "moreLangs": "+ {{count}} langues supplémentaires"
+      "moreLangs": "+ {{count}} langues supplémentaires"
     }
   },
   "auth": {
@@ -134,21 +134,57 @@
   "authLeft": {
     "tagline": "Une façon plus calme de rédiger un CV",
     "quote": "“J'ai simplement répondu à quelques questions en français. Cinq minutes plus tard, j'avais un magnifique CV en anglais.”",
-    "attribution": "— Priya, jeune diplômée"
+    "attribution": "— Jayesh, jeune diplômée"
   },
   "industries": {
-    "software": { "name": "Développeur logiciel", "hint": "Ingénierie, programmation, systèmes" },
-    "design": { "name": "Designer", "hint": "UI, UX, produit, design visuel" },
-    "doctor": { "name": "Médecin", "hint": "Médical, clinique, santé" },
-    "teacher": { "name": "Enseignant", "hint": "Éducation, académique, formation" },
-    "marketing": { "name": "Marketing", "hint": "Croissance, marque, contenu" },
-    "sales": { "name": "Commercial / Vente", "hint": "B2B, B2C, gestion de compte" },
-    "photographer": { "name": "Photographe", "hint": "Créatif, narration visuelle" },
-    "student": { "name": "Étudiant", "hint": "Lycée, université, premier emploi" },
-    "freelancer": { "name": "Freelance", "hint": "Indépendant, missions contractuelles" },
-    "business": { "name": "Affaires / Management", "hint": "Opérations, stratégie, leadership" },
-    "finance": { "name": "Finance", "hint": "Banque, analyse, comptabilité" },
-    "engineer": { "name": "Ingénieur", "hint": "Civil, mécanique, électrique" }
+    "software": {
+      "name": "Développeur logiciel",
+      "hint": "Ingénierie, programmation, systèmes"
+    },
+    "design": {
+      "name": "Designer",
+      "hint": "UI, UX, produit, design visuel"
+    },
+    "doctor": {
+      "name": "Médecin",
+      "hint": "Médical, clinique, santé"
+    },
+    "teacher": {
+      "name": "Enseignant",
+      "hint": "Éducation, académique, formation"
+    },
+    "marketing": {
+      "name": "Marketing",
+      "hint": "Croissance, marque, contenu"
+    },
+    "sales": {
+      "name": "Commercial / Vente",
+      "hint": "B2B, B2C, gestion de compte"
+    },
+    "photographer": {
+      "name": "Photographe",
+      "hint": "Créatif, narration visuelle"
+    },
+    "student": {
+      "name": "Étudiant",
+      "hint": "Lycée, université, premier emploi"
+    },
+    "freelancer": {
+      "name": "Freelance",
+      "hint": "Indépendant, missions contractuelles"
+    },
+    "business": {
+      "name": "Affaires / Management",
+      "hint": "Opérations, stratégie, leadership"
+    },
+    "finance": {
+      "name": "Finance",
+      "hint": "Banque, analyse, comptabilité"
+    },
+    "engineer": {
+      "name": "Ingénieur",
+      "hint": "Civil, mécanique, électrique"
+    }
   },
   "templatesList": {
     "ats": {

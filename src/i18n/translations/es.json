@@ -46,7 +46,7 @@
       "step3Desc": "resume-zen Ai adaptará sus preguntas a tu industria específica.",
       "step4Title": "Solo conversa",
       "step4Desc": "Mira cómo tu currículum se escribe solo, en tiempo real.",
-    "moreLangs": "+ {{count}} idiomas más"
+      "moreLangs": "+ {{count}} idiomas más"
     }
   },
   "auth": {
@@ -134,21 +134,57 @@
   "authLeft": {
     "tagline": "Una forma más tranquila de escribir un currículum",
     "quote": "“Solo respondí unas preguntas en español. Cinco minutos después tenía un currículum hermoso en inglés.”",
-    "attribution": "— Priya, graduada reciente"
+    "attribution": "— Jayesh, graduada reciente"
   },
   "industries": {
-    "software": { "name": "Desarrollador de software", "hint": "Ingeniería, programación, sistemas" },
-    "design": { "name": "Diseñador", "hint": "UI, UX, producto, diseño visual" },
-    "doctor": { "name": "Médico", "hint": "Medicina, clínica, salud" },
-    "teacher": { "name": "Profesor", "hint": "Educación, docencia, capacitación" },
-    "marketing": { "name": "Marketing", "hint": "Crecimiento, marca, contenidos" },
-    "sales": { "name": "Ventas", "hint": "B2B, B2C, gestión de cuentas" },
-    "photographer": { "name": "Fotógrafo", "hint": "Creativo, narrativa visual" },
-    "student": { "name": "Estudiante", "hint": "Escuela, universidad, sin experiencia" },
-    "freelancer": { "name": "Freelancer", "hint": "Trabajo independiente o por contrato" },
-    "business": { "name": "Negocios / Administración", "hint": "Operaciones, estrategia, liderazgo" },
-    "finance": { "name": "Finanzas", "hint": "Banca, análisis, contabilidad" },
-    "engineer": { "name": "Ingeniero", "hint": "Civil, mecánico, eléctrico" }
+    "software": {
+      "name": "Desarrollador de software",
+      "hint": "Ingeniería, programación, sistemas"
+    },
+    "design": {
+      "name": "Diseñador",
+      "hint": "UI, UX, producto, diseño visual"
+    },
+    "doctor": {
+      "name": "Médico",
+      "hint": "Medicina, clínica, salud"
+    },
+    "teacher": {
+      "name": "Profesor",
+      "hint": "Educación, docencia, capacitación"
+    },
+    "marketing": {
+      "name": "Marketing",
+      "hint": "Crecimiento, marca, contenidos"
+    },
+    "sales": {
+      "name": "Ventas",
+      "hint": "B2B, B2C, gestión de cuentas"
+    },
+    "photographer": {
+      "name": "Fotógrafo",
+      "hint": "Creativo, narrativa visual"
+    },
+    "student": {
+      "name": "Estudiante",
+      "hint": "Escuela, universidad, sin experiencia"
+    },
+    "freelancer": {
+      "name": "Freelancer",
+      "hint": "Trabajo independiente o por contrato"
+    },
+    "business": {
+      "name": "Negocios / Administración",
+      "hint": "Operaciones, estrategia, liderazgo"
+    },
+    "finance": {
+      "name": "Finanzas",
+      "hint": "Banca, análisis, contabilidad"
+    },
+    "engineer": {
+      "name": "Ingeniero",
+      "hint": "Civil, mecánico, eléctrico"
+    }
   },
   "templatesList": {
     "ats": {

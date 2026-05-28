@@ -12,6 +12,7 @@ import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
 import { ensureI18nInitialized, i18n } from "@/i18n";
 import { useTranslation } from "react-i18next";
+import { SupportWidget } from "@/components/support-widget";
 
 ensureI18nInitialized();
 
@@ -116,6 +117,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <Toaster position="top-center" />
+      <SupportWidget />
     </QueryClientProvider>
   );
 }

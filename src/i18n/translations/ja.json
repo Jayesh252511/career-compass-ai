@@ -46,7 +46,7 @@
       "step3Desc": "resume-zen Aiがあなたの業界に合わせて質問を最適化します。",
       "step4Title": "ただ会話するだけ",
       "step4Desc": "履歴書がリアルタイムで自動作成されていく様子をご覧ください。",
-    "moreLangs": "+ {{count}} 言語追加"
+      "moreLangs": "+ {{count}} 言語追加"
     }
   },
   "auth": {
@@ -134,21 +134,57 @@
   "authLeft": {
     "tagline": "最も静かで心地よい履歴書作成",
     "quote": "“日本語でいくつか質問に答えただけ。5分後には美しい英語の履歴書が完成していました。”",
-    "attribution": "— Priya、新卒採用者"
+    "attribution": "— Jayesh、新卒採用者"
   },
   "industries": {
-    "software": { "name": "ソフトウェア開発", "hint": "エンジニアリング、プログラミング、システム開発" },
-    "design": { "name": "デザイナー", "hint": "UI/UX、プロダクトデザイン、ビジュアル" },
-    "doctor": { "name": "医師", "hint": "医療、臨床、ヘルスケア" },
-    "teacher": { "name": "教育・教師", "hint": "教育、アカデミック、研修講師" },
-    "marketing": { "name": "マーケティング", "hint": "グロース、ブランド、コンテンツ企画" },
-    "sales": { "name": "営業・セールス", "hint": "B2B、B2C、アカウントマネジメント" },
-    "photographer": { "name": "フォトグラファー", "hint": "クリエイティブ、ビジュアルストーリー" },
-    "student": { "name": "学生", "hint": "高校、大学、新卒・インターン" },
-    "freelancer": { "name": "フリーランサー", "hint": "インディペンデント、業務委託" },
-    "business": { "name": "ビジネス・経営", "hint": "経営企画、オペレーション、戦略" },
-    "finance": { "name": "金融・財務", "hint": "銀行、財務分析、会計" },
-    "engineer": { "name": "技術職・エンジニア", "hint": "土木、機械、電気・電子" }
+    "software": {
+      "name": "ソフトウェア開発",
+      "hint": "エンジニアリング、プログラミング、システム開発"
+    },
+    "design": {
+      "name": "デザイナー",
+      "hint": "UI/UX、プロダクトデザイン、ビジュアル"
+    },
+    "doctor": {
+      "name": "医師",
+      "hint": "医療、臨床、ヘルスケア"
+    },
+    "teacher": {
+      "name": "教育・教師",
+      "hint": "教育、アカデミック、研修講師"
+    },
+    "marketing": {
+      "name": "マーケティング",
+      "hint": "グロース、ブランド、コンテンツ企画"
+    },
+    "sales": {
+      "name": "営業・セールス",
+      "hint": "B2B、B2C、アカウントマネジメント"
+    },
+    "photographer": {
+      "name": "フォトグラファー",
+      "hint": "クリエイティブ、ビジュアルストーリー"
+    },
+    "student": {
+      "name": "学生",
+      "hint": "高校、大学、新卒・インターン"
+    },
+    "freelancer": {
+      "name": "フリーランサー",
+      "hint": "インディペンデント、業務委託"
+    },
+    "business": {
+      "name": "ビジネス・経営",
+      "hint": "経営企画、オペレーション、戦略"
+    },
+    "finance": {
+      "name": "金融・財務",
+      "hint": "銀行、財務分析、会計"
+    },
+    "engineer": {
+      "name": "技術職・エンジニア",
+      "hint": "土木、機械、電気・電子"
+    }
   },
   "templatesList": {
     "ats": {

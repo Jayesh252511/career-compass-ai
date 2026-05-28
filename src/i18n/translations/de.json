@@ -46,7 +46,7 @@
       "step3Desc": "resume-zen Ai passt ihre Fragen individuell an Ihre Branche an.",
       "step4Title": "Einfach plaudern",
       "step4Desc": "Sehen Sie zu, wie sich Ihr Lebenslauf in Echtzeit von selbst schreibt.",
-    "moreLangs": "+ {{count}} weitere Sprachen"
+      "moreLangs": "+ {{count}} weitere Sprachen"
     }
   },
   "auth": {
@@ -134,21 +134,57 @@
   "authLeft": {
     "tagline": "Ein ruhigerer Weg, einen Lebenslauf zu schreiben",
     "quote": "“Ich habe nur ein paar Fragen auf Deutsch beantwortet. Fünf Minuten später hatte ich einen wunderschönen englischen Lebenslauf.”",
-    "attribution": "— Priya, Absolventin"
+    "attribution": "— Jayesh, Absolventin"
   },
   "industries": {
-    "software": { "name": "Softwareentwickler", "hint": "Entwicklung, Programmierung, Systeme" },
-    "design": { "name": "Designer", "hint": "UI, UX, Produkt, visuelles Design" },
-    "doctor": { "name": "Arzt / Medizinbereich", "hint": "Medizinisch, klinisch, Gesundheit" },
-    "teacher": { "name": "Lehrer", "hint": "Bildung, Schule, Training" },
-    "marketing": { "name": "Marketing", "hint": "Wachstum, Marke, Content" },
-    "sales": { "name": "Vertrieb / Sales", "hint": "B2B, B2C, Account-Management" },
-    "photographer": { "name": "Fotograf", "hint": "Kreativ, visuelles Storytelling" },
-    "student": { "name": "Student", "hint": "Hochschule, Universität, Berufseinsteiger" },
-    "freelancer": { "name": "Freelancer", "hint": "Freiberuflich, Projektarbeit" },
-    "business": { "name": "Business / Management", "hint": "Operations, Strategie, Führung" },
-    "finance": { "name": "Finanzen", "hint": "Banking, Analyse, Rechnungswesen" },
-    "engineer": { "name": "Ingenieur", "hint": "Bau, Maschinenbau, Elektrotechnik" }
+    "software": {
+      "name": "Softwareentwickler",
+      "hint": "Entwicklung, Programmierung, Systeme"
+    },
+    "design": {
+      "name": "Designer",
+      "hint": "UI, UX, Produkt, visuelles Design"
+    },
+    "doctor": {
+      "name": "Arzt / Medizinbereich",
+      "hint": "Medizinisch, klinisch, Gesundheit"
+    },
+    "teacher": {
+      "name": "Lehrer",
+      "hint": "Bildung, Schule, Training"
+    },
+    "marketing": {
+      "name": "Marketing",
+      "hint": "Wachstum, Marke, Content"
+    },
+    "sales": {
+      "name": "Vertrieb / Sales",
+      "hint": "B2B, B2C, Account-Management"
+    },
+    "photographer": {
+      "name": "Fotograf",
+      "hint": "Kreativ, visuelles Storytelling"
+    },
+    "student": {
+      "name": "Student",
+      "hint": "Hochschule, Universität, Berufseinsteiger"
+    },
+    "freelancer": {
+      "name": "Freelancer",
+      "hint": "Freiberuflich, Projektarbeit"
+    },
+    "business": {
+      "name": "Business / Management",
+      "hint": "Operations, Strategie, Führung"
+    },
+    "finance": {
+      "name": "Finanzen",
+      "hint": "Banking, Analyse, Rechnungswesen"
+    },
+    "engineer": {
+      "name": "Ingenieur",
+      "hint": "Bau, Maschinenbau, Elektrotechnik"
+    }
   },
   "templatesList": {
     "ats": {

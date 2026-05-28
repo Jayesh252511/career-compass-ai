@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { toast } from "sonner";
 import type { ResumeContent } from "@/lib/constants";
 import type { ResumeSectionLabels } from "@/lib/resume/section-labels";
 import { useTranslation } from "react-i18next";
@@ -21,8 +23,39 @@ function maskEmail(email?: string) {
 
 export function ResumePreview({ content, template, labels, isPremium = false, userEmail }: Props) {
   const hasContent = !isEmpty(content);
+
+  useEffect(() => {
+    if (isPremium) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isCopy = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "c";
+      if (isCopy) {
+        e.preventDefault();
+        toast.error("Copying text is locked for free resumes. Upgrade to Premium to copy text or download clean PDFs!", {
+          id: "copy-lock-toast",
+          duration: 4000,
+        });
+      }
+    };
+
+    const handleDragStart = (e: DragEvent) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("dragstart", handleDragStart);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("dragstart", handleDragStart);
+    };
+  }, [isPremium]);
+
   return (
-    <div className="relative h-full w-full">
+    <div 
+      className={`relative h-full w-full ${!isPremium ? "select-none" : ""}`}
+      onContextMenu={(e) => { if (!isPremium) { e.preventDefault(); toast.error("Right-click is disabled for free resumes. Upgrade to Premium to unlock!"); } }}
+      onCopy={(e) => { if (!isPremium) { e.preventDefault(); } }}
+    >
       {template === "modern" ? (
         <ModernTemplate c={content} labels={labels} />
       ) : template === "fresher" ? (
@@ -31,19 +64,12 @@ export function ResumePreview({ content, template, labels, isPremium = false, us
         <AtsTemplate c={content} labels={labels} />
       )}
       {!isPremium && hasContent && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-10 flex flex-col justify-around items-center opacity-[0.04] rotate-[-26deg] scale-125 print:opacity-[0.04]">
-          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
-            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
-          </div>
-          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
-            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
-          </div>
-          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
-            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
-          </div>
-          <div className="text-[20px] font-sans font-extrabold tracking-[0.2em] text-neutral-900 uppercase whitespace-nowrap">
-            Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
-          </div>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-10 grid grid-cols-3 grid-rows-10 gap-x-4 gap-y-12 p-6 opacity-[0.07] rotate-[-28deg] scale-150 print:opacity-[0.08] print:scale-150">
+          {Array.from({ length: 30 }).map((_, idx) => (
+            <div key={idx} className="text-[10px] font-sans font-extrabold tracking-[0.2em] text-neutral-800 uppercase whitespace-nowrap select-none text-center">
+              Made with resume-zen Ai {userEmail ? `· ${maskEmail(userEmail)}` : ""}
+            </div>
+          ))}
         </div>
       )}
     </div>

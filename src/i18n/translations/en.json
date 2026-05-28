@@ -134,21 +134,57 @@
   "authLeft": {
     "tagline": "A quieter way to write a resume",
     "quote": "“I just answered a few questions in Hindi. Five minutes later I had a beautiful resume in English.”",
-    "attribution": "— Priya, recent graduate"
+    "attribution": "— Jayesh, recent graduate"
   },
   "industries": {
-    "software": { "name": "Software Developer", "hint": "Engineering, programming, systems" },
-    "design": { "name": "Designer", "hint": "UI, UX, product, visual" },
-    "doctor": { "name": "Doctor", "hint": "Medical, clinical, healthcare" },
-    "teacher": { "name": "Teacher", "hint": "Education, academic, training" },
-    "marketing": { "name": "Marketing", "hint": "Growth, brand, content" },
-    "sales": { "name": "Sales", "hint": "B2B, B2C, account management" },
-    "photographer": { "name": "Photographer", "hint": "Creative, visual storytelling" },
-    "student": { "name": "Student", "hint": "College, university, fresher" },
-    "freelancer": { "name": "Freelancer", "hint": "Independent, contract work" },
-    "business": { "name": "Business", "hint": "Operations, strategy, leadership" },
-    "finance": { "name": "Finance", "hint": "Banking, analysis, accounting" },
-    "engineer": { "name": "Engineer", "hint": "Civil, mechanical, electrical" }
+    "software": {
+      "name": "Software Developer",
+      "hint": "Engineering, programming, systems"
+    },
+    "design": {
+      "name": "Designer",
+      "hint": "UI, UX, product, visual"
+    },
+    "doctor": {
+      "name": "Doctor",
+      "hint": "Medical, clinical, healthcare"
+    },
+    "teacher": {
+      "name": "Teacher",
+      "hint": "Education, academic, training"
+    },
+    "marketing": {
+      "name": "Marketing",
+      "hint": "Growth, brand, content"
+    },
+    "sales": {
+      "name": "Sales",
+      "hint": "B2B, B2C, account management"
+    },
+    "photographer": {
+      "name": "Photographer",
+      "hint": "Creative, visual storytelling"
+    },
+    "student": {
+      "name": "Student",
+      "hint": "College, university, fresher"
+    },
+    "freelancer": {
+      "name": "Freelancer",
+      "hint": "Independent, contract work"
+    },
+    "business": {
+      "name": "Business",
+      "hint": "Operations, strategy, leadership"
+    },
+    "finance": {
+      "name": "Finance",
+      "hint": "Banking, analysis, accounting"
+    },
+    "engineer": {
+      "name": "Engineer",
+      "hint": "Civil, mechanical, electrical"
+    }
   },
   "templatesList": {
     "ats": {
