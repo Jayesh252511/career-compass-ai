@@ -631,12 +631,12 @@ function Builder() {
 
   // -------- Misc actions --------
   const changeTemplate = async (template: string) => {
-    if (!resume || isPremium) return;
+    if (!resume) return;
     setResume({ ...resume, template });
     await supabase.from("resumes").update({ template }).eq("id", resume.id);
   };
   const renameTitle = async (title: string) => {
-    if (!resume || isPremium) return;
+    if (!resume) return;
     setResume({ ...resume, title });
     await supabase.from("resumes").update({ title }).eq("id", resume.id);
   };
