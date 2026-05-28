@@ -87,7 +87,6 @@ function Builder() {
   const [ttsFailed, setTtsFailed] = useState(false);
   const { t } = useTranslation();
   const isMobile = useIsMobile();
-  const [mobileTab, setMobileTab] = useState<"assistant" | "preview">("assistant");
 
   // Track what was last attempted for retry
   const lastSpeakRef = useRef<{ text: string; lang: string }>({ text: "", lang: "en" });
@@ -175,7 +174,7 @@ function Builder() {
       const currentSig = getResumeSignature(contentObj, r.template, r.language);
       
       // Query premium_unlocks to see if this signature was already unlocked
-      const { data: unlockData } = await supabase
+      const { data: unlockData } = await (supabase as any)
         .from("premium_unlocks")
         .select("id, payment_id")
         .eq("resume_id", r.id)
@@ -234,7 +233,7 @@ function Builder() {
       const currentSig = getResumeSignature(contentObj, data.template, data.language);
       
       // Check premium_unlocks table as well for higher reliability
-      const { data: unlockData } = await supabase
+      const { data: unlockData } = await (supabase as any)
         .from("premium_unlocks")
         .select("id, payment_id")
         .eq("resume_id", id)
@@ -258,7 +257,6 @@ function Builder() {
         setIsPremium(true);
         setResume(prev => prev ? { ...prev, content: syncedContent } : prev);
         setShowUpgradeModal(false);
-        setHasClickedPay(false);
         toast.success("Payment detected successfully! Premium features unlocked.");
       }
     } catch (e) {
@@ -564,7 +562,7 @@ function Builder() {
       };
       
       // Lock version inside premium_unlocks table
-      const { error: unlockErr } = await supabase
+      const { error: unlockErr } = await (supabase as any)
         .from("premium_unlocks")
         .insert({
           user_id: user.id,
@@ -738,8 +736,8 @@ function Builder() {
           )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="sm" className="h-9 rounded-full">
-                <Download className="mr-1.5 h-4 w-4" /> {t("common.pdf")} <ChevronDown className="ml-1.5 h-4 w-4 opacity-70" />
+              <Button size="sm" className="h-9 rounded-full px-2 sm:px-3">
+                <Download className="sm:mr-1.5 h-4 w-4" /> <span className="hidden sm:inline">{t("common.pdf")}</span> <ChevronDown className="ml-1 sm:ml-1.5 h-4 w-4 opacity-70" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-64">
@@ -787,36 +785,9 @@ function Builder() {
         </div>
       </div>
 
-      {/* Mobile-First Segmented Tab Switcher */}
-      {isMobile && (
-        <div className="print:hidden flex border-b border-border bg-card p-1">
-          <button
-            type="button"
-            onClick={() => setMobileTab("assistant")}
-            className={cn(
-              "flex-1 py-2 text-center text-xs font-medium rounded-xl transition-all cursor-pointer",
-              mobileTab === "assistant" ? "bg-accent text-accent-foreground shadow-sm font-semibold" : "text-muted-foreground"
-            )}
-          >
-            {t("builder.tabAssistant")}
-          </button>
-          <button
-            type="button"
-            onClick={() => setMobileTab("preview")}
-            className={cn(
-              "flex-1 py-2 text-center text-xs font-medium rounded-xl transition-all cursor-pointer",
-              mobileTab === "preview" ? "bg-accent text-accent-foreground shadow-sm font-semibold" : "text-muted-foreground"
-            )}
-          >
-            {t("builder.tabPreview")}
-          </button>
-        </div>
-      )}
-
-      <div className="flex-1 overflow-hidden grid grid-cols-1 md:grid-cols-[480px_1fr] print:block">
+      <div className="flex-1 overflow-hidden flex flex-col md:flex-row print:block">
         {/* ============ Conversation panel ============ */}
-        {(!isMobile || mobileTab === "assistant") && (
-          <div className="print:hidden flex flex-col border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-full">
+        <div className="print:hidden flex flex-col border-b md:border-b-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-[45vh] min-h-[300px] md:h-full md:w-[480px]">
             {isPremium ? (
               <div className="flex-1 flex flex-col items-center justify-center p-6 sm:p-8 text-center space-y-6 overflow-y-auto">
                 <div className="h-16 w-16 rounded-full bg-amber-500/10 border border-amber-500/30 grid place-items-center text-amber-500 shadow-sm animate-pulse">
@@ -1003,12 +974,10 @@ function Builder() {
               </>
             )}
           </div>
-        )}
 
         {/* ============ Preview ============ */}
-        {(!isMobile || mobileTab === "preview") && (
-          <div className="overflow-y-auto bg-muted/40 print:bg-white print:overflow-visible">
-            <div className="mx-auto my-6 print:my-0 w-full max-w-[820px] print:max-w-none">
+        <div className="flex-1 overflow-y-auto bg-muted/40 print:bg-white print:overflow-visible relative">
+          <div className="mx-auto my-6 print:my-0 w-full max-w-[820px] print:max-w-none px-4 md:px-8">
               <div className="bg-white shadow-[0_2px_24px_-8px_rgba(0,0,0,0.12)] rounded-xl print:rounded-none print:shadow-none overflow-hidden border border-border print:border-0">
                 <div className="min-h-[1100px]">
                   {exportMode === "ui" && (
@@ -1064,9 +1033,8 @@ function Builder() {
                   )}
                 </div>
               </div>
-            </div>
           </div>
-        )}
+        </div>
       </div>
 
       {showUpgradeModal && (
