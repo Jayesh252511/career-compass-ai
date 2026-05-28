@@ -34,7 +34,8 @@ function IndustryPage() {
   const start = async () => {
     if (!user) return;
     setBusy(true);
-    const language = "unspecified";
+    const stored = typeof window !== "undefined" ? window.localStorage.getItem("linnea_lang") : null;
+    const language = stored || "unspecified";
     const industry = selected === "other" ? custom.trim() : selected;
     if (!industry) {
       toast.error(t("industry.customPlaceholder"));

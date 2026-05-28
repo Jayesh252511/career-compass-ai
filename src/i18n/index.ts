@@ -35,8 +35,8 @@ export function setStoredLanguage(lang: string) {
 export function ensureI18nInitialized() {
   if (i18n.isInitialized) return i18n;
 
-  if (typeof window !== "undefined") {
-    window.localStorage.setItem(STORAGE_KEY, "en");
+  if (typeof window !== "undefined" && !window.localStorage.getItem(STORAGE_KEY)) {
+    // don't overwrite if user hasn't chosen
   }
 
   i18n.use(initReactI18next).init({

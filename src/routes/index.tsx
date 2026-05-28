@@ -5,7 +5,7 @@ import { LANGUAGES } from "@/lib/constants";
 import { Logo } from "@/components/logo";
 import { TopBar } from "@/components/topbar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, FileCheck2, MessagesSquare } from "lucide-react";
+import { ArrowRight, Sparkles, FileCheck2, MessagesSquare, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
@@ -83,6 +83,16 @@ function Landing() {
               Start Building Your Resume <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <p className="text-xs text-muted-foreground mt-2">{t("landing.freeToTry")} • No credit card required</p>
+          </div>
+
+          <div className="mt-20 mx-auto max-w-5xl relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl group cursor-pointer transform transition-transform hover:scale-[1.02] duration-500">
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors z-10 duration-500" />
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <div className="h-20 w-20 rounded-full bg-primary/90 text-primary-foreground flex items-center justify-center shadow-2xl backdrop-blur-md transition-transform duration-500 group-hover:scale-110">
+                <Play className="h-8 w-8 ml-1" fill="currentColor" />
+              </div>
+            </div>
+            <img src="/demo-thumbnail.png" alt="Resume Builder Demo" className="w-full aspect-video object-cover rounded-2xl" />
           </div>
         </div>
       </section>

@@ -85,7 +85,7 @@ function Builder() {
   const [partial, setPartial] = useState("");
   const [fakeLevel, setFakeLevel] = useState(0);
   const [ttsFailed, setTtsFailed] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isMobile = useIsMobile();
 
   // Track what was last attempted for retry
@@ -419,12 +419,11 @@ function Builder() {
 
   // -------- Persist & call AI --------
   async function persistMessage(role: "user" | "assistant", content: string) {
-    if (!user || isPremium) return;
+    if (!user) return;
     await supabase.from("ai_conversations").insert({ resume_id: id, user_id: user.id, role, content });
   }
 
   async function sendToAI(history: Msg[], language: string, industry: string | undefined, currentResume: ResumeContent, resumeId: string, shouldSpeak = false) {
-    if (isPremium) return;
     setThinking(true);
     try {
       const industryName =
@@ -473,7 +472,7 @@ function Builder() {
   }
 
   const handleUserUtterance = useCallback((text: string) => {
-    if (!resume || thinking || isPremium) return; // Debounce: ignore while AI is already responding
+    if (!resume || thinking) return; // Debounce: ignore while AI is already responding
     // Interrupt any AI speech the moment user starts speaking
     stopSpeaking();
     const userMsg: Msg = { role: "user", content: text };
@@ -487,10 +486,10 @@ function Builder() {
     // Call AI with the already-updated history
     sendToAI(nextMessages, resume.language, resume.industry ?? undefined, resume.content, resume.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resume, thinking, stopSpeaking, isPremium]);
+  }, [resume, thinking, stopSpeaking]);
 
   const onSendText = async () => {
-    if (!textInput.trim() || !resume || thinking || isPremium) return;
+    if (!textInput.trim() || !resume || thinking) return;
     const text = textInput.trim();
     setTextInput("");
     handleUserUtterance(text);
@@ -648,12 +647,30 @@ function Builder() {
     setTimeout(() => setExportMode("ui"), 500);
   };
 
-  // -------- Cleanup --------
-  useEffect(() => () => {
-    stopSpeaking();
-    if (scribe.isConnected) scribe.disconnect();
+  // -------- Cleanup & Global Listeners --------
+  useEffect(() => {
+    const handleLangChange = async (lng: string) => {
+      if (!resume || resume.language === lng) return;
+      setThinking(true);
+      try {
+        await supabase.from("resumes").update({ language: lng }).eq("id", resume.id);
+        setResume(prev => prev ? { ...prev, language: lng } : prev);
+        toast.success(t("common.saved") + ` (${LANGUAGES.find(l => l.code === lng)?.native})`);
+      } catch (e) {
+        toast.error("Failed to update resume language.");
+      } finally {
+        setThinking(false);
+      }
+    };
+    i18n.on('languageChanged', handleLangChange);
+    
+    return () => {
+      stopSpeaking();
+      if (scribe.isConnected) scribe.disconnect();
+      i18n.off('languageChanged', handleLangChange);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [resume?.id, resume?.language]);
 
   // Export translation effect — must be ABOVE the conditional return to satisfy Rules of Hooks
   useEffect(() => {
@@ -704,7 +721,6 @@ function Builder() {
           <Input
             value={resume.title}
             onChange={(e) => renameTitle(e.target.value)}
-            disabled={isPremium}
             className="h-9 max-w-[260px] border-transparent bg-transparent focus-visible:border-input font-medium disabled:opacity-90"
           />
           <span className="text-xs text-muted-foreground hidden sm:inline">{lang?.flag} {lang?.native}</span>
@@ -715,7 +731,7 @@ function Builder() {
             <Progress value={resume.progress} className="h-1 w-28" />
             {savedTick && <span className="text-primary">{t("common.saved")}</span>}
           </div>
-          <Select value={resume.template} onValueChange={changeTemplate} disabled={isPremium}>
+          <Select value={resume.template} onValueChange={changeTemplate}>
             <SelectTrigger className="h-9 w-[160px]"><SelectValue /></SelectTrigger>
             <SelectContent>
               {TEMPLATES.map((tpl) => (
@@ -793,52 +809,6 @@ function Builder() {
       <div className="flex-1 overflow-hidden flex flex-col md:flex-row print:block">
         {/* ============ Conversation panel ============ */}
         <div className="print:hidden flex flex-col border-b md:border-b-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative h-[45vh] min-h-[300px] md:h-full md:w-[480px]">
-            {isPremium ? (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 sm:p-8 text-center space-y-6 overflow-y-auto">
-                <div className="h-16 w-16 rounded-full bg-amber-500/10 border border-amber-500/30 grid place-items-center text-amber-500 shadow-sm animate-pulse">
-                  <Sparkles className="h-8 w-8 text-amber-500" />
-                </div>
-                <div className="max-w-sm space-y-2">
-                  <h4 className="font-display text-xl font-bold tracking-tight">✦ Resume Finalized & Locked ✦</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    This resume is unlocked in Premium. To preserve its layout, typography, and version integrity for clean exports, editing has been permanently frozen for this version.
-                  </p>
-                </div>
-                
-                <div className="w-full max-w-xs space-y-3 pt-4">
-                  <Button 
-                    className="w-full rounded-full h-11 bg-amber-500 hover:bg-amber-600 text-white font-medium shadow-sm transition-all cursor-pointer animate-pulse"
-                    onClick={() => {
-                      runExportPrint("en");
-                    }}
-                  >
-                    <Download className="mr-1.5 h-4 w-4" /> Download Premium PDF
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="w-full rounded-full h-11 border-border bg-card/50 hover:bg-accent text-foreground transition-all cursor-pointer"
-                    onClick={handleDuplicateAndEdit}
-                    disabled={thinking}
-                  >
-                    {thinking ? (
-                      <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
-                    ) : (
-                      <Copy className="mr-1.5 h-4 w-4" />
-                    )}
-                    Duplicate to Edit
-                  </Button>
-
-                  <Button 
-                    variant="ghost" 
-                    className="w-full rounded-full h-10 text-muted-foreground hover:text-foreground text-xs cursor-pointer"
-                    onClick={() => navigate({ to: "/dashboard" })}
-                  >
-                    Back to Dashboard
-                  </Button>
-                </div>
-              </div>
-            ) : (
               <>
                 {/* Header with mode toggle */}
                 <div className="px-5 py-4 border-b border-border/60 flex items-center justify-between">
@@ -981,7 +951,6 @@ function Builder() {
                   </>
                 )}
               </>
-            )}
           </div>
 
         {/* ============ Preview ============ */}
@@ -1082,14 +1051,6 @@ function Builder() {
                 <span className="text-emerald-500 font-semibold">✓</span>
                 <span>Full access to ATS-compliant bilingual layouts.</span>
               </div>
-            </div>
-
-            {/* Amber locking warning */}
-            <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-[11px] leading-relaxed">
-              <p className="font-bold flex items-center gap-1">⚠️ Editor Finalization & Lock</p>
-              <p className="mt-1 opacity-90">
-                Unlocking will permanently freeze editing for this copy to preserve PDF layouts. You can easily duplicate it from your dashboard to create a new editable free copy at any time!
-              </p>
             </div>
 
             <div className="space-y-2 pt-2">
