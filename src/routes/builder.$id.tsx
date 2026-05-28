@@ -919,9 +919,9 @@ function Builder() {
 
                 {/* Body */}
                 {mode === "voice" ? (
-                  <div className="flex-1 flex flex-col items-center justify-between px-6 py-6 sm:py-8 overflow-hidden gap-6 sm:gap-8">
+                  <div className="flex flex-col items-center justify-center px-4 py-4 sm:py-6 overflow-hidden gap-4 sm:gap-6">
                     {/* Last AI line — large, centered */}
-                    <div className="w-full max-w-md text-center min-h-[5rem] flex items-center justify-center">
+                    <div className="w-full max-w-md text-center min-h-[3rem] flex items-center justify-center">
                       <AnimatePresence mode="wait">
                         <motion.p
                           key={lastAssistant?.content ?? "intro"}
@@ -937,7 +937,7 @@ function Builder() {
                     </div>
 
                     {/* Orb Area */}
-                    <div className="flex flex-col items-center gap-4 sm:gap-5 flex-1 justify-center w-full relative">
+                    <div className="flex flex-col items-center gap-3 sm:gap-4 justify-center w-full relative">
                       {/* One-line Voice Controls for Mobile */}
                       <div className="flex items-center justify-center gap-2 sm:gap-6 w-full relative px-2">
                         {/* 1. Language Button */}
@@ -1296,7 +1296,7 @@ function Builder() {
       <Dialog open={showPreviewModal} onOpenChange={setShowPreviewModal}>
         <DialogContent className="max-w-[95vw] w-full h-[95vh] p-0 sm:max-w-4xl overflow-hidden flex flex-col rounded-2xl bg-card border-none">
           <div className="flex-1 overflow-y-auto bg-neutral-100/50 dark:bg-neutral-900/50 p-2 sm:p-4 rounded-b-2xl hide-scrollbar">
-            <ResumePreview content={resume.content} template={resume.template as any} labels={exportMode === "native" ? labelsNative : labelsEn} />
+            <ResumePreview content={resume.content} template={resume.template as any} labels={exportMode === "native" ? labelsNative : labelsEn} isPremium={isPremium} userEmail={user?.email} />
           </div>
         </DialogContent>
       </Dialog>
