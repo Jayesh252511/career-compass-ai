@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy, Globe, Eye } from "lucide-react";
+import { Send, Loader2, Download, ArrowLeft, Sparkles, Keyboard, Mic, Square, ChevronDown, Copy, Globe, Eye, RefreshCcw, Volume2 } from "lucide-react";
 import { computeProgress, INDUSTRIES, LANGUAGES, TEMPLATES, type ResumeContent, type TemplateType } from "@/lib/constants";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -858,7 +858,7 @@ function Builder() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block pb-[120px] sm:pb-0">
+      <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block pb-0">
         {/* ============ Conversation panel ============ */}
         <div className={cn("print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative md:h-full md:w-[480px]", mode === "text" ? "h-[45vh] min-h-[300px]" : "h-auto pb-4")}>
               <>
@@ -938,24 +938,56 @@ function Builder() {
 
                     {/* Orb Area */}
                     <div className="flex flex-col items-center gap-4 sm:gap-5 flex-1 justify-center w-full relative">
-                      <div className="flex items-center justify-center gap-6 sm:gap-10 w-full relative">
-                        {/* Left Action Button (Mute/Stop on Mobile) */}
-                        <button onClick={toggleVoice} className="md:hidden h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
-                          {(scribe.isConnected || speaking) ? <Square className="w-5 h-5 fill-current"/> : <Mic className="w-5 h-5"/>}
-                        </button>
-                        
-                        <div className="flex-shrink-0 relative z-0">
+                      {/* One-line Voice Controls for Mobile */}
+                      <div className="flex items-center justify-center gap-2 sm:gap-6 w-full relative px-2">
+                        {/* 1. Language Button */}
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <button className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                              <Globe className="w-4 h-4" />
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="w-48 max-h-[300px] overflow-auto">
+                            {LANGUAGES.map((l) => (
+                              <DropdownMenuItem key={l.code} onClick={() => changeConversationLanguage(l.code)} className="cursor-pointer">
+                                <span className="mr-2">{l.flag}</span><span className="flex-1">{l.native}</span>
+                                {resume.language === l.code && <span className="text-[10px] text-muted-foreground">✓</span>}
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+
+                        {/* 2. Big Mic (VoiceOrb) */}
+                        <div className="flex-shrink-0 relative z-0 scale-75 sm:scale-100 transform origin-center -mx-2 sm:mx-0">
                           <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
                         </div>
 
-                        {/* Right Action Button (Switch to Text on Mobile) */}
-                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                        {/* 3. Pause (Stop) */}
+                        <button onClick={toggleVoice} className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          <Square className="w-4 h-4"/>
+                        </button>
+
+                        {/* 4. Replay */}
+                        <button onClick={() => { if(lastSpeakRef.current.text) speak(lastSpeakRef.current.text, lastSpeakRef.current.lang) }} className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          <RefreshCcw className="w-4 h-4"/>
+                        </button>
+
+                        {/* 5. Text (Keyboard) */}
+                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-11 w-11 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          <Keyboard className="w-4 h-4"/>
+                        </button>
+
+                        {/* Desktop versions (Hidden on Mobile) */}
+                        <button onClick={toggleVoice} className="hidden md:flex h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                          {(scribe.isConnected || speaking) ? <Square className="w-5 h-5 fill-current"/> : <Mic className="w-5 h-5"/>}
+                        </button>
+                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="hidden md:flex h-12 w-12 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-[0_4px_12px_rgba(0,0,0,0.05)] items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
                           <Keyboard className="w-5 h-5"/>
                         </button>
                       </div>
 
                       <Waveform active={scribe.isConnected} level={fakeLevel} />
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-muted-foreground text-center">
                         {scribe.isConnected
                           ? t("builder.tapToStop")
                           : thinking
@@ -964,17 +996,6 @@ function Builder() {
                               ? t("builder.tapToInterrupt")
                               : t("builder.tapToSpeak")}
                       </p>
-                      {/* TTS failure retry button — shown in selected language when sound doesn't come */}
-                      {ttsFailed && !speaking && !thinking && (
-                        <button
-                          type="button"
-                          onClick={() => speak(lastSpeakRef.current.text, lastSpeakRef.current.lang)}
-                          className="mt-1 flex items-center gap-1.5 rounded-full border border-border bg-card/80 px-3.5 py-1.5 text-xs text-foreground/80 hover:bg-accent hover:text-foreground transition-all animate-pulse cursor-pointer"
-                        >
-                          <span>🔊</span>
-                          <span>{t("builder.tapToListen")}</span>
-                        </button>
-                      )}
                     </div>
                     
                     {/* Live partial transcript */}
