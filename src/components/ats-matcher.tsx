@@ -75,7 +75,7 @@ export function AtsMatcher({ resumeContent, isPremium }: Props) {
   return (
     <Dialog open={open} onOpenChange={(val) => { setOpen(val); if (!val) setResult(null); }}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2 border-primary/30 hover:bg-primary/5 hover:text-primary transition-colors">
+        <Button variant="outline" size="sm" className="gap-2 border-primary/30 hover:bg-primary/5 hover:text-primary transition-colors shrink-0">
           <Target className="w-4 h-4" />
           <span className="hidden sm:inline">ATS Match</span>
         </Button>

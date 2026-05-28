@@ -175,4 +175,11 @@
   @keyframes scroll {
     to { transform: translateX(calc(-50% - 0.5rem)); }
   }
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

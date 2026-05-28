@@ -713,24 +713,26 @@ function Builder() {
       </div>
 
       {/* Sub-header */}
-      <div className="print:hidden mx-auto w-full max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between gap-3 border-b border-border">
-        <div className="flex items-center gap-3 min-w-0">
-          <Button asChild variant="ghost" size="sm"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
+      <div className="print:hidden mx-auto w-full max-w-7xl px-3 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border">
+        <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto shrink-0">
+          <Button asChild variant="ghost" size="icon" className="h-9 w-9 shrink-0"><Link to="/dashboard"><ArrowLeft className="h-4 w-4" /></Link></Button>
           <Input
             value={resume.title}
             onChange={(e) => renameTitle(e.target.value)}
-            className="h-9 max-w-[260px] border-transparent bg-transparent focus-visible:border-input font-medium disabled:opacity-90"
+            className="h-9 w-full sm:max-w-[260px] border-transparent bg-transparent focus-visible:border-input font-medium disabled:opacity-90 px-2"
           />
-          <span className="text-xs text-muted-foreground hidden sm:inline">{lang?.flag} {lang?.native}</span>
+          <span className="text-xs text-muted-foreground hidden sm:inline shrink-0">{lang?.flag} {lang?.native}</span>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto hide-scrollbar w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
+          <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground shrink-0">
             <span>{resume.progress}%</span>
             <Progress value={resume.progress} className="h-1 w-28" />
             {savedTick && <span className="text-primary">{t("common.saved")}</span>}
           </div>
           <Select value={resume.template} onValueChange={changeTemplate}>
-            <SelectTrigger className="h-9 w-[160px]"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="h-9 w-[160px] shrink-0 border-primary/20 hover:border-primary/50 hover:shadow-[0_0_10px_rgba(var(--color-primary),0.2)] transition-all">
+              <SelectValue />
+            </SelectTrigger>
             <SelectContent>
               {TEMPLATES.map((tpl) => (
                 <SelectItem key={tpl.id} value={tpl.id}>
@@ -748,7 +750,7 @@ function Builder() {
               size="sm"
               variant="outline"
               onClick={() => setShowUpgradeModal(true)}
-              className="h-9 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 border-amber-500/30 hover:border-amber-500/50 text-amber-700 dark:text-amber-400 font-semibold"
+              className="h-9 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 border-amber-500/30 hover:border-amber-500/50 text-amber-700 dark:text-amber-400 font-semibold shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.25)] hover:shadow-[0_0_18px_rgba(245,158,11,0.4)] transition-all"
             >
               Upgrade ✦
             </Button>
@@ -756,7 +758,7 @@ function Builder() {
           <AtsMatcher resumeContent={resume.content} isPremium={isPremium} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="sm" className="h-9 rounded-full px-2 sm:px-3">
+              <Button size="sm" className="h-9 rounded-full px-2 sm:px-3 shrink-0">
                 <Download className="sm:mr-1.5 h-4 w-4" /> <span className="hidden sm:inline">{t("common.pdf")}</span> <ChevronDown className="ml-1 sm:ml-1.5 h-4 w-4 opacity-70" />
               </Button>
             </DropdownMenuTrigger>
