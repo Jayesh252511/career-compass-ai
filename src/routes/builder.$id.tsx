@@ -811,8 +811,12 @@ function Builder() {
               ))}
             </SelectContent>
           </Select>
-          {isPremium ? (
-            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none">
+          {vipRemaining !== null ? (
+            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none animate-pulse shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+              👑 VIP {formatVipTime(vipRemaining)}
+            </span>
+          ) : isPremium ? (
+            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none shrink-0">
               Premium ✦
             </span>
           ) : (
@@ -854,11 +858,6 @@ function Builder() {
                               ? t("builder.listening")
                               : t("builder.tapOrbToTalk")}
                       </p>
-                      {vipRemaining !== null && (
-                         <p className="text-[10px] sm:text-xs font-bold text-amber-500 animate-pulse mt-0.5">
-                           👑 You are our lucky VIP member! Treated as a king for {formatVipTime(vipRemaining)}
-                         </p>
-                      )}
                     </div>
                   </div>
                   <div className="flex items-center rounded-full bg-card border border-border p-0.5 text-xs">
@@ -917,7 +916,7 @@ function Builder() {
                     </div>
 
                     {/* Orb */}
-                    <div className="flex flex-col items-center gap-4 sm:gap-5 flex-1 justify-center">
+                    <div className="hidden md:flex flex-col items-center gap-4 sm:gap-5 flex-1 justify-center">
                       <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
                       <Waveform active={scribe.isConnected} level={fakeLevel} />
                       <p className="text-xs text-muted-foreground">
@@ -941,6 +940,43 @@ function Builder() {
                         </button>
                       )}
                     </div>
+                    
+                    {/* Mobile Voice Pill (Sticky at bottom) */}
+                    <div className="md:hidden mt-auto w-full pt-4 pb-2 z-10">
+                      <div className="max-w-sm mx-auto bg-card border border-border shadow-[0_0_20px_rgba(0,0,0,0.1)] rounded-full p-2 pl-3 flex items-center gap-3">
+                        {/* Smaller Orb */}
+                        <div className="relative h-10 w-10 shrink-0 cursor-pointer" onClick={toggleVoice}>
+                          <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
+                        </div>
+                        {/* Text / Waveform */}
+                        <div className="flex-1 flex flex-col justify-center min-w-0">
+                           <span className="text-xs font-medium text-foreground/80 truncate">
+                              {scribe.isConnected
+                                ? "Listening..."
+                                : thinking
+                                  ? "Thinking..."
+                                  : speaking
+                                    ? "Speaking..."
+                                    : "Tap to speak"}
+                           </span>
+                           <Waveform active={scribe.isConnected} level={fakeLevel} />
+                        </div>
+                        {/* Stop Button */}
+                        {speaking ? (
+                           <button onClick={stopSpeaking} className="h-10 px-4 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center gap-1.5 text-sm font-medium hover:bg-foreground hover:text-background transition-colors cursor-pointer">
+                               <Square className="h-3.5 w-3.5" fill="currentColor" /> Stop
+                           </button>
+                        ) : scribe.isConnected ? (
+                           <button onClick={stopVoice} className="h-10 px-4 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center gap-1.5 text-sm font-medium hover:bg-foreground hover:text-background transition-colors cursor-pointer">
+                               <Square className="h-3.5 w-3.5" fill="currentColor" /> Stop
+                           </button>
+                        ) : ttsFailed && !speaking && !thinking ? (
+                           <button onClick={() => speak(lastSpeakRef.current.text, lastSpeakRef.current.lang)} className="h-10 w-10 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center transition-colors cursor-pointer animate-pulse">
+                               🔊
+                           </button>
+                        ) : null}
+                      </div>
+                    </div>
 
                     {/* Live partial transcript */}
                     <div className="w-full max-w-md min-h-[3rem] pb-2">
@@ -959,7 +995,7 @@ function Builder() {
                     {speaking && (
                       <button
                         onClick={stopSpeaking}
-                        className="absolute top-20 right-5 text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer"
+                        className="hidden md:flex absolute top-20 right-5 text-xs text-muted-foreground hover:text-foreground items-center gap-1 cursor-pointer"
                       >
                         <Square className="h-3 w-3" /> {t("builder.stop")}
                       </button>
@@ -1251,7 +1287,11 @@ function Builder() {
               ))}
             </SelectContent>
           </Select>
-          {!isPremium && (
+          {vipRemaining !== null ? (
+            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 select-none animate-pulse shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+              👑 VIP {formatVipTime(vipRemaining)}
+            </span>
+          ) : !isPremium && (
             <Button
               size="sm"
               variant="outline"
