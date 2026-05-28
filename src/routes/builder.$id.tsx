@@ -119,6 +119,7 @@ function Builder() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [unlockCode, setUnlockCode] = useState("");
   const [verifyingCode, setVerifyingCode] = useState(false);
+  const [showLanguagePicker, setShowLanguagePicker] = useState(false);
 
   // Keep messagesRef in sync — lets handleUserUtterance read latest messages synchronously
   useEffect(() => { messagesRef.current = messages; }, [messages]);
@@ -209,9 +210,13 @@ function Builder() {
       
       if (list.length === 0 && !initRef.current && !dbPremium && !localPremium) {
         initRef.current = true;
-        // Delay slightly so React has committed the resume state before we call AI.
-        // shouldSpeak=true: if user is in voice mode, speak the greeting automatically.
-        setTimeout(() => sendToAI([], r.language, r.industry ?? undefined, contentObj, r.id, true), 400);
+        if (r.language === "unspecified") {
+          setShowLanguagePicker(true);
+        } else {
+          // Delay slightly so React has committed the resume state before we call AI.
+          // shouldSpeak=true: if user is in voice mode, speak the greeting automatically.
+          setTimeout(() => sendToAI([], r.language, r.industry ?? undefined, contentObj, r.id, true), 400);
+        }
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -951,18 +956,22 @@ function Builder() {
                         </Bubble>
                       )}
                     </div>
-                    <form onSubmit={(e) => { e.preventDefault(); onSendText(); }} className="p-4 border-t border-border bg-background">
-                      <div className="flex items-end gap-2 rounded-2xl border border-input bg-card p-2 focus-within:border-foreground/30 transition">
+                    <form onSubmit={(e) => { e.preventDefault(); onSendText(); }} className="p-3 sm:p-4 border-t border-border bg-background w-full">
+                      <div className="flex items-end gap-2 rounded-2xl border border-input bg-card p-1.5 focus-within:border-foreground/30 transition shadow-sm">
                         <textarea
                           value={textInput}
-                          onChange={(e) => setTextInput(e.target.value)}
-                          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); onSendText(); } }}
+                          onChange={(e) => {
+                            setTextInput(e.target.value);
+                            e.target.style.height = 'auto';
+                            e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+                          }}
+                          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); onSendText(); e.currentTarget.style.height = 'auto'; } }}
                           placeholder={t("builder.replyPlaceholder", { language: lang?.native ?? "your language" })}
                           rows={1}
-                          className="flex-1 resize-none bg-transparent px-2 py-1.5 text-sm outline-none placeholder:text-muted-foreground min-h-[28px] max-h-32"
+                          className="flex-1 resize-none bg-transparent px-3 py-2 text-[15px] outline-none placeholder:text-muted-foreground min-h-[40px] max-h-[120px] overflow-y-auto w-full leading-relaxed"
                         />
-                        <Button type="submit" size="icon" disabled={!textInput.trim() || thinking} className="h-8 w-8 rounded-full">
-                          <Send className="h-3.5 w-3.5" />
+                        <Button type="submit" size="icon" disabled={!textInput.trim() || thinking} className="h-10 w-10 shrink-0 rounded-full mb-0.5 mr-0.5">
+                          <Send className="h-4 w-4" />
                         </Button>
                       </div>
                       <p className="mt-2 text-[10.5px] text-muted-foreground text-center">
@@ -1102,6 +1111,42 @@ function Builder() {
               >
                 Cancel
               </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showLanguagePicker && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="relative bg-card text-card-foreground border border-border/85 max-w-3xl w-full rounded-3xl p-6 shadow-2xl animate-in zoom-in-95 duration-200 space-y-5 max-h-[85vh] overflow-y-auto">
+            <div className="text-center space-y-1.5 mb-6">
+              <h3 className="font-display text-2xl font-bold tracking-tight">Select Communication Language</h3>
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+                Which language would you like Linnea to use during the interview?
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 pt-2">
+              {LANGUAGES.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={async () => {
+                    if (!resume) return;
+                    setThinking(true);
+                    try {
+                      await supabase.from("resumes").update({ language: l.code }).eq("id", id);
+                      setResume(prev => prev ? { ...prev, language: l.code } : prev);
+                      setShowLanguagePicker(false);
+                      setTimeout(() => sendToAI([], l.code, resume.industry ?? undefined, resume.content as any, id, true), 400);
+                    } catch(e) { toast.error("Failed to set language"); }
+                    finally { setThinking(false); }
+                  }}
+                  className="flex flex-col items-center justify-center gap-2 rounded-2xl border bg-card px-3 py-4 transition-all border-border hover:border-primary/50 hover:bg-accent/50 hover:-translate-y-1 cursor-pointer"
+                >
+                  <span className="text-2xl leading-none">{l.flag}</span>
+                  <span className="text-[13px] font-medium leading-tight text-center">{l.native}</span>
+                </button>
+              ))}
             </div>
           </div>
         </div>

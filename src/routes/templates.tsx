@@ -25,7 +25,7 @@ function TemplatesPage() {
   return (
     <div className="min-h-screen">
       <TopBar />
-      <div className="mx-auto max-w-6xl px-6 py-14">
+      <div className="mx-auto max-w-6xl px-6 pt-14 pb-32">
         <Steps current={2} />
         <h1 className="mt-8 font-display text-4xl tracking-tight">{t("templates.heading")}</h1>
         <p className="mt-2 text-muted-foreground">{t("templates.subheading")}</p>
@@ -88,8 +88,10 @@ function TemplatesPage() {
             </button>
           ))}
         </div>
+      </div>
 
-        <div className="mt-10 flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border p-4 sm:p-6">
+        <div className="mx-auto max-w-6xl flex items-center justify-between">
           <Button variant="ghost" asChild><Link to="/">{t("common.back")}</Link></Button>
           <Button onClick={() => navigate({ to: "/industry", search: { template: selected } })} className="h-11 rounded-full px-6">
             {t("common.continue")} <ArrowRight className="ml-2 h-4 w-4" />

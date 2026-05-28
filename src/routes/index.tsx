@@ -74,58 +74,15 @@ function Landing() {
             {t("landing.subtitle")}
           </p>
 
-          <div className="mt-10 mx-auto max-w-3xl">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground mb-4">{t("landing.chooseLanguage")}</p>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
-              {LANGUAGES.slice(0, 12).map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => onPickLanguage(l.code)}
-                  className={cn(
-                    "group flex flex-col items-center gap-1 rounded-2xl border bg-card px-2 py-3 transition-all",
-                    picked === l.code
-                      ? "border-primary shadow-[0_0_0_4px_oklch(0.32_0.08_268_/_0.08)]"
-                      : "border-border hover:border-foreground/20 hover:-translate-y-0.5"
-                  )}
-                >
-                  <span className="text-xl leading-none">{l.flag}</span>
-                  <span className="text-[12px] font-medium leading-tight">{l.native}</span>
-                </button>
-              ))}
-            </div>
-            <details className="mt-3 text-xs text-muted-foreground">
-              <summary className="cursor-pointer hover:text-foreground">{t("landing.moreLangs", { count: LANGUAGES.length - 12 })}</summary>
-              <div className="mt-3 grid grid-cols-3 sm:grid-cols-5 gap-2">
-                {LANGUAGES.slice(12).map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => onPickLanguage(l.code)}
-                    className={cn(
-                      "flex flex-col items-center gap-1 rounded-2xl border bg-card px-2 py-3 transition-all",
-                      picked === l.code ? "border-primary" : "border-border hover:border-foreground/20"
-                    )}
-                  >
-                    <span className="text-xl">{l.flag}</span>
-                    <span className="text-[12px]">{l.native}</span>
-                  </button>
-                ))}
-              </div>
-            </details>
-          </div>
-
           <div className="mt-10 flex flex-col items-center gap-3">
             <Button
               size="lg"
               onClick={onStart}
-              disabled={!picked}
-              className="h-12 rounded-full px-7 text-[15px]"
+              className="h-14 rounded-full px-10 text-[17px] font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-all hover:scale-105"
             >
-              {picked
-                ? t("landing.continueIn", { language: LANGUAGES.find((l) => l.code === picked)?.native ?? "English" })
-                : t("landing.pickLanguageToBegin")}
-              <ArrowRight className="ml-2 h-4 w-4" />
+              Start Building Your Resume <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <p className="text-xs text-muted-foreground">{t("landing.freeToTry")}</p>
+            <p className="text-xs text-muted-foreground mt-2">{t("landing.freeToTry")} • No credit card required</p>
           </div>
         </div>
       </section>

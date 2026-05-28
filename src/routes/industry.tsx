@@ -34,7 +34,7 @@ function IndustryPage() {
   const start = async () => {
     if (!user) return;
     setBusy(true);
-    const language = (typeof window !== "undefined" && window.localStorage.getItem("linnea_lang")) || "en";
+    const language = "unspecified";
     const industry = selected === "other" ? custom.trim() : selected;
     if (!industry) {
       toast.error(t("industry.customPlaceholder"));
@@ -54,7 +54,7 @@ function IndustryPage() {
   return (
     <div className="min-h-screen">
       <TopBar />
-      <div className="mx-auto max-w-5xl px-6 py-14">
+      <div className="mx-auto max-w-5xl px-6 pt-14 pb-32">
         <Steps current={3} />
         <h1 className="mt-8 font-display text-4xl tracking-tight">{t("industry.heading")}</h1>
         <p className="mt-2 text-muted-foreground">{t("industry.subheading")}</p>
@@ -93,8 +93,10 @@ function IndustryPage() {
             />
           </div>
         )}
+      </div>
 
-        <div className="mt-10 flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border p-4 sm:p-6">
+        <div className="mx-auto max-w-5xl flex items-center justify-between">
           <Button variant="ghost" asChild><Link to="/templates">{t("common.back")}</Link></Button>
           <Button onClick={start} disabled={busy} className="h-11 rounded-full px-6">
             {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
