@@ -30,12 +30,7 @@ function Landing() {
   const { t, i18n } = useTranslation();
   const didInit = useRef(false);
 
-  // Auto-redirect to dashboard if user is already logged in
-  useEffect(() => {
-    if (!loading && user) {
-      navigate({ to: "/dashboard" });
-    }
-  }, [user, loading, navigate]);
+
 
   // On first mount (page load / refresh), reset to English once.
   // Using an empty dep array so this never re-runs after a language click.
