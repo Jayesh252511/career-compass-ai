@@ -397,16 +397,30 @@ export function OnboardingTour() {
     const pad = 16;
     const isMobile = window.innerWidth < 640;
 
-    // Mobile: Always display centered at the bottom of the screen for maximum readability and zero clipping!
+    // Mobile: Always display centered at the bottom or top of the screen depending on target positioning to prevent overlapping
     if (isMobile) {
-      return {
-        bottom: "16px",
-        left: "16px",
-        right: "16px",
-        position: "fixed",
-        width: "auto",
-        transform: "none",
-      };
+      const isTargetAtBottom = rect.top > window.innerHeight / 2;
+      if (isTargetAtBottom) {
+        return {
+          top: "16px",
+          bottom: "auto",
+          left: "16px",
+          right: "16px",
+          position: "fixed",
+          width: "auto",
+          transform: "none",
+        };
+      } else {
+        return {
+          bottom: "16px",
+          top: "auto",
+          left: "16px",
+          right: "16px",
+          position: "fixed",
+          width: "auto",
+          transform: "none",
+        };
+      }
     }
 
     const tooltipW = Math.min(330, window.innerWidth - 32);
