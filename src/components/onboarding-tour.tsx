@@ -158,11 +158,18 @@ export function OnboardingTour() {
     };
   }, [currentPath, user, ACTIVE_KEY, STEP_KEY]);
 
+  // Track active step changes with a ref to avoid running the location synchronizer when step changes
+  const stepRef = useRef(step);
+  useEffect(() => {
+    stepRef.current = step;
+  }, [step]);
+
   // Synchronize tour step index to the current page route
   useEffect(() => {
     if (!active || !STEP_KEY) return;
 
-    const currentStepDef = STEPS[step];
+    const currentStep = stepRef.current;
+    const currentStepDef = STEPS[currentStep];
     if (!currentStepDef) return;
 
     const pathMatches = currentStepDef.path === "/builder"
@@ -182,7 +189,7 @@ export function OnboardingTour() {
         setRect(null);
       }
     }
-  }, [currentPath, active, step, STEP_KEY]);
+  }, [currentPath, active, STEP_KEY]);
 
   // Check for the presence of modal dialogs (e.g. language select, preview, download) to auto-pause the tour
   useEffect(() => {
@@ -388,18 +395,21 @@ export function OnboardingTour() {
     }
 
     const pad = 16;
-    const tooltipW = Math.min(330, window.innerWidth - 32);
     const isMobile = window.innerWidth < 640;
 
-    // Mobile: Always align centered bottom or centered top depending on target height
+    // Mobile: Always display centered at the bottom of the screen for maximum readability and zero clipping!
     if (isMobile) {
-      const spaceBelow = window.innerHeight - rect.bottom;
-      const leftX = Math.max(16, Math.min(window.innerWidth - tooltipW - 16, rect.left + rect.width / 2 - tooltipW / 2));
-      if (spaceBelow > 220) {
-        return { top: rect.bottom + pad, left: leftX, width: tooltipW, position: "fixed" };
-      }
-      return { bottom: window.innerHeight - rect.top + pad, left: leftX, width: tooltipW, position: "fixed" };
+      return {
+        bottom: "16px",
+        left: "16px",
+        right: "16px",
+        position: "fixed",
+        width: "auto",
+        transform: "none",
+      };
     }
+
+    const tooltipW = Math.min(330, window.innerWidth - 32);
 
     // Desktop: Follow position hints but protect against edge clipping
     const leftX = Math.max(16, Math.min(window.innerWidth - tooltipW - 16, rect.left + rect.width / 2 - tooltipW / 2));
@@ -414,15 +424,15 @@ export function OnboardingTour() {
 
     switch (finalPos) {
       case "top":
-        return { bottom: window.innerHeight - rect.top + pad, left: leftX, width: tooltipW, position: "fixed" };
+        return { bottom: window.innerHeight - rect.top + pad, left: leftX, width: tooltipW, position: "fixed", transform: "none" };
       case "bottom":
-        return { top: rect.bottom + pad, left: leftX, width: tooltipW, position: "fixed" };
+        return { top: rect.bottom + pad, left: leftX, width: tooltipW, position: "fixed", transform: "none" };
       case "left":
-        return { top: rect.top, right: window.innerWidth - rect.left + pad, width: tooltipW, position: "fixed" };
+        return { top: rect.top, right: window.innerWidth - rect.left + pad, width: tooltipW, position: "fixed", transform: "none" };
       case "right":
-        return { top: rect.top, left: rect.right + pad, width: tooltipW, position: "fixed" };
+        return { top: rect.top, left: rect.right + pad, width: tooltipW, position: "fixed", transform: "none" };
       default:
-        return { top: rect.bottom + pad, left: leftX, width: tooltipW, position: "fixed" };
+        return { top: rect.bottom + pad, left: leftX, width: tooltipW, position: "fixed", transform: "none" };
     }
   };
 
