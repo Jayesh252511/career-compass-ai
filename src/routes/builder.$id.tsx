@@ -28,6 +28,8 @@ import { ProgressRing } from "@/components/progress-ring";
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
 type Mode = "voice" | "text";
 
+const LINKEDIN_POST_URL = "https://www.linkedin.com/feed/"; // TODO: Replace this URL with your actual LinkedIn post URL!
+
 export const Route = createFileRoute("/builder/$id")({
   component: Builder,
 });
@@ -1182,6 +1184,14 @@ function Builder() {
               <p className="mt-2 text-[10px] text-muted-foreground max-w-[280px]">
                 The code is in the LinkedIn post. Just like the post and get the code which is at the last of the caption.
               </p>
+              <a
+                href={LINKEDIN_POST_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border border-primary/20 bg-background text-primary hover:bg-accent hover:border-primary/45 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-sm"
+              >
+                Get Code on LinkedIn 🔗
+              </a>
             </div>
             
             <div className="space-y-2.5 bg-card border border-border p-3.5 rounded-2xl">
