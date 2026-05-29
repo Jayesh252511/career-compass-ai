@@ -44,8 +44,10 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
           </button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="h-9 px-3 rounded-full border border-border bg-background text-xs text-muted-foreground hover:text-foreground">
-                {langMeta?.flag} {langMeta?.native ?? "English"}
+              <button className="h-9 px-2.5 sm:px-3 rounded-full border border-border bg-background text-xs text-muted-foreground hover:text-foreground flex items-center gap-1">
+                <span>{langMeta?.flag}</span>
+                <span className="sm:inline hidden">{langMeta?.native ?? "English"}</span>
+                <span className="sm:hidden inline uppercase font-semibold text-[10px]">{langMeta?.code ?? "EN"}</span>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 max-h-[320px] overflow-auto">
@@ -89,11 +91,7 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <Button asChild size="sm" variant="ghost">
-              <Link to="/auth">{t("common.signIn")}</Link>
-            </Button>
-          )}
+          ) : null}
         </div>
       </div>
     </header>

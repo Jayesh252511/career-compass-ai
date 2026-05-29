@@ -52,9 +52,11 @@ function Landing() {
       window.localStorage.setItem("linnea_lang", picked);
       i18n.changeLanguage(picked);
     }
-    if (loading) return;
-    if (!user) navigate({ to: "/auth", search: { next: "/templates" } });
-    else navigate({ to: "/templates" });
+    if (user) {
+      navigate({ to: "/dashboard" });
+    } else {
+      navigate({ to: "/auth", search: { next: "/dashboard" } });
+    }
   };
 
   return (
