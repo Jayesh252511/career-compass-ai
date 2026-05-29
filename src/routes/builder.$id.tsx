@@ -1256,7 +1256,7 @@ function Builder() {
       )}
 
       <Dialog open={showDownloadModal} onOpenChange={setShowDownloadModal}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent data-modal="download" className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>{t("builder.nameResume", "Name your Resume")}</DialogTitle>
             <DialogDescription>
@@ -1319,7 +1319,7 @@ function Builder() {
       </Dialog>
 
       <Dialog open={showPreviewModal} onOpenChange={setShowPreviewModal}>
-        <DialogContent className="max-w-[95vw] w-full h-[95vh] p-0 sm:max-w-4xl overflow-hidden flex flex-col rounded-2xl bg-card border-none">
+        <DialogContent data-modal="preview" className="max-w-[95vw] w-full h-[95vh] p-0 sm:max-w-4xl overflow-hidden flex flex-col rounded-2xl bg-card border-none">
           <div className="flex-1 overflow-y-auto bg-neutral-100/50 dark:bg-neutral-900/50 p-2 sm:p-4 rounded-b-2xl hide-scrollbar">
             <ResumePreview content={resume.content} template={resume.template as any} labels={exportMode === "native" ? labelsNative : labelsEn} isPremium={isPremium} userEmail={user?.email} />
           </div>

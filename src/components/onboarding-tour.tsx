@@ -190,11 +190,14 @@ export function OnboardingTour() {
     }
   }, [currentPath, active, step, STEP_KEY]);
 
-  // Check for the presence of modal dialogs (e.g. language select) to auto-pause the tour
+  // Check for the presence of modal dialogs (e.g. language select, preview, download) to auto-pause the tour
   useEffect(() => {
     const checkModals = () => {
       const languageModal = document.getElementById("language-picker-modal");
-      if (languageModal) {
+      const hasPreviewModal = document.querySelector('[data-modal="preview"]');
+      const hasDownloadModal = document.querySelector('[data-modal="download"]');
+      
+      if (languageModal || hasPreviewModal || hasDownloadModal) {
         setIsPaused(true);
       } else {
         setIsPaused(false);
@@ -255,7 +258,7 @@ export function OnboardingTour() {
     }
   }, [ACTIVE_KEY]);
 
-  const handleNext = useCallback(() => {
+  const handleNext = useCallback((isFromTooltip = false) => {
     const nextStepIdx = step + 1;
     if (nextStepIdx >= STEPS.length) {
       dismiss();
@@ -269,13 +272,9 @@ export function OnboardingTour() {
       return bounding.width > 0 && bounding.height > 0;
     }) as HTMLElement || elements[0] as HTMLElement;
 
-    // Smart Navigation transitions on click
-    if (step === 0 && el) {
-      el.click(); // Click "Create New Resume"
-    } else if (step === 2 && el) {
-      el.click(); // Click "Continue" to fields
-    } else if (step === 5 && el) {
-      el.click(); // Click "Start Writing"
+    // Smart Navigation transitions on click (ONLY if triggered from the tooltip Next button)
+    if (isFromTooltip && (step === 0 || step === 2 || step === 5) && el) {
+      el.click(); // Click target to trigger page navigation
     } else {
       // Normal sequential step
       setStep(nextStepIdx);
@@ -294,6 +293,38 @@ export function OnboardingTour() {
       }
     }
   }, [step, STEP_KEY]);
+
+  // Listen for click events on the highlighted element itself to automatically advance the tour!
+  useEffect(() => {
+    if (!active || isPaused || !rect) return;
+    const currentStepDef = STEPS[step];
+    if (!currentStepDef) return;
+
+    const elements = Array.from(document.querySelectorAll(`[data-tour="${currentStepDef.target}"]`));
+    const el = elements.find((e) => {
+      const bounding = e.getBoundingClientRect();
+      return bounding.width > 0 && bounding.height > 0;
+    }) as HTMLElement;
+
+    if (!el) return;
+
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    const handleElementClick = () => {
+      // Slightly delayed advance so that the button's standard onClick logic completes first
+      timeoutId = setTimeout(() => {
+        handleNext(false);
+      }, 300);
+    };
+
+    el.addEventListener("click", handleElementClick);
+    return () => {
+      el.removeEventListener("click", handleElementClick);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [active, isPaused, rect, step, handleNext]);
 
   // Restart / Trigger onboarding manually (e.g. from support or dashboard help buttons)
   useEffect(() => {
@@ -477,7 +508,7 @@ export function OnboardingTour() {
                 Skip
               </button>
               <button
-                onClick={handleNext}
+                onClick={() => handleNext(true)}
                 className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md shadow-primary/20"
               >
                 {step === STEPS.length - 1 ? "Finish" : "Next"}
