@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronRight, ChevronLeft, Mic, Keyboard, Eye, Palette, Download, Plus, Briefcase, Sparkles } from "lucide-react";
+import { X, ChevronRight, ChevronLeft, Mic, Keyboard, Eye, Palette, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -14,46 +14,6 @@ type Step = {
 };
 
 const STEPS: Step[] = [
-  {
-    path: "/dashboard",
-    target: "tour-create-new",
-    title: "🚀 Create Your Resume",
-    body: "Welcome to Career Compass AI! Click the 'New Resume' button here to select your template and start your journey.",
-    icon: <Plus className="h-4.5 w-4.5 text-primary" />,
-    position: "bottom",
-  },
-  {
-    path: "/templates",
-    target: "tour-select-template",
-    title: "🎨 Select a Template",
-    body: "Select one of our 10 beautiful, ATS-optimized templates. Don't worry, you can switch this at any time later with zero data loss!",
-    icon: <Palette className="h-4.5 w-4.5 text-primary" />,
-    position: "bottom",
-  },
-  {
-    path: "/templates",
-    target: "tour-template-continue",
-    title: "➡️ Next Step",
-    body: "Ready to proceed? Click the 'Continue' button to choose your target industry.",
-    icon: <ChevronRight className="h-4.5 w-4.5 text-primary" />,
-    position: "top",
-  },
-  {
-    path: "/industry",
-    target: "tour-select-industry",
-    title: "💼 Target Industry",
-    body: "Select your professional career field. This helps Linnea customize her interview questions to fit your specific role.",
-    icon: <Briefcase className="h-4.5 w-4.5 text-primary" />,
-    position: "bottom",
-  },
-  {
-    path: "/industry",
-    target: "tour-industry-start",
-    title: "🎙️ Meet Your AI interviewer",
-    body: "Click 'Start Writing' to open your builder workspace and meet Linnea, your interactive AI interviewer!",
-    icon: <Mic className="h-4.5 w-4.5 text-primary" />,
-    position: "top",
-  },
   {
     path: "/builder",
     target: "tour-voice",
@@ -102,7 +62,6 @@ export function OnboardingTour() {
   const [step, setStep] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [isTemporarilyHidden, setIsTemporarilyHidden] = useState(false);
   const [currentPath, setCurrentPath] = useState(typeof window !== "undefined" ? window.location.pathname : "");
 
   const lastScrolledStep = useRef<number | null>(null);
@@ -136,8 +95,8 @@ export function OnboardingTour() {
     const savedStep = localStorage.getItem(STEP_KEY);
 
     if (isTourActive === null) {
-      // First-time visitor: start the tour on the dashboard
-      if (window.location.pathname === "/dashboard") {
+      // First-time visitor: start the tour when they land in the builder workspace
+      if (window.location.pathname.startsWith("/builder")) {
         localStorage.setItem(ACTIVE_KEY, "true");
         localStorage.setItem(STEP_KEY, "0");
         setActive(true);
@@ -168,26 +127,10 @@ export function OnboardingTour() {
   useEffect(() => {
     if (!active || !STEP_KEY) return;
 
-    const currentStep = stepRef.current;
-    const currentStepDef = STEPS[currentStep];
-    if (!currentStepDef) return;
-
-    const pathMatches = currentStepDef.path === "/builder"
-      ? currentPath.startsWith("/builder")
-      : currentPath === currentStepDef.path;
-
+    const pathMatches = currentPath.startsWith("/builder");
     if (!pathMatches) {
-      // Find the first step corresponding to this new path
-      const newStepIdx = STEPS.findIndex((s) =>
-        s.path === "/builder" ? currentPath.startsWith("/builder") : currentPath === s.path
-      );
-      if (newStepIdx !== -1) {
-        setStep(newStepIdx);
-        localStorage.setItem(STEP_KEY, String(newStepIdx));
-      } else {
-        // Current route has no matching onboarding steps: pause visually
-        setRect(null);
-      }
+      // Current route has no matching onboarding steps: pause visually
+      setRect(null);
     }
   }, [currentPath, active, STEP_KEY]);
 
@@ -209,31 +152,6 @@ export function OnboardingTour() {
     const timer = setInterval(checkModals, 200);
     return () => clearInterval(timer);
   }, []);
-
-  // Reset temporary invisibility when step or path changes
-  useEffect(() => {
-    setIsTemporarilyHidden(false);
-  }, [step, currentPath]);
-
-  // Auto-hide tour tooltip temporarily when clicking outside during template (1) or industry (3) selection steps
-  useEffect(() => {
-    if (!active || isPaused || isTemporarilyHidden) return;
-    if (step !== 1 && step !== 3) return;
-
-    const handleWindowClick = (e: MouseEvent | TouchEvent) => {
-      if (tooltipRef.current && tooltipRef.current.contains(e.target as Node)) {
-        return; // Clicked inside the tooltip, do nothing
-      }
-      setIsTemporarilyHidden(true);
-    };
-
-    window.addEventListener("mousedown", handleWindowClick, true);
-    window.addEventListener("touchstart", handleWindowClick, true);
-    return () => {
-      window.removeEventListener("mousedown", handleWindowClick, true);
-      window.removeEventListener("touchstart", handleWindowClick, true);
-    };
-  }, [active, isPaused, isTemporarilyHidden, step]);
 
   // Update bounding rectangle of active target
   const updateRect = useCallback(() => {
@@ -284,29 +202,17 @@ export function OnboardingTour() {
     }
   }, [ACTIVE_KEY]);
 
-  const handleNext = useCallback((isFromTooltip = false) => {
+  const handleNext = useCallback(() => {
     const nextStepIdx = step + 1;
     if (nextStepIdx >= STEPS.length) {
       dismiss();
       return;
     }
 
-    const currentTarget = STEPS[step].target;
-    const elements = Array.from(document.querySelectorAll(`[data-tour="${currentTarget}"]`));
-    const el = elements.find((e) => {
-      const bounding = e.getBoundingClientRect();
-      return bounding.width > 0 && bounding.height > 0;
-    }) as HTMLElement || elements[0] as HTMLElement;
-
-    // Smart Navigation transitions on click (ONLY if triggered from the tooltip Next button)
-    if (isFromTooltip && (step === 0 || step === 2 || step === 4) && el) {
-      el.click(); // Click target to trigger page navigation
-    } else {
-      // Normal sequential step
-      setStep(nextStepIdx);
-      if (STEP_KEY) {
-        localStorage.setItem(STEP_KEY, String(nextStepIdx));
-      }
+    // Normal sequential step
+    setStep(nextStepIdx);
+    if (STEP_KEY) {
+      localStorage.setItem(STEP_KEY, String(nextStepIdx));
     }
   }, [step, dismiss, STEP_KEY]);
 
@@ -320,38 +226,6 @@ export function OnboardingTour() {
     }
   }, [step, STEP_KEY]);
 
-  // Listen for click events on the highlighted element itself to automatically advance the tour!
-  useEffect(() => {
-    if (!active || isPaused || !rect) return;
-    const currentStepDef = STEPS[step];
-    if (!currentStepDef) return;
-
-    const elements = Array.from(document.querySelectorAll(`[data-tour="${currentStepDef.target}"]`));
-    const el = elements.find((e) => {
-      const bounding = e.getBoundingClientRect();
-      return bounding.width > 0 && bounding.height > 0;
-    }) as HTMLElement;
-
-    if (!el) return;
-
-    let timeoutId: NodeJS.Timeout | null = null;
-
-    const handleElementClick = () => {
-      // Slightly delayed advance so that the button's standard onClick logic completes first
-      timeoutId = setTimeout(() => {
-        handleNext(false);
-      }, 300);
-    };
-
-    el.addEventListener("click", handleElementClick);
-    return () => {
-      el.removeEventListener("click", handleElementClick);
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [active, isPaused, rect, step, handleNext]);
-
   // Restart / Trigger onboarding manually (e.g. from support or dashboard help buttons)
   useEffect(() => {
     const handleTriggerTour = () => {
@@ -361,7 +235,8 @@ export function OnboardingTour() {
       }
       setStep(0);
       setActive(true);
-      if (window.location.pathname !== "/dashboard") {
+      if (!window.location.pathname.startsWith("/builder")) {
+        // If not in builder, redirect to dashboard to open their last resume
         window.location.href = "/dashboard";
       }
     };
@@ -369,16 +244,13 @@ export function OnboardingTour() {
     return () => window.removeEventListener("trigger-resume-tour", handleTriggerTour);
   }, [ACTIVE_KEY, STEP_KEY]);
 
-  if (!active || isPaused || isTemporarilyHidden) return null;
+  if (!active || isPaused) return null;
 
   const current = STEPS[step];
   if (!current) return null;
 
-  // Render check: If target is not on current page, return null
-  const currentStepDef = STEPS[step];
-  const pathMatches = currentStepDef.path === "/builder"
-    ? currentPath.startsWith("/builder")
-    : currentPath === currentStepDef.path;
+  // Render check: If target is not on builder page, return null
+  const pathMatches = currentPath.startsWith("/builder");
   if (!pathMatches) return null;
 
   // Smart Tooltip style with screen clipping protection
@@ -495,24 +367,17 @@ export function OnboardingTour() {
 
           {/* Dots Indicator */}
           <div className="flex items-center gap-1.5">
-            {STEPS.map((s, i) => {
-              const matchesStepPath = s.path === "/builder"
-                ? currentPath.startsWith("/builder")
-                : currentPath === s.path;
-              return (
-                <div
-                  key={i}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    i === step
-                      ? "w-6 bg-primary"
-                      : matchesStepPath
-                      ? "w-1.5 bg-primary/40"
-                      : "w-1.5 bg-muted-foreground/20"
-                  )}
-                />
-              );
-            })}
+            {STEPS.map((s, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  i === step
+                    ? "w-6 bg-primary"
+                    : "w-1.5 bg-primary/40"
+                )}
+              />
+            ))}
             <span className="ml-auto text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">
               {step + 1} / {STEPS.length}
             </span>
@@ -552,7 +417,7 @@ export function OnboardingTour() {
                 Skip
               </button>
               <button
-                onClick={() => handleNext(true)}
+                onClick={handleNext}
                 className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-md shadow-primary/20"
               >
                 {step === STEPS.length - 1 ? "Finish" : "Next"}
