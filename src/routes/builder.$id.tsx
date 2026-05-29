@@ -1184,14 +1184,22 @@ function Builder() {
               <p className="mt-2 text-[10px] text-muted-foreground max-w-[280px]">
                 The code is in the LinkedIn post. Just like the post and get the code which is at the last of the caption.
               </p>
-              <a
-                href={LINKEDIN_POST_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border border-primary/20 bg-background text-primary hover:bg-accent hover:border-primary/45 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-sm"
-              >
-                Get Code on LinkedIn 🔗
-              </a>
+              <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-2 w-full">
+                <a
+                  href={LINKEDIN_POST_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border border-primary/20 bg-background text-primary hover:bg-accent hover:border-primary/45 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-sm"
+                >
+                  Get Code on LinkedIn 🔗
+                </a>
+                <a
+                  href="mailto:jayeshneo07@gmail.com?subject=Unlock%20Code%20Request%20-%20Career%20Compass%20AI&body=Hi%20Jayesh%2C%0A%0AI%20don't%20have%20a%20LinkedIn%20account%20but%20would%20love%20to%20get%20the%20unlock%20code%20for%20Career%20Compass%20AI.%0A%0AThank%20you!"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-accent hover:border-foreground/30 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-sm"
+                >
+                  Email Me for Code ✉️
+                </a>
+              </div>
             </div>
             
             <div className="space-y-2.5 bg-card border border-border p-3.5 rounded-2xl">
