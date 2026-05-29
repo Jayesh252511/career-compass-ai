@@ -299,15 +299,10 @@ function Builder() {
       messagesRef.current = list;
       setMessages(list);
       
-      if (list.length === 0 && !initRef.current && !dbPremium && !localPremium) {
+      if (list.length === 0 && !initRef.current) {
         initRef.current = true;
-        if (r.language === "unspecified") {
-          setShowLanguagePicker(true);
-        } else {
-          // Delay slightly so React has committed the resume state before we call AI.
-          // shouldSpeak=true: if user is in voice mode, speak the greeting automatically.
-          setTimeout(() => sendToAI([], r.language, r.industry ?? undefined, contentObj, r.id, true), 400);
-        }
+        // Always ask language for every new resume conversation
+        setShowLanguagePicker(true);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
