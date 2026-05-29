@@ -2,9 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight, ChevronLeft, Mic, Keyboard, Eye, Palette, Download, Plus, Briefcase, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const STEP_KEY = "resumezen_onboarding_step";
-const ACTIVE_KEY = "resumezen_onboarding_active";
+import { useAuth } from "@/hooks/use-auth";
 
 type Step = {
   path: string;            // The page path this step belongs to
@@ -107,15 +105,23 @@ const STEPS: Step[] = [
 ];
 
 export function OnboardingTour() {
+  const { user } = useAuth();
   const [active, setActive] = useState(false);
   const [step, setStep] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [currentPath, setCurrentPath] = useState(typeof window !== "undefined" ? window.location.pathname : "");
 
+  // Generate user-specific localStorage keys
+  const ACTIVE_KEY = user ? `resumezen_onboarding_active_${user.id}` : null;
+  const STEP_KEY = user ? `resumezen_onboarding_step_${user.id}` : null;
+
   // Initialize Tour State
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !user || !ACTIVE_KEY || !STEP_KEY) {
+      setActive(false);
+      return;
+    }
 
     // Check pathname transitions
     const handleLocationChange = () => {
@@ -146,17 +152,19 @@ export function OnboardingTour() {
       if (savedStep !== null) {
         setStep(Number(savedStep));
       }
+    } else {
+      setActive(false);
     }
 
     return () => {
       window.removeEventListener("popstate", handleLocationChange);
       clearInterval(interval);
     };
-  }, [currentPath]);
+  }, [currentPath, user, ACTIVE_KEY, STEP_KEY]);
 
   // Synchronize tour step index to the current page route
   useEffect(() => {
-    if (!active) return;
+    if (!active || !STEP_KEY) return;
 
     const currentStepDef = STEPS[step];
     if (!currentStepDef) return;
@@ -178,7 +186,7 @@ export function OnboardingTour() {
         setRect(null);
       }
     }
-  }, [currentPath, active, step]);
+  }, [currentPath, active, step, STEP_KEY]);
 
   // Check for the presence of modal dialogs (e.g. language select) to auto-pause the tour
   useEffect(() => {
@@ -225,8 +233,10 @@ export function OnboardingTour() {
 
   const dismiss = useCallback(() => {
     setActive(false);
-    localStorage.setItem(ACTIVE_KEY, "false");
-  }, []);
+    if (ACTIVE_KEY) {
+      localStorage.setItem(ACTIVE_KEY, "false");
+    }
+  }, [ACTIVE_KEY]);
 
   const handleNext = useCallback(() => {
     const nextStepIdx = step + 1;
@@ -248,23 +258,29 @@ export function OnboardingTour() {
     } else {
       // Normal sequential step
       setStep(nextStepIdx);
-      localStorage.setItem(STEP_KEY, String(nextStepIdx));
+      if (STEP_KEY) {
+        localStorage.setItem(STEP_KEY, String(nextStepIdx));
+      }
     }
-  }, [step, dismiss]);
+  }, [step, dismiss, STEP_KEY]);
 
   const handlePrev = useCallback(() => {
     if (step > 0) {
       const prevStepIdx = step - 1;
       setStep(prevStepIdx);
-      localStorage.setItem(STEP_KEY, String(prevStepIdx));
+      if (STEP_KEY) {
+        localStorage.setItem(STEP_KEY, String(prevStepIdx));
+      }
     }
-  }, [step]);
+  }, [step, STEP_KEY]);
 
   // Restart / Trigger onboarding manually (e.g. from support or dashboard help buttons)
   useEffect(() => {
     const handleTriggerTour = () => {
-      localStorage.setItem(ACTIVE_KEY, "true");
-      localStorage.setItem(STEP_KEY, "0");
+      if (ACTIVE_KEY && STEP_KEY) {
+        localStorage.setItem(ACTIVE_KEY, "true");
+        localStorage.setItem(STEP_KEY, "0");
+      }
       setStep(0);
       setActive(true);
       if (window.location.pathname !== "/dashboard") {
@@ -273,7 +289,7 @@ export function OnboardingTour() {
     };
     window.addEventListener("trigger-resume-tour", handleTriggerTour);
     return () => window.removeEventListener("trigger-resume-tour", handleTriggerTour);
-  }, []);
+  }, [ACTIVE_KEY, STEP_KEY]);
 
   if (!active || isPaused) return null;
 
