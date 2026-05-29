@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ensureI18nInitialized, i18n } from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { SupportWidget } from "@/components/support-widget";
+import { OnboardingTour } from "@/components/onboarding-tour";
 
 ensureI18nInitialized();
 
@@ -118,6 +119,7 @@ function RootComponent() {
       <Outlet />
       <Toaster position="top-center" />
       <SupportWidget />
+      <OnboardingTour />
     </QueryClientProvider>
   );
 }

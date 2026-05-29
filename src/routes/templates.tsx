@@ -31,9 +31,10 @@ function TemplatesPage() {
         <p className="mt-2 text-muted-foreground">{t("templates.subheading")}</p>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {TEMPLATES.map((tmpl) => (
+          {TEMPLATES.map((tmpl, idx) => (
             <button
               key={tmpl.id}
+              data-tour={idx === 0 ? "tour-select-template" : undefined}
               onClick={() => setSelected(tmpl.id)}
               className={cn(
                 "group text-left rounded-3xl border bg-card p-1 transition-all overflow-hidden",
@@ -93,7 +94,7 @@ function TemplatesPage() {
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border p-4 sm:p-6">
         <div className="mx-auto max-w-6xl flex items-center justify-between">
           <Button variant="ghost" asChild><Link to="/">{t("common.back")}</Link></Button>
-          <Button onClick={() => navigate({ to: "/industry", search: { template: selected } })} className="h-11 rounded-full px-6">
+          <Button onClick={() => navigate({ to: "/industry", search: { template: selected } })} data-tour="tour-template-continue" className="h-11 rounded-full px-6">
             {t("common.continue")} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

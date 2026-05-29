@@ -22,6 +22,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { getSectionLabels } from "@/lib/resume/section-labels";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { fireConfetti } from "@/lib/confetti";
+import { ProgressRing } from "@/components/progress-ring";
 
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
 type Mode = "voice" | "text";
@@ -547,6 +549,10 @@ function Builder() {
         await supabase.from("resumes").update({ content: merged, progress }).eq("id", resumeId);
         setSavedTick(true);
         setTimeout(() => setSavedTick(false), 1200);
+        // 🎉 Confetti when resume hits 100%
+        if (progress >= 100) {
+          setTimeout(() => fireConfetti(), 300);
+        }
       }
 
       // Only speak if this call is explicitly authorized (shouldSpeak=true)
@@ -817,12 +823,12 @@ function Builder() {
         {/* Tools & Download */}
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap w-full sm:w-auto pb-1 sm:pb-0 shrink-0">
           <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground shrink-0">
+            <ProgressRing value={resume.progress} size={32} strokeWidth={3} />
             <span>{resume.progress}%</span>
-            <Progress value={resume.progress} className="h-1 w-28" />
             {savedTick && <span className="text-primary">{t("common.saved")}</span>}
           </div>
           <Select value={resume.template} onValueChange={changeTemplate}>
-            <SelectTrigger className="h-9 w-[150px] shrink-0 border-primary/20 hover:border-primary/50 hover:shadow-[0_0_10px_rgba(var(--color-primary),0.2)] transition-all">
+            <SelectTrigger data-tour="tour-template" className="h-9 w-[150px] shrink-0 border-primary/20 hover:border-primary/50 hover:shadow-[0_0_10px_rgba(var(--color-primary),0.2)] transition-all">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -852,11 +858,11 @@ function Builder() {
             </Button>
           )}
           
-          <Button size="sm" onClick={() => setShowPreviewModal(true)} variant="outline" className="h-9 rounded-full px-4 shrink-0 shadow-sm border-primary/20 hover:border-primary/50 bg-card sm:hidden flex items-center">
+          <Button data-tour="tour-preview" size="sm" onClick={() => setShowPreviewModal(true)} variant="outline" className="h-9 rounded-full px-4 shrink-0 shadow-sm border-primary/20 hover:border-primary/50 bg-card sm:hidden flex items-center">
             <Eye className="mr-1.5 h-4 w-4" /> <span>Preview</span>
           </Button>
 
-          <Button size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-4 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all flex">
+          <Button data-tour="tour-download" size="sm" onClick={() => setShowDownloadModal(true)} className="h-9 rounded-full px-4 shrink-0 shadow-[0_0_10px_rgba(var(--color-primary),0.3)] transition-all flex">
             <Download className="mr-1.5 h-4 w-4" /> <span>{t("common.pdf") || "Download"}</span>
           </Button>
         </div>
@@ -887,12 +893,14 @@ function Builder() {
                   </div>
                   <div className="flex items-center rounded-full bg-card border border-border p-0.5 text-xs">
                     <button
+                      data-tour="tour-voice"
                       type="button"
                       onClick={() => setMode("voice")}
                       className={cn("px-3 py-1 rounded-full flex items-center gap-1 transition-colors cursor-pointer",
                         mode === "voice" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
                     ><Mic className="h-3 w-3" /> {t("builder.voice")}</button>
                     <button
+                      data-tour="tour-text"
                       type="button"
                       onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }}
                       className={cn("px-3 py-1 rounded-full flex items-center gap-1 transition-colors cursor-pointer",
@@ -1212,7 +1220,7 @@ function Builder() {
       )}
 
       {showLanguagePicker && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+        <div id="language-picker-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-200">
           <div className="relative bg-card text-card-foreground border border-border/85 max-w-3xl w-full rounded-3xl p-6 shadow-2xl animate-in zoom-in-95 duration-200 space-y-5 max-h-[85vh] overflow-y-auto">
             <div className="text-center space-y-1.5 mb-6">
               <h3 className="font-display text-2xl font-bold tracking-tight">Select Communication Language</h3>
@@ -1317,7 +1325,6 @@ function Builder() {
           </div>
         </DialogContent>
       </Dialog>
-
     </div>
   );
 }

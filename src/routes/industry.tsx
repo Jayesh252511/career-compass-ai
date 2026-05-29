@@ -61,12 +61,13 @@ function IndustryPage() {
         <p className="mt-2 text-muted-foreground">{t("industry.subheading")}</p>
 
         <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {[...INDUSTRIES, { id: "other", name: t("industry.other"), hint: "", emoji: "✳️" }].map((it) => {
+          {[...INDUSTRIES, { id: "other", name: t("industry.other"), hint: "", emoji: "✳️" }].map((it, idx) => {
             const displayName = it.id === "other" ? it.name : t(`industries.${it.id}.name`, { defaultValue: it.name });
             const displayHint = it.id === "other" ? "" : t(`industries.${it.id}.hint`, { defaultValue: it.hint });
             return (
               <button
                 key={it.id}
+                data-tour={idx === 0 ? "tour-select-industry" : it.id === "other" ? "tour-industry-other" : undefined}
                 onClick={() => setSelected(it.id)}
                 className={cn(
                   "text-left rounded-2xl border bg-card p-5 transition-all",
@@ -99,7 +100,7 @@ function IndustryPage() {
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border p-4 sm:p-6">
         <div className="mx-auto max-w-5xl flex items-center justify-between">
           <Button variant="ghost" asChild><Link to="/templates">{t("common.back")}</Link></Button>
-          <Button onClick={start} disabled={busy} className="h-11 rounded-full px-6">
+          <Button onClick={start} disabled={busy} data-tour="tour-industry-start" className="h-11 rounded-full px-6">
             {busy && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("common.startWriting")} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

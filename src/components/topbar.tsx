@@ -3,16 +3,18 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { LogOut, User as UserIcon, Headphones } from "lucide-react";
+import { LogOut, User as UserIcon, Headphones, Sun, Moon } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "@/lib/constants";
 import { i18n, setStoredLanguage } from "@/i18n";
+import { useTheme } from "@/hooks/use-theme";
 
 export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
   const { user } = useAuth();
   const router = useRouter();
   const { t } = useTranslation();
+  const { resolved, toggle } = useTheme();
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -32,6 +34,14 @@ export function TopBar({ rightSlot }: { rightSlot?: React.ReactNode }) {
         <Link to="/"><Logo /></Link>
         <div className="flex items-center gap-2">
           {rightSlot}
+          {/* Dark/Light toggle */}
+          <button
+            onClick={toggle}
+            className="h-9 w-9 grid place-items-center rounded-full border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-200"
+            aria-label={resolved === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {resolved === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="h-9 px-3 rounded-full border border-border bg-background text-xs text-muted-foreground hover:text-foreground">
