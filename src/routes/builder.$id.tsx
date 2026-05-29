@@ -28,7 +28,7 @@ import { ProgressRing } from "@/components/progress-ring";
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
 type Mode = "voice" | "text";
 
-const LINKEDIN_POST_URL = "https://www.linkedin.com/feed/update/urn:li:activity:7465991971854020608/";
+const LINKEDIN_POST_URL = "https://www.linkedin.com/feed/update/urn:li:activity:7465994203844485120/";
 
 export const Route = createFileRoute("/builder/$id")({
   component: Builder,
