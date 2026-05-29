@@ -5,6 +5,32 @@ type StreamingAudioOptions = {
   onError?: (err: unknown) => void;
 };
 
+// ── Volume boost via Web Audio API GainNode ──
+// We keep a single AudioContext + GainNode per audio element so we only
+// connect once (calling createMediaElementSource twice on the same element
+// throws).  The gain is intentionally high (2.5x) because ElevenLabs MP3s
+// tend to be normalised conservatively.
+const boostedElements = new WeakSet<HTMLAudioElement>();
+const GAIN_MULTIPLIER = 2.5; // 2.5× louder than the raw MP3
+
+function ensureVolumeBoost(audioEl: HTMLAudioElement) {
+  // Only wire up the gain node once per element
+  if (boostedElements.has(audioEl)) return;
+  try {
+    const AC = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    const source = ctx.createMediaElementSource(audioEl);
+    const gain = ctx.createGain();
+    gain.gain.value = GAIN_MULTIPLIER;
+    source.connect(gain);
+    gain.connect(ctx.destination);
+    boostedElements.add(audioEl);
+  } catch {
+    // Fallback: no boost, but playback still works at normal volume.
+  }
+}
+
 function canUseMediaSource() {
   return typeof window !== "undefined" && "MediaSource" in window;
 }
@@ -87,6 +113,10 @@ export async function playStreamingMp3(
     }
 
     // Best path: play as the stream arrives (low-latency).
+    // Always ensure max volume + gain boost
+    audioEl.volume = 1.0;
+    ensureVolumeBoost(audioEl);
+
     if (canUseMediaSource() && resp.body) {
       const mediaSource = new MediaSource();
       const url = URL.createObjectURL(mediaSource);
@@ -138,6 +168,7 @@ export async function playStreamingMp3(
     const url = URL.createObjectURL(blob);
     audioEl.src = url;
     audioEl.preload = "auto";
+    audioEl.volume = 1.0;
 
     onStart?.();
     await audioEl.play();
