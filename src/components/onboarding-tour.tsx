@@ -215,7 +215,14 @@ export function OnboardingTour() {
     const currentStepDef = STEPS[step];
     if (!currentStepDef) return;
 
-    const el = document.querySelector(`[data-tour="${currentStepDef.target}"]`) as HTMLElement;
+    // Smart visible element finder: If multiple elements exist in the DOM (e.g. desktop topbar vs mobile bottombar),
+    // we choose the one that is currently active and visible (width > 0 && height > 0)
+    const elements = Array.from(document.querySelectorAll(`[data-tour="${currentStepDef.target}"]`));
+    const el = elements.find((e) => {
+      const bounding = e.getBoundingClientRect();
+      return bounding.width > 0 && bounding.height > 0;
+    }) as HTMLElement || elements[0] as HTMLElement;
+
     if (el) {
       setRect(el.getBoundingClientRect());
       
@@ -256,7 +263,11 @@ export function OnboardingTour() {
     }
 
     const currentTarget = STEPS[step].target;
-    const el = document.querySelector(`[data-tour="${currentTarget}"]`) as HTMLElement;
+    const elements = Array.from(document.querySelectorAll(`[data-tour="${currentTarget}"]`));
+    const el = elements.find((e) => {
+      const bounding = e.getBoundingClientRect();
+      return bounding.width > 0 && bounding.height > 0;
+    }) as HTMLElement || elements[0] as HTMLElement;
 
     // Smart Navigation transitions on click
     if (step === 0 && el) {

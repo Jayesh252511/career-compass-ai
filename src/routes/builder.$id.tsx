@@ -980,7 +980,7 @@ function Builder() {
                         </button>
 
                         {/* Big Mic (VoiceOrb) — centered */}
-                        <div className="flex-shrink-0 relative z-0 scale-[0.65] md:scale-100 transform origin-center -mx-3 md:mx-0">
+                        <div data-tour="tour-voice" className="flex-shrink-0 relative z-0 scale-[0.65] md:scale-100 transform origin-center -mx-3 md:mx-0">
                           <VoiceOrb state={orbState} level={fakeLevel} onClick={toggleVoice} disabled={thinking} />
                         </div>
 
@@ -995,7 +995,7 @@ function Builder() {
                         </button>
 
                         {/* Mobile: Text mode */}
-                        <button onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-10 w-10 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-sm flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
+                        <button data-tour="tour-text" onClick={() => { setMode("text"); stopVoice(); stopSpeaking(); }} className="md:hidden h-10 w-10 rounded-full bg-background/60 backdrop-blur-md border border-border shadow-sm flex items-center justify-center text-foreground/70 hover:text-foreground transition-all shrink-0 z-10">
                           <Keyboard className="w-3.5 h-3.5"/>
                         </button>
 
