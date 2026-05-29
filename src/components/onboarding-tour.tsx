@@ -48,14 +48,6 @@ const STEPS: Step[] = [
   },
   {
     path: "/industry",
-    target: "tour-industry-other",
-    title: "✳️ Custom Industry?",
-    body: "Can't find your target field? Click 'Other' to input your own custom industry or job title.",
-    icon: <Sparkles className="h-4.5 w-4.5 text-primary" />,
-    position: "top",
-  },
-  {
-    path: "/industry",
     target: "tour-industry-start",
     title: "🎙️ Meet Your AI interviewer",
     body: "Click 'Start Writing' to open your builder workspace and meet Linnea, your interactive AI interviewer!",
@@ -110,9 +102,11 @@ export function OnboardingTour() {
   const [step, setStep] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isTemporarilyHidden, setIsTemporarilyHidden] = useState(false);
   const [currentPath, setCurrentPath] = useState(typeof window !== "undefined" ? window.location.pathname : "");
 
   const lastScrolledStep = useRef<number | null>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   // Generate user-specific localStorage keys
   const ACTIVE_KEY = user ? `resumezen_onboarding_active_${user.id}` : null;
@@ -209,6 +203,31 @@ export function OnboardingTour() {
     return () => clearInterval(timer);
   }, []);
 
+  // Reset temporary invisibility when step or path changes
+  useEffect(() => {
+    setIsTemporarilyHidden(false);
+  }, [step, currentPath]);
+
+  // Auto-hide tour tooltip temporarily when clicking outside during template (1) or industry (3) selection steps
+  useEffect(() => {
+    if (!active || isPaused || isTemporarilyHidden) return;
+    if (step !== 1 && step !== 3) return;
+
+    const handleWindowClick = (e: MouseEvent | TouchEvent) => {
+      if (tooltipRef.current && tooltipRef.current.contains(e.target as Node)) {
+        return; // Clicked inside the tooltip, do nothing
+      }
+      setIsTemporarilyHidden(true);
+    };
+
+    window.addEventListener("mousedown", handleWindowClick, true);
+    window.addEventListener("touchstart", handleWindowClick, true);
+    return () => {
+      window.removeEventListener("mousedown", handleWindowClick, true);
+      window.removeEventListener("touchstart", handleWindowClick, true);
+    };
+  }, [active, isPaused, isTemporarilyHidden, step]);
+
   // Update bounding rectangle of active target
   const updateRect = useCallback(() => {
     if (!active || isPaused) {
@@ -273,7 +292,7 @@ export function OnboardingTour() {
     }) as HTMLElement || elements[0] as HTMLElement;
 
     // Smart Navigation transitions on click (ONLY if triggered from the tooltip Next button)
-    if (isFromTooltip && (step === 0 || step === 2 || step === 5) && el) {
+    if (isFromTooltip && (step === 0 || step === 2 || step === 4) && el) {
       el.click(); // Click target to trigger page navigation
     } else {
       // Normal sequential step
@@ -343,7 +362,7 @@ export function OnboardingTour() {
     return () => window.removeEventListener("trigger-resume-tour", handleTriggerTour);
   }, [ACTIVE_KEY, STEP_KEY]);
 
-  if (!active || isPaused) return null;
+  if (!active || isPaused || isTemporarilyHidden) return null;
 
   const current = STEPS[step];
   if (!current) return null;
@@ -433,6 +452,7 @@ export function OnboardingTour() {
       {/* Tooltip Card */}
       <AnimatePresence mode="wait">
         <motion.div
+          ref={tooltipRef}
           key={step}
           initial={{ opacity: 0, y: 15, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
