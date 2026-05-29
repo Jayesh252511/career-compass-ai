@@ -25,64 +25,63 @@ function TemplatesPage() {
   return (
     <div className="min-h-screen">
       <TopBar />
-      <div className="mx-auto max-w-6xl px-6 pt-14 pb-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-8 sm:pt-14 pb-28 sm:pb-32">
         <Steps current={2} />
-        <h1 className="mt-8 font-display text-4xl tracking-tight">{t("templates.heading")}</h1>
-        <p className="mt-2 text-muted-foreground">{t("templates.subheading")}</p>
+        <h1 className="mt-6 sm:mt-8 font-display text-2xl sm:text-4xl tracking-tight font-bold">{t("templates.heading")}</h1>
+        <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground">{t("templates.subheading")}</p>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="mt-6 sm:mt-10 grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-5">
           {TEMPLATES.map((tmpl, idx) => (
             <button
               key={tmpl.id}
               data-tour={idx === 0 ? "tour-select-template" : undefined}
               onClick={() => setSelected(tmpl.id)}
               className={cn(
-                "group text-left rounded-3xl border bg-card p-1 transition-all overflow-hidden",
+                "group text-left rounded-2xl sm:rounded-3xl border bg-card p-1 transition-all overflow-hidden flex flex-col h-full",
                 selected === tmpl.id ? "border-primary shadow-[0_0_0_4px_oklch(0.32_0.08_268_/_0.08)]" : "border-border hover:-translate-y-0.5"
               )}
             >
-              <div className="relative aspect-[3/4] rounded-2xl bg-neutral-50 overflow-hidden border border-border/60">
+              <div className="relative aspect-[3/4] rounded-xl sm:rounded-2xl bg-neutral-50 overflow-hidden border border-border/60">
                 <TemplateThumbnail id={tmpl.id} />
                 {selected === tmpl.id && (
-                  <div className="absolute top-3 right-3 grid h-7 w-7 place-items-center rounded-full bg-primary text-primary-foreground">
-                    <Check className="h-4 w-4" />
+                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 grid h-5 w-5 sm:h-7 sm:w-7 place-items-center rounded-full bg-primary text-primary-foreground">
+                    <Check className="h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                 )}
               </div>
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <p className="font-display text-lg font-semibold leading-tight">
-                    {t(`templatesList.${tmpl.id}.name`, { defaultValue: tmpl.name })}
-                  </p>
-                  {tmpl.isPremium && (
-                    <span className="shrink-0 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
-                      Premium
+              <div className="p-3 sm:p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-2 mb-1.5 sm:mb-2">
+                    <p className="font-display text-sm sm:text-lg font-semibold leading-tight truncate">
+                      {t(`templatesList.${tmpl.id}.name`, { defaultValue: tmpl.name })}
+                    </p>
+                    {tmpl.isPremium && (
+                      <span className="self-start shrink-0 text-[8px] sm:text-[10px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                        Premium
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <span className="text-[8px] sm:text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-100">
+                      ATS: {tmpl.atsScore}
                     </span>
-                  )}
-                </div>
-                
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  <span className="text-[10px] font-medium tracking-wide uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-100">
-                    ATS: {tmpl.atsScore}/100
-                  </span>
-                  <span className="text-[10px] font-medium tracking-wide uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">
-                    {tmpl.experienceLevel}
-                  </span>
-                </div>
+                    <span className="text-[8px] sm:text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100">
+                      {tmpl.experienceLevel}
+                    </span>
+                  </div>
 
-                <p className="text-[13px] text-muted-foreground leading-relaxed mb-4">
-                  {t(`templatesList.${tmpl.id}.description`, { defaultValue: tmpl.description })}
-                </p>
+                  <p className="text-[11px] sm:text-[13px] text-muted-foreground leading-relaxed mb-3 line-clamp-2 sm:line-clamp-none">
+                    {t(`templatesList.${tmpl.id}.description`, { defaultValue: tmpl.description })}
+                  </p>
+                </div>
                 
-                <div className="pt-4 border-t border-border/50">
-                  <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-1">
+                <div className="pt-2 sm:pt-4 border-t border-border/50">
+                  <p className="text-[9px] sm:text-[11px] font-medium uppercase tracking-wider text-muted-foreground mb-0.5">
                     Ideal For
                   </p>
-                  <p className="text-[12px] text-foreground font-medium">
+                  <p className="text-[10px] sm:text-[12px] text-foreground font-medium truncate">
                     {t(`templatesList.${tmpl.id}.idealIndustry`, { defaultValue: tmpl.idealIndustry })}
-                  </p>
-                  <p className="text-[12px] text-muted-foreground mt-0.5">
-                    {t(`templatesList.${tmpl.id}.bestFor`, { defaultValue: tmpl.bestFor })}
                   </p>
                 </div>
               </div>

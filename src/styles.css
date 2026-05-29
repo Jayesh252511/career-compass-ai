@@ -183,3 +183,7 @@
     display: none;
   }
 }
+
+[data-sonner-toaster] {
+  z-index: 100000 !important;
+}

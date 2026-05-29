@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight, ChevronLeft, Mic, Keyboard, Eye, Palette, Download, Plus, Briefcase, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -112,6 +112,8 @@ export function OnboardingTour() {
   const [isPaused, setIsPaused] = useState(false);
   const [currentPath, setCurrentPath] = useState(typeof window !== "undefined" ? window.location.pathname : "");
 
+  const lastScrolledStep = useRef<number | null>(null);
+
   // Generate user-specific localStorage keys
   const ACTIVE_KEY = user ? `resumezen_onboarding_active_${user.id}` : null;
   const STEP_KEY = user ? `resumezen_onboarding_step_${user.id}` : null;
@@ -213,9 +215,17 @@ export function OnboardingTour() {
     const currentStepDef = STEPS[step];
     if (!currentStepDef) return;
 
-    const el = document.querySelector(`[data-tour="${currentStepDef.target}"]`);
+    const el = document.querySelector(`[data-tour="${currentStepDef.target}"]`) as HTMLElement;
     if (el) {
       setRect(el.getBoundingClientRect());
+      
+      // Auto-scroll target element into view smoothly when step changes
+      if (lastScrolledStep.current !== step) {
+        lastScrolledStep.current = step;
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 150);
+      }
     } else {
       setRect(null);
     }
