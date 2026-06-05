@@ -164,8 +164,18 @@
 
 @media print {
   @page { margin: 0; }
-  body { margin: 0; }
-  [data-sonner-toaster] { display: none !important; }
+  html, body {
+    margin: 0;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  [data-sonner-toaster],
+  [role="dialog"],
+  [data-radix-portal],
+  .fixed.inset-0,
+  div[class*="backdrop-blur"] { 
+    display: none !important; 
+  }
 }
 
 @layer utilities {

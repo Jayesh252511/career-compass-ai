@@ -756,10 +756,7 @@ function Builder() {
   };
   const runExportPrint = (printMode: "en" | "native" | "bilingual") => {
     setExportMode(printMode);
-    // Let React commit the DOM update, then print.
-    setTimeout(() => window.print(), 50);
-    // Reset back to UI mode after print dialog opens.
-    setTimeout(() => setExportMode("ui"), 500);
+    setShowDownloadModal(false);
   };
 
   // -------- Cleanup & Global Listeners --------
@@ -794,6 +791,19 @@ function Builder() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exportMode, resume?.id]);
 
+  // Trigger print when exportMode is set and translation is ready
+  useEffect(() => {
+    if (exportMode === "ui") return;
+    if (exportLoading) return;
+
+    const timer = setTimeout(() => {
+      window.print();
+      setExportMode("ui");
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [exportMode, exportLoading]);
+
   if (!resume) {
     return <div className="min-h-screen grid place-items-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>;
   }
@@ -806,7 +816,7 @@ function Builder() {
 
   return (
       <div
-        className="h-screen flex flex-col bg-background print:bg-white"
+        className="h-screen flex flex-col bg-background print:bg-white print:h-auto print:block print:overflow-visible"
         lang={exportMode === "native" ? (resume.language || "en") : "en"}
       >
       <div className="print:hidden">
@@ -870,7 +880,7 @@ function Builder() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block pb-0">
+      <div className="flex-1 overflow-hidden flex flex-col-reverse md:flex-row print:block print:h-auto print:overflow-visible pb-0">
         {/* ============ Conversation panel ============ */}
         <div className={cn("print:hidden flex flex-col border-t md:border-t-0 md:border-r border-border bg-gradient-to-b from-secondary/40 via-background to-secondary/30 relative md:h-full md:w-[480px]", mode === "text" ? "h-[45vh] min-h-[300px]" : "h-auto md:h-full")}>
               <>
@@ -1098,9 +1108,9 @@ function Builder() {
           </div>
 
         {/* ============ Preview ============ */}
-        <div className="flex-1 overflow-y-auto bg-muted/40 print:bg-white print:overflow-visible relative">
+        <div className="flex-1 overflow-y-auto bg-muted/40 print:bg-white print:overflow-visible print:h-auto print:static relative">
           <div className="mx-auto my-6 print:my-0 w-full max-w-[820px] print:max-w-none px-4 md:px-8">
-              <div className="bg-white shadow-[0_2px_24px_-8px_rgba(0,0,0,0.12)] rounded-xl print:rounded-none print:shadow-none overflow-hidden border border-border print:border-0">
+              <div className="bg-white shadow-[0_2px_24px_-8px_rgba(0,0,0,0.12)] rounded-xl print:rounded-none print:shadow-none overflow-hidden print:overflow-visible border border-border print:border-0">
                 <div className="min-h-[1100px]">
                   {exportMode === "ui" && (
                     <ResumePreview
